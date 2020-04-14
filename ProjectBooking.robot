@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation  This is some basic info about the whole test suite
-Resource        ../Resources/keywords.robot
+Resource        keywords.robot
 Library  SeleniumLibrary
 Test Setup      Begin Web Test
 Test Teardown   End Web Test
