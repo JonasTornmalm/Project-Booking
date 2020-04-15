@@ -24,16 +24,11 @@ x86/
 [Aa][Rr][Mm]64/
 bld/
 <<<<<<< HEAD
-
-
-
-======
+**/[Bb]in/**/*.*
+!**/*.dll
+=======
 [Bb]in/
 >>>>>>> parent of 6430b56... change gitignore to include dll file
-=======
-[Bb]in/*
-![Bb]in/*.dll
->>>>>>> parent of 056b0bb... chang gitignore
 [Oo]bj/
 [Ll]og/
 
