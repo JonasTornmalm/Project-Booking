@@ -23,8 +23,12 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
-**/[Bb]in/**/*.*
-!**/*.dll
+
+
+
+======
+[Bb]in/
+>>>>>>> parent of 6430b56... change gitignore to include dll file
 [Oo]bj/
 [Ll]og/
 
