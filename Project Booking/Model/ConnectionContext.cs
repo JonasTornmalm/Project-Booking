@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Project_Booking.Model;
 
 namespace Project_Booking.Data
 {
-    public class ConnectionContext : IdentityDbContext<IdentityUser>
+    public class ConnectionContext : IdentityDbContext<ApplicationUser>
     {
         public ConnectionContext(DbContextOptions<ConnectionContext> options)
             : base(options)
