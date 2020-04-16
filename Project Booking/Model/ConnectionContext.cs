@@ -7,14 +7,20 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Project_Booking.Model;
 
-namespace Project_Booking.Data
+namespace Project_Booking
 {
     public class ConnectionContext : IdentityDbContext<ApplicationUser>
     {
-        public ConnectionContext(DbContextOptions<ConnectionContext> options)
-            : base(options)
+        public ConnectionContext(DbContextOptions<ConnectionContext> options) : base(options)
         {
             Database.EnsureCreated();
+        }
+
+        public DbSet<Hotel> Hotel { get; set; }
+
+        public static void fuck()
+        {
+
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

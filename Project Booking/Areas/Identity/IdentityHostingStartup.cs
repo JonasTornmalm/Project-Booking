@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Project_Booking.Data;
 using Project_Booking.Model;
 
 [assembly: HostingStartup(typeof(Project_Booking.Areas.Identity.IdentityHostingStartup))]
