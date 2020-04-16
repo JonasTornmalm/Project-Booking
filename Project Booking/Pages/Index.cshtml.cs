@@ -36,7 +36,7 @@ namespace Project_Booking
         {
             context.Hotel.Add(new Hotel
             {
-                Id = "gbghotelone",
+                Id = new Guid(),
                 HotelName = "Hotel One",
                 HotelInfo = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
                 "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. " +
@@ -51,7 +51,7 @@ namespace Project_Booking
             });
             context.Hotel.Add(new Hotel
             {
-                Id = "gbghoteltwo",
+                Id = new Guid(),
                 HotelName = "Hotel Two",
                 HotelInfo = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
                 "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. " +
@@ -66,7 +66,7 @@ namespace Project_Booking
             });
             context.Hotel.Add(new Hotel
             {
-                Id = "gbghotelthree",
+                Id = new Guid(),
                 HotelName = "Hotel Three",
                 HotelInfo = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
                 "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. " +
