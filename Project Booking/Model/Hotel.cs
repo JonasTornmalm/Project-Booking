@@ -18,6 +18,8 @@ namespace Project_Booking.Model
         public string HotelPictureSmallOne { get; set; }
         public string HotelPictureSmallTwo { get; set; }
         public string HotelPictureSmallThree { get; set; }
+        public string HotelStars { get; set; }
+        public double RoomPrice { get; set; }
 
     }
 }
