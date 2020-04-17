@@ -76,7 +76,7 @@ namespace Project_Booking.Areas.Identity.Pages.Account.Manage
         {
             if(photo == null)
             {
-                return NotFound("No uploaded file.");
+                return RedirectToPage();
             }
             var user = await _userManager.GetUserAsync(User);
 
