@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Project_Booking.Data;
 
 namespace Project_Booking
 {
@@ -25,14 +26,16 @@ namespace Project_Booking
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages().AddRazorRuntimeCompilation();
-            services.AddDbContext<ConnectionContextDb>(options => options.UseCosmos("https://localhost:8081",
+            services.AddMvc();
+            services.AddDbContext<ConnectionContext>(options => options.UseCosmos("https://localhost:8081",
              "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
-             "CinemaDb").UseLazyLoadingProxies());
+             "ProjectBookingDB").UseLazyLoadingProxies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseRouting();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -50,9 +53,11 @@ namespace Project_Booking
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
         }
