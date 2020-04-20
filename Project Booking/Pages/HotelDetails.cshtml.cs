@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Project_Booking.Model;
 
+
 namespace Project_Booking
 {
     public class HotelDetailsModel : PageModel

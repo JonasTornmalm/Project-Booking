@@ -6,48 +6,43 @@
 }
 
 
+    <style>
+        .responsive {
+            width: 100%;
+            height: auto;
+        }
+    </style>
 
 
 
 
-
-    <div style="text-align:center">
-        <h1 style="margin-bottom: 20px">@Html.DisplayFor(model => model.Hotel.HotelName)</h1>
-        <h3 style="margin-bottom: 20px">@Html.DisplayFor(model => model.Hotel.City)</h3>
-
-    </div>
-
-<div style="margin-bottom: 10px">
-    <img src=@Model.Hotel.HotelPictureBig>
+<div style="text-align:center">
+    <h1 style="margin-bottom: 20px">@Html.DisplayFor(model => model.Hotel.HotelName)</h1>
+    <h3 style="margin-bottom: 20px">@Html.DisplayFor(model => model.Hotel.City)</h3>
 
 </div>
 
-<div >
+<div style="margin-bottom: 10px">
+        <img src=@Model.Hotel.HotelPictureBig class="responsive" width="1000" height="800">
+    
+</div>
+
+<div>
     <h2 style="margin-bottom: 10px">Hotel Information</h2>
     <p style="margin-bottom: 20px">@Html.DisplayFor(model => model.Hotel.HotelInfo)</p>
 
 </div>
 
-<div >
+<div>
     <p style="margin-bottom: 20px">Number of room @Html.DisplayFor(model => model.Hotel.NumberOfRooms)</p>
 
 </div>
 <div>
-    <p style="margin-bottom: 20px">Price per room @Html.DisplayFor(model => model.Hotel.RoomPrice)</p>
+    <p style="margin-bottom: 20px">Price per room @Html.DisplayFor(model => model.Hotel.RoomPrice) Kr</p>
 
 </div>
 
-
-
-
-
-
-
-
-
-<div class="container my-4">  
-
-
+<div class="container my-4">
 
     <!-- Grid row -->
     <div class="row">
@@ -60,21 +55,21 @@
                 <div class="modal-dialog modal-lg" role="document">
 
                     <!--Content-->
-                    <div class="modal-content">
+                    <div class="modal-content" style="margin-top:20%">
 
                         <!--Body-->
                         <div class="modal-body mb-0 p-0">
 
                             <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
                                 <img class="embed-responsive-item" src=@Model.Hotel.HotelPictureSmallOne
-                                        allowfullscreen>
+                                     allowfullscreen>
                             </div>
 
                         </div>
 
                         <!--Footer-->
                         <div class="modal-footer justify-content-center">
-                           
+
                             <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
 
                         </div>
@@ -87,7 +82,7 @@
             <!--Modal: Name-->
 
             <a>
-                <img class="img-fluid z-depth-1" src=@Model.Hotel.HotelPictureSmallOne 
+                <img class="img-fluid z-depth-1" src=@Model.Hotel.HotelPictureSmallOne
                      data-toggle="modal" data-target="#modal1">
             </a>
 
@@ -101,21 +96,21 @@
                 <div class="modal-dialog modal-lg" role="document">
 
                     <!--Content-->
-                    <div class="modal-content">
+                    <div class="modal-content" style="margin-top:20%">
 
                         <!--Body-->
                         <div class="modal-body mb-0 p-0">
 
                             <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
                                 <img class="embed-responsive-item" src=@Model.Hotel.HotelPictureSmallTwo
-                                        allowfullscreen>
+                                     allowfullscreen>
                             </div>
 
                         </div>
 
                         <!--Footer-->
                         <div class="modal-footer justify-content-center">
-                            
+
                             <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
 
                         </div>
@@ -128,7 +123,7 @@
             <!--Modal: Name-->
 
             <a>
-                <img class="img-fluid z-depth-1" src=@Model.Hotel.HotelPictureSmallTwo 
+                <img class="img-fluid z-depth-1" src=@Model.Hotel.HotelPictureSmallTwo
                      data-toggle="modal" data-target="#modal6">
             </a>
 
@@ -142,21 +137,21 @@
                 <div class="modal-dialog modal-lg" role="document">
 
                     <!--Content-->
-                    <div class="modal-content">
+                    <div class="modal-content" style="margin-top:20%">
 
                         <!--Body-->
                         <div class="modal-body mb-0 p-0">
 
                             <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
                                 <img class="embed-responsive-item" src=@Model.Hotel.HotelPictureSmallTwo
-                                        allowfullscreen>
+                                     allowfullscreen>
                             </div>
 
                         </div>
 
                         <!--Footer-->
-                        <div class="modal-footer justify-content-center">
-                            
+                        <div class="modal-footer justify-content-center" >
+
                             <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
 
                         </div>
@@ -169,7 +164,7 @@
             <!--Modal: Name-->
 
             <a>
-                <img class="img-fluid z-depth-1" src=@Model.Hotel.HotelPictureSmallTwo 
+                <img class="img-fluid z-depth-1" src=@Model.Hotel.HotelPictureSmallTwo
                      data-toggle="modal" data-target="#modal4">
             </a>
 
@@ -179,12 +174,15 @@
     </div>
     <!-- Grid row -->
     <!-- Grid row -->
-   
-
-  
     <!-- Grid row -->
 
 </div>
+
+<div align="center">
+    <form method="get">
+        <button type="submit" class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;" asp-page="./Index">This button does not work, Just link to index page</button>
+    </form>
+  </div>
 
 
 
