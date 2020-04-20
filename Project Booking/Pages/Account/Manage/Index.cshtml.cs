@@ -14,14 +14,14 @@ using Project_Booking.Model;
 
 namespace Project_Booking.Areas.Identity.Pages.Account.Manage
 {
-    public partial class IndexModel : PageModel
+    public partial class ProfileModel : PageModel
     {
         private readonly ConnectionContext _context;
         private readonly IHostingEnvironment _ihostingEnvironment;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public IndexModel(
+        public ProfileModel(
             ConnectionContext context,
             IHostingEnvironment ihostingEnvironment,
             UserManager<ApplicationUser> userManager,
