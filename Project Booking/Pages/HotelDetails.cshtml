@@ -61,7 +61,7 @@
                         <div class="modal-body mb-0 p-0">
 
                             <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
-                                <img class="embed-responsive-item" src=@Model.Hotel.HotelPictureSmallOne
+                                <img class="embed-responsive-item" src=@Model.Hotel.HotelPictureSmallOne 
                                      allowfullscreen>
                             </div>
 
@@ -82,8 +82,8 @@
             <!--Modal: Name-->
 
             <a>
-                <img class="img-fluid z-depth-1" src=@Model.Hotel.HotelPictureSmallOne
-                     data-toggle="modal" data-target="#modal1">
+                <img src=@Model.Hotel.HotelPictureSmallOne
+                     data-toggle="modal" data-target="#modal1" width="350" height="200">
             </a>
 
         </div>
@@ -92,7 +92,7 @@
         <div class="col-lg-4 col-md-6 mb-4">
 
             <!--Modal: Name-->
-            <div class="modal fade" id="modal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal fade" id="modal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
                 <div class="modal-dialog modal-lg" role="document">
 
                     <!--Content-->
@@ -101,9 +101,9 @@
                         <!--Body-->
                         <div class="modal-body mb-0 p-0">
 
-                            <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
-                                <img class="embed-responsive-item" src=@Model.Hotel.HotelPictureSmallTwo
-                                     allowfullscreen>
+                            <div class="embed-responsive embed-responsive-16by9 z-depth-1-half" >
+                                <img class="embed-responsive-item"  src=@Model.Hotel.HotelPictureSmallTwo 
+                                     allowfullscreen >
                             </div>
 
                         </div>
@@ -123,8 +123,8 @@
             <!--Modal: Name-->
 
             <a>
-                <img class="img-fluid z-depth-1" src=@Model.Hotel.HotelPictureSmallTwo
-                     data-toggle="modal" data-target="#modal6">
+                <img  src=@Model.Hotel.HotelPictureSmallTwo 
+                     data-toggle="modal" data-target="#modal6" width="350" height="200">
             </a>
 
         </div>
@@ -143,7 +143,7 @@
                         <div class="modal-body mb-0 p-0">
 
                             <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
-                                <img class="embed-responsive-item" src=@Model.Hotel.HotelPictureSmallTwo
+                                <img class="embed-responsive-item" src=@Model.Hotel.HotelPictureSmallThree
                                      allowfullscreen>
                             </div>
 
@@ -164,8 +164,8 @@
             <!--Modal: Name-->
 
             <a>
-                <img class="img-fluid z-depth-1" src=@Model.Hotel.HotelPictureSmallTwo
-                     data-toggle="modal" data-target="#modal4">
+                <img  src=@Model.Hotel.HotelPictureSmallThree
+                     data-toggle="modal" data-target="#modal4" width="350" height="200">
             </a>
 
         </div>
@@ -179,9 +179,9 @@
 </div>
 
 <div align="center">
-    <form method="get">
-        <button type="submit" class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;" asp-page="./Index">This button does not work, Just link to index page</button>
-    </form>
+    
+        <button type="submit" class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;">This button does not work</button>
+    
   </div>
 
 
