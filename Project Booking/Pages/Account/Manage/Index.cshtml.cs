@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Project_Booking.Data;
 using Project_Booking.Model;
 
 namespace Project_Booking.Areas.Identity.Pages.Account.Manage
