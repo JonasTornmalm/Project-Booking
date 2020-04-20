@@ -11,11 +11,11 @@ using Project_Booking.Model;
 
 namespace Project_Booking
 {
-    public class Index1Model : PageModel
+    public class IndexModel : PageModel
     {
         private readonly ConnectionContext _context;
 
-        public Index1Model(ConnectionContext context)
+        public IndexModel(ConnectionContext context)
         {
             _context = context;
         }
