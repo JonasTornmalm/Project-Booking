@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,15 @@ namespace Project_Booking.Model
 {
     public class ApplicationUser : IdentityUser
     {
-        public string City { get; set; }
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+        [Phone]
+        [Display(Name = "Phone number")]
+        public override string PhoneNumber { get; set; }
+
+        public string ProfilePicture { get; set; }
 
     }
 }

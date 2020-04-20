@@ -6,6 +6,12 @@
 
 
 
+    <style>
+        .responsive {
+            width: 100%;
+            height: auto;
+        }
+    </style>
 
 @if (Model.Hotels.Count() > 0)
 {
@@ -17,7 +23,7 @@
         {
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
-                    <a asp-page="./HotelDetails" asp-route-id="@item.Id"><img class="card-img-top" src=@item.HotelPictureBig alt=""></a>
+                    <a asp-page="./HotelDetails" asp-route-id="@item.Id"><img class="card-img-top;responsive" src=@item.HotelPictureBig width="348" height="300"></a>
                     <div class="card-body">
                         <h4 class="card-title">
                             <a asp-page="./HotelDetails" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.HotelName)</a>
@@ -30,7 +36,7 @@
                             <td>@item.RoomPrice kr</td>
                         </tr>
                         <tr>
-                            <th scope="row">Location</th>
+                            <th scope="row">Location: </th>
                             <td>@item.City</td>
                         </tr>
                     </table>
