@@ -18,11 +18,7 @@ namespace Project_Booking
 
         public DbSet<Hotel> Hotel { get; set; }
 
-        public static void fuck()
-        {
-
-        }
-
+    
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

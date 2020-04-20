@@ -21,7 +21,7 @@ namespace Project_Booking
 
         public Hotel Hotel { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
             {

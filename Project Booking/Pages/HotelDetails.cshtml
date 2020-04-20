@@ -11,10 +11,11 @@
 
 
 
-<div style="text-align:center">
-    <h1 style="margin-bottom: 20px">@Html.DisplayFor(model => model.Hotel.HotelName)</h1>
+    <div style="text-align:center">
+        <h1 style="margin-bottom: 20px">@Html.DisplayFor(model => model.Hotel.HotelName)</h1>
+        <h3 style="margin-bottom: 20px">@Html.DisplayFor(model => model.Hotel.City)</h3>
 
-</div>
+    </div>
 
 <div style="margin-bottom: 10px">
     <img src=@Model.Hotel.HotelPictureBig>
@@ -29,6 +30,10 @@
 
 <div >
     <p style="margin-bottom: 20px">Number of room @Html.DisplayFor(model => model.Hotel.NumberOfRooms)</p>
+
+</div>
+<div>
+    <p style="margin-bottom: 20px">Price per room @Html.DisplayFor(model => model.Hotel.RoomPrice)</p>
 
 </div>
 

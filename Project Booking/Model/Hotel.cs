@@ -9,7 +9,7 @@ namespace Project_Booking.Model
     public class Hotel
     {
         [Key]
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string HotelName { get; set; }
         public string City { get; set; }
         public string HotelInfo { get; set; }
