@@ -11,7 +11,6 @@ namespace Project_Booking
 {
     public class ConnectionContext : IdentityDbContext<ApplicationUser>
     {
-        public ConnectionContext() { }
         public ConnectionContext(DbContextOptions<ConnectionContext> options) : base(options)
         {
             Database.EnsureCreated();

@@ -180,8 +180,8 @@
 
 <div align="center">
     
-        <button type="submit" class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;">This button does not work</button>
-    
+        <button type="submit" class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;" asp-page="./Booking" asp-route-id="@Model.Hotel.Id">This button does not work</button>
+        <a asp-page="./Booking" asp-route-id="@Model.Hotel.Id">Click</a>
   </div>
 
 

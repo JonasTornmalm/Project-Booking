@@ -12,6 +12,7 @@ namespace Project_Booking.Model
         public Guid ID { get; set; }
         public string HotelID { get; set; }
         public virtual ApplicationUser Customer { get; set; }
+        [Required]
         public int numOfBookedRooms { get; set; }
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
