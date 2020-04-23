@@ -4,13 +4,28 @@
     ViewData["Title"] = "Booking";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
+<script>
+    function updateDue() {
 
+        var rooms = parseInt(document.getElementById("numroom").value);
+        var price = parseInt(document.getElementById("price").innerHTML);
+
+        // to make sure that they are numbers
+        if (!rooms) { rooms = 0; }
+        if (!price) { price = 0; }
+
+        var ansD = document.getElementById("remainingval");
+        ansD.value = rooms * price;
+    }
+
+</script>
 <h1>Booking</h1>
-
 <div>
-    @Model.CurrentHotel.HotelName
+    <h1 style="text-align:center">@Model.CurrentHotel.HotelName</h1>
 </div>
-
+<div>
+    <img src=@Model.CurrentHotel.HotelPictureBig class="responsive" width="1000" height="800">
+</div>
 <div class="row">
     <div class="col-md-4">
         <form method="post">
@@ -31,11 +46,6 @@
                 <span asp-validation-for="Booking.LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Booking.numOfBookedRooms">Number Of Rooms</label>
-                <input asp-for="Booking.numOfBookedRooms" class="form-control" />
-                <span asp-validation-for="Booking.numOfBookedRooms" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Booking.CheckIn">Check In</label>
                 <input asp-for="Booking.CheckIn" class="form-control" />
                 <span asp-validation-for="Booking.CheckIn" class="text-danger"></span>
@@ -45,10 +55,23 @@
                 <input asp-for="Booking.CheckOut" class="form-control" />
                 <span asp-validation-for="Booking.CheckOut" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Booking.numOfBookedRooms">Number Of Rooms</label>
+                <input id="numroom" onchange="updateDue()" asp-for="Booking.numOfBookedRooms" class="form-control" />
+                <span asp-validation-for="Booking.numOfBookedRooms" class="text-danger"></span>
+            </div>
+            <div>Price per room</div>
+            <div id="price">@Model.CurrentHotel.RoomPrice<br /></div>
+            <div>
+                <label for="exampleInputText">Total price</label>
+                <input type="text" name="remainingval" class="form-control" disabled id="remainingval">
+            </div>
             <button asp-route="@Model.CurrentHotel.Id" type="submit" class="btn btn-primary">Confirm</button>
         </form>
     </div>
 </div>
+
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
