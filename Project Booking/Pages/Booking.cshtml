@@ -21,21 +21,21 @@
                 <span asp-validation-for="CurrentUser.UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CurrentUser.Name"></label>
-                <input asp-for="CurrentUser.Name" class="form-control" />
-                <span asp-validation-for="CurrentUser.Name" class="text-danger"></span>
+                <label asp-for="Booking.Name"></label>
+                <input asp-for="Booking.Name" class="form-control" />
+                <span asp-validation-for="Booking.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CurrentUser.LastName"></label>
-                <input asp-for="CurrentUser.LastName" class="form-control" />
-                <span asp-validation-for="CurrentUser.LastName" class="text-danger"></span>
+                <label asp-for="Booking.LastName"></label>
+                <input asp-for="Booking.LastName" class="form-control" />
+                <span asp-validation-for="Booking.LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Booking.numOfBookedRooms">Number Of Rooms</label>
                 <input asp-for="Booking.numOfBookedRooms" class="form-control" />
                 <span asp-validation-for="Booking.numOfBookedRooms" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Confirm</button>
+            <button asp-route="@Model.CurrentHotel.Id" type="submit" class="btn btn-primary">Confirm</button>
         </form>
     </div>
 </div>

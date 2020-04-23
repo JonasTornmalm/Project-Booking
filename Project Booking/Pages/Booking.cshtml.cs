@@ -48,10 +48,34 @@ namespace Project_Booking
             };
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string id)
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            var user = await _userManager.GetUserAsync(User);
+            CurrentHotel = await _context.Hotel.Where(h => h.Id == id).FirstOrDefaultAsync();
 
-            return RedirectToPage();
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var book = new Bookings()
+            {
+                ID = new Guid(),
+                numOfBookedRooms = Booking.numOfBookedRooms,
+                Customer = user,
+                HotelID = CurrentHotel.Id,
+                Name = Booking.Name,
+                LastName = Booking.LastName
+            };
+            await _context.Booking.AddAsync(book);
+            await _context.SaveChangesAsync();
+
+
+            return RedirectToPage("Index");
         }
     }
 }
