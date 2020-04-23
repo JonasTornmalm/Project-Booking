@@ -69,7 +69,9 @@ namespace Project_Booking
                 Customer = user,
                 HotelID = CurrentHotel.Id,
                 Name = Booking.Name,
-                LastName = Booking.LastName
+                LastName = Booking.LastName,
+                CheckIn = Booking.CheckIn,
+                CheckOut = Booking.CheckOut
             };
             await _context.Booking.AddAsync(book);
             await _context.SaveChangesAsync();
