@@ -11,13 +11,14 @@ namespace Project_Booking
 {
     public class ConnectionContext : IdentityDbContext<ApplicationUser>
     {
+        public ConnectionContext() { }
         public ConnectionContext(DbContextOptions<ConnectionContext> options) : base(options)
         {
             Database.EnsureCreated();
         }
 
         public DbSet<Hotel> Hotel { get; set; }
-
+        public DbSet<Bookings> Booking { get; set; }
     
         protected override void OnModelCreating(ModelBuilder builder)
         {
