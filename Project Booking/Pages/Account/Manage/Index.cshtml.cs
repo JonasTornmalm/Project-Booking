@@ -79,6 +79,11 @@ namespace Project_Booking.Areas.Identity.Pages.Account.Manage
             }
             var user = await _userManager.GetUserAsync(User);
 
+            if (user.ProfilePicture == photo.FileName)
+            {
+                return RedirectToPage();
+            }
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
