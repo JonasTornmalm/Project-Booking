@@ -6,4 +6,44 @@
 }
 
 <h4>My Bookings</h4>
+<partial name="_StatusMessage" for="StatusMessage" />
 
+@foreach (var item in Model.CurrentUser.MyBookings)
+{
+    <ul class="list-group">
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-md-6">
+                    <form id="change-booking-form" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="CurrentBooking.Name"></label>
+                            <input asp-for="CurrentBooking.Name" class="form-control" />
+                            <span asp-validation-for="CurrentBooking.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CurrentBooking.LastName"></label>
+                            <input asp-for="CurrentBooking.LastName" class="form-control" />
+                            <span asp-validation-for="CurrentBooking.LastName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CurrentBooking.numOfBookedRooms">Booked rooms</label>
+                            <input asp-for="CurrentBooking.numOfBookedRooms" class="form-control" />
+                            <span asp-validation-for="CurrentBooking.numOfBookedRooms" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </li>
+    </ul>
+}
+
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

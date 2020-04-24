@@ -36,29 +36,29 @@
                 <span asp-validation-for="CurrentUser.UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Booking.Name"></label>
-                <input asp-for="Booking.Name" class="form-control" />
-                <span asp-validation-for="Booking.Name" class="text-danger"></span>
+                <label asp-for="CurrentBooking.Name"></label>
+                <input asp-for="CurrentBooking.Name" class="form-control" />
+                <span asp-validation-for="CurrentBooking.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Booking.LastName"></label>
-                <input asp-for="Booking.LastName" class="form-control" />
-                <span asp-validation-for="Booking.LastName" class="text-danger"></span>
+                <label asp-for="CurrentBooking.LastName"></label>
+                <input asp-for="CurrentBooking.LastName" class="form-control" />
+                <span asp-validation-for="CurrentBooking.LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Booking.CheckIn">Check In</label>
-                <input asp-for="Booking.CheckIn" class="form-control" />
-                <span asp-validation-for="Booking.CheckIn" class="text-danger"></span>
+                <label asp-for="CurrentBooking.CheckIn">Check In</label>
+                <input asp-for="CurrentBooking.CheckIn" class="form-control" />
+                <span asp-validation-for="CurrentBooking.CheckIn" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Booking.CheckOut">Check Out</label>
-                <input asp-for="Booking.CheckOut" class="form-control" />
-                <span asp-validation-for="Booking.CheckOut" class="text-danger"></span>
+                <label asp-for="CurrentBooking.CheckOut">Check Out</label>
+                <input asp-for="CurrentBooking.CheckOut" class="form-control" />
+                <span asp-validation-for="CurrentBooking.CheckOut" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Booking.numOfBookedRooms">Number Of Rooms</label>
-                <input id="numroom" onchange="updateDue()" asp-for="Booking.numOfBookedRooms" class="form-control" />
-                <span asp-validation-for="Booking.numOfBookedRooms" class="text-danger"></span>
+                <label asp-for="CurrentBooking.numOfBookedRooms">Number Of Rooms</label>
+                <input id="numroom" onchange="updateDue()" asp-for="CurrentBooking.numOfBookedRooms" class="form-control" />
+                <span asp-validation-for="CurrentBooking.numOfBookedRooms" class="text-danger"></span>
             </div>
             <div>Price per room</div>
             <div id="price">@Model.CurrentHotel.RoomPrice<br /></div>

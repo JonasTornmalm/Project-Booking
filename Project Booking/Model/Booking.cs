@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project_Booking.Model
 {
-    public class Bookings
+    public class Booking
     {
         [Key]
         public Guid ID { get; set; }

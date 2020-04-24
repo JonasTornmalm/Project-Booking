@@ -17,7 +17,7 @@ namespace Project_Booking
         }
 
         public DbSet<Hotel> Hotel { get; set; }
-        public DbSet<Bookings> Booking { get; set; }
+        public DbSet<Booking> Booking { get; set; }
     
         protected override void OnModelCreating(ModelBuilder builder)
         {

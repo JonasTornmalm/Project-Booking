@@ -24,6 +24,8 @@ namespace Project_Booking.Model
         public override string PhoneNumber { get; set; }
 
         public string ProfilePicture { get; set; }
+        
+        public virtual List<Booking> MyBookings { get; set; }
 
     }
 }

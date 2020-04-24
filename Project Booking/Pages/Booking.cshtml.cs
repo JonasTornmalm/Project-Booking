@@ -27,7 +27,7 @@ namespace Project_Booking
         }
 
         [BindProperty]
-        public Bookings Booking { get; set; }
+        public Booking CurrentBooking { get; set; }
         public ApplicationUser CurrentUser { get; set; }
         public Hotel CurrentHotel { get; set; }
 
@@ -62,17 +62,18 @@ namespace Project_Booking
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var book = new Bookings()
+            var book = new Booking()
             {
                 ID = new Guid(),
-                numOfBookedRooms = Booking.numOfBookedRooms,
+                numOfBookedRooms = CurrentBooking.numOfBookedRooms,
                 Customer = user,
                 HotelID = CurrentHotel.Id,
-                Name = Booking.Name,
-                LastName = Booking.LastName,
-                CheckIn = Booking.CheckIn,
-                CheckOut = Booking.CheckOut
+                Name = CurrentBooking.Name,
+                LastName = CurrentBooking.LastName,
+                CheckIn = CurrentBooking.CheckIn,
+                CheckOut = CurrentBooking.CheckOut
             };
+            user.MyBookings.Add(book);
             await _context.Booking.AddAsync(book);
             await _context.SaveChangesAsync();
 
