@@ -5,13 +5,18 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+@using Microsoft.AspNetCore.Identity
 
-    <style>
-        .responsive {
-            width: 100%;
-            height: auto;
-        }
-    </style>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+<style>
+    .responsive {
+        width: 100%;
+        height: auto;
+    }
+</style>
 
 
 
@@ -23,8 +28,8 @@
 </div>
 
 <div style="margin-bottom: 10px">
-        <img src=@Model.Hotel.HotelPictureBig class="responsive" width="1000" height="800">
-    
+    <img src=@Model.Hotel.HotelPictureBig class="responsive" width="1000" height="800">
+
 </div>
 
 <div>
@@ -61,7 +66,7 @@
                         <div class="modal-body mb-0 p-0">
 
                             <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
-                                <img class="embed-responsive-item" src=@Model.Hotel.HotelPictureSmallOne 
+                                <img class="embed-responsive-item" src=@Model.Hotel.HotelPictureSmallOne
                                      allowfullscreen>
                             </div>
 
@@ -92,7 +97,7 @@
         <div class="col-lg-4 col-md-6 mb-4">
 
             <!--Modal: Name-->
-            <div class="modal fade" id="modal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal fade" id="modal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
 
                     <!--Content-->
@@ -101,9 +106,9 @@
                         <!--Body-->
                         <div class="modal-body mb-0 p-0">
 
-                            <div class="embed-responsive embed-responsive-16by9 z-depth-1-half" >
-                                <img class="embed-responsive-item"  src=@Model.Hotel.HotelPictureSmallTwo 
-                                     allowfullscreen >
+                            <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+                                <img class="embed-responsive-item" src=@Model.Hotel.HotelPictureSmallTwo
+                                     allowfullscreen>
                             </div>
 
                         </div>
@@ -123,7 +128,7 @@
             <!--Modal: Name-->
 
             <a>
-                <img  src=@Model.Hotel.HotelPictureSmallTwo 
+                <img src=@Model.Hotel.HotelPictureSmallTwo
                      data-toggle="modal" data-target="#modal6" width="350" height="200">
             </a>
 
@@ -150,7 +155,7 @@
                         </div>
 
                         <!--Footer-->
-                        <div class="modal-footer justify-content-center" >
+                        <div class="modal-footer justify-content-center">
 
                             <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
 
@@ -164,7 +169,7 @@
             <!--Modal: Name-->
 
             <a>
-                <img  src=@Model.Hotel.HotelPictureSmallThree
+                <img src=@Model.Hotel.HotelPictureSmallThree
                      data-toggle="modal" data-target="#modal4" width="350" height="200">
             </a>
 
@@ -178,9 +183,19 @@
 
 </div>
 
-<div align="center">
-    <a class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;" asp-page="./Booking" asp-route-id="@Model.Hotel.Id">Book</a>
-</div>
+@if (SignInManager.IsSignedIn(User))
+{
+    <div align="center">
+        <a class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;" asp-page="./Booking" asp-route-id="@Model.Hotel.Id">Book</a>
+    </div>
+}
+else
+{
+    <div align="center">
+        <a class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;" asp-page="./Account/Login">Log in to book</a>
+    </div>
+}
+
 
 
 
