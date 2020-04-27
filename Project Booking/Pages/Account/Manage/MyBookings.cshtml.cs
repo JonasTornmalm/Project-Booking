@@ -29,17 +29,12 @@ namespace Project_Booking
         public Booking CurrentBooking { get; set; }
         [TempData]
         public string StatusMessage { get; set; }
-        public List<Hotel> UserBookedHotels { get; set; }
         public ApplicationUser CurrentUser { get; set; }
         public async Task OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             CurrentUser = user;
-            foreach (var item in CurrentUser.MyBookings)
-            {
-                var hotelID = item.HotelID;
-                UserBookedHotels = await _context.Hotel.Where(h => h.Id == hotelID).ToListAsync();
-            }
+
         }
     }
 }
