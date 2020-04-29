@@ -10,13 +10,14 @@ using Project_Booking.Model;
 
 namespace Project_Booking
 {
-    public class MyBookingsModel : PageModel
+    public class DetailsModel : PageModel
     {
+
         private readonly ConnectionContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public MyBookingsModel(
+        public DetailsModel(
             ConnectionContext context,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
@@ -26,17 +27,22 @@ namespace Project_Booking
             _signInManager = signInManager;
         }
 
-        [TempData]
-        public string StatusMessage { get; set; }
-        public ApplicationUser CurrentUser { get; set; }
-        public async Task OnGetAsync(string message)
+        public Booking CurrentBooking { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(Guid? id)
         {
-            if (!string.IsNullOrEmpty(message))
+            if (id == null)
             {
-                StatusMessage = message;
+                return NotFound();
             }
-            var user = await _userManager.GetUserAsync(User);
-            CurrentUser = user;
+
+            CurrentBooking = await _context.Booking.FirstOrDefaultAsync(b => b.ID == id);
+
+            if (CurrentBooking == null)
+            {
+                return NotFound();
+            }
+            return Page();
         }
     }
 }

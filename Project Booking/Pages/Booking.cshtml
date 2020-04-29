@@ -4,21 +4,7 @@
     ViewData["Title"] = "Booking";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
-<script>
-    function updateDue() {
 
-        var rooms = parseInt(document.getElementById("numroom").value);
-        var price = parseInt(document.getElementById("price").innerHTML);
-
-        // to make sure that they are numbers
-        if (!rooms) { rooms = 0; }
-        if (!price) { price = 0; }
-
-        var ansD = document.getElementById("remainingval");
-        ansD.value = rooms * price;
-    }
-
-</script>
 <h1>Booking</h1>
 <div>
     <h1 style="text-align:center">@Model.CurrentHotel.HotelName</h1>
@@ -47,17 +33,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="CurrentBooking.CheckIn">Check In</label>
-                <input asp-for="CurrentBooking.CheckIn" class="form-control" />
+                <input id="checkin" asp-for="CurrentBooking.CheckIn" class="form-control" />
                 <span asp-validation-for="CurrentBooking.CheckIn" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CurrentBooking.CheckOut">Check Out</label>
-                <input asp-for="CurrentBooking.CheckOut" class="form-control" />
+                <input id="checkout" asp-for="CurrentBooking.CheckOut" class="form-control" />
                 <span asp-validation-for="CurrentBooking.CheckOut" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CurrentBooking.numOfBookedRooms">Number Of Rooms</label>
-                <input id="numroom" onchange="updateDue()" asp-for="CurrentBooking.numOfBookedRooms" class="form-control" />
+                <input id="numroom" onchange="updateDue()" asp-for="CurrentBooking.numOfBookedRooms" class="form-control" max="10" min="1" />
                 <span asp-validation-for="CurrentBooking.numOfBookedRooms" class="text-danger"></span>
             </div>
             <div>Price per room</div>
@@ -66,12 +52,68 @@
                 <label for="exampleInputText">Total price</label>
                 <input type="text" name="remainingval" class="form-control" disabled id="remainingval">
             </div>
+            <div>
+                <label for="exampleInputText">Total days</label>
+                <p id="datum"></p>
+            </div>
             <button asp-route="@Model.CurrentHotel.Id" type="submit" class="btn btn-primary">Confirm</button>
         </form>
     </div>
 </div>
 
+<script>
+    function updateDue() {
 
+        var rooms = parseInt(document.getElementById("numroom").value);
+        var price = parseInt(document.getElementById("price").innerHTML);
+        var days = parseInt(document.getElementById("datum").innerHTML);
+        // to make sure that they are numbers
+        if (!rooms) { rooms = 0; }
+        if (!price) { price = 0; }
+        
+        if (isNaN(days)) {
+            document.getElementById("remainingval").innerHTML = "Pick both days and number of rooms"
+        }
+        else {
+            var ansD = document.getElementById("remainingval");
+            ansD.value = rooms * price * days;
+        }
+    }
+
+    document.getElementById("checkout").addEventListener("change", function () {
+        var lastday = new Date(document.getElementById("checkout").value);
+        var firstday = new Date(document.getElementById("checkin").value);
+        var timeDiff = (lastday.getTime() - firstday.getTime());
+        var daysDiff = timeDiff / (1000 * 3600 * 24);
+    
+        if (isNaN(daysDiff)) {
+            document.getElementById("datum").innerHTML = "Pick a check-in and a check-out date"
+        }
+        else
+        {
+            document.getElementById("datum").innerHTML = daysDiff;
+        }
+        updateDue();
+    });
+
+    //Code that listen to check-in field change instead of check-out as above. Find a better way to do this
+    document.getElementById("checkin").addEventListener("change", function () {
+        var lastday = new Date(document.getElementById("checkout").value);
+        var firstday = new Date(document.getElementById("checkin").value);
+        var timeDiff = (lastday.getTime() - firstday.getTime());
+        var daysDiff = timeDiff / (1000 * 3600 * 24);
+    
+        if (isNaN(daysDiff)) {
+            document.getElementById("datum").innerHTML = "Pick a check-in and a check-out date"
+        }
+        else
+        {
+            document.getElementById("datum").innerHTML = daysDiff;
+        }
+        updateDue();
+    });
+
+</script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
