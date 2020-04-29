@@ -23,9 +23,9 @@
         {
         <tr id="booking-list">
             <td>@booking.HotelID</td>
-            <td><a asp-page-handler="view" asp-route-id="@booking.ID">View</a></td>
-            <td><a asp-page-handler="edit" asp-route-id="@booking.ID">Edit</a></td>
-            <td><a asp-page-handler="delete" asp-route-id="@booking.ID">Delete</a></td>
+            <td><a asp-page="./MyBooking/Details" asp-route-id="@booking.ID">View</a></td>
+            <td><a asp-page="./MyBooking/Edit" asp-route-id="@booking.ID">Edit</a></td>
+            <td><a asp-page="./MyBooking/Delete" asp-route-id="@booking.ID">Delete</a></td>
         </tr>
         }
     </tbody>

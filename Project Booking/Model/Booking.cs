@@ -10,6 +10,7 @@ namespace Project_Booking.Model
     {
         [Key]
         public Guid ID { get; set; }
+        [Display(Name = "Hotel")]
         public string HotelID { get; set; }
         public virtual ApplicationUser Customer { get; set; }
         [Required]
@@ -20,11 +21,14 @@ namespace Project_Booking.Model
         public string LastName { get; set; }
         [Required]
         [Range(1, double.MaxValue)]
+        [Display(Name = "Booked Rooms")]
         public int numOfBookedRooms { get; set; }
         [Required]
+        [Display(Name = "Check In")]
         [DataType(DataType.Date)]
         public DateTime CheckIn { get; set; }
         [Required]
+        [Display(Name = "Check Out")]
         [DataType(DataType.Date)]
         public DateTime CheckOut { get; set; }
 
