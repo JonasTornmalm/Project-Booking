@@ -31,6 +31,9 @@ namespace Project_Booking
         public ApplicationUser CurrentUser { get; set; }
         public Hotel CurrentHotel { get; set; }
 
+        [TempData]
+        public string StatusMessage { get; set; }
+
         public async Task OnGetAsync(string id)
         {
             CurrentHotel = await _context.Hotel.Where(h => h.Id == id).FirstOrDefaultAsync();
@@ -78,7 +81,7 @@ namespace Project_Booking
             await _context.SaveChangesAsync();
 
 
-            return RedirectToPage("Account/Manage/MyBookings");
+            return RedirectToPage("Account/Manage/MyBookings", StatusMessage = "Booking has been added");
         }
     }
 }

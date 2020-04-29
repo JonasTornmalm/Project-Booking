@@ -28,8 +28,6 @@ namespace Project_Booking
         }
 
         public Booking CurrentBooking { get; set; }
-        [TempData]
-        public string StatusMessage { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {

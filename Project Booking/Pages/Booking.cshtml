@@ -43,7 +43,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="CurrentBooking.numOfBookedRooms">Number Of Rooms</label>
-                <input id="numroom" onchange="updateDue()" asp-for="CurrentBooking.numOfBookedRooms" class="form-control" />
+                <input id="numroom" onchange="updateDue()" asp-for="CurrentBooking.numOfBookedRooms" class="form-control" max="10" min="1" />
                 <span asp-validation-for="CurrentBooking.numOfBookedRooms" class="text-danger"></span>
             </div>
             <div>Price per room</div>
