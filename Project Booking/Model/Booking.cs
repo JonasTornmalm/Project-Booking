@@ -23,14 +23,22 @@ namespace Project_Booking.Model
         [Range(1, double.MaxValue)]
         [Display(Name = "Booked Rooms")]
         public int numOfBookedRooms { get; set; }
+
         [Required]
         [Display(Name = "Check In")]
+        [Date]
         [DataType(DataType.Date)]
         public DateTime CheckIn { get; set; }
         [Required]
         [Display(Name = "Check Out")]
+        [Date]
         [DataType(DataType.Date)]
         public DateTime CheckOut { get; set; }
 
+    }
+    public class DateAttribute : RangeAttribute
+    {
+        public DateAttribute()
+          : base(typeof(DateTime), DateTime.Now.ToShortDateString(), DateTime.Now.AddMonths(1).ToShortDateString()) { }
     }
 }

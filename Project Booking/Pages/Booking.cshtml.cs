@@ -52,7 +52,7 @@ namespace Project_Booking
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return RedirectToPage("Error");
             }
             var user = await _userManager.GetUserAsync(User);
             CurrentHotel = await _context.Hotel.Where(h => h.Id == id).FirstOrDefaultAsync();
@@ -78,7 +78,7 @@ namespace Project_Booking
             await _context.SaveChangesAsync();
 
 
-            return RedirectToPage("Index");
+            return RedirectToPage("Account/Manage/MyBookings");
         }
     }
 }
