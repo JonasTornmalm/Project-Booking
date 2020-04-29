@@ -10,13 +10,13 @@ using Project_Booking.Model;
 
 namespace Project_Booking
 {
-    public class EditModel : PageModel
+    public class DeleteModel : PageModel
     {
         private readonly ConnectionContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public EditModel(
+        public DeleteModel(
             ConnectionContext context,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
@@ -27,6 +27,7 @@ namespace Project_Booking
         }
         [TempData]
         public string StatusMessage { get; set; }
+
         [BindProperty]
         public Booking CurrentBooking { get; set; }
 
@@ -46,47 +47,18 @@ namespace Project_Booking
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(Guid? id)
         {
-            if (!ModelState.IsValid)
+
+            CurrentBooking = await _context.Booking.FindAsync(id);
+
+            if(CurrentBooking != null)
             {
-                return Page();
-            }
-            var bookingFromDb = await _context.Booking.FirstOrDefaultAsync(b => b.ID == CurrentBooking.ID);
-            bookingFromDb.Name = CurrentBooking.Name;
-            bookingFromDb.LastName = CurrentBooking.LastName;
-            bookingFromDb.CheckIn = CurrentBooking.CheckIn;
-            bookingFromDb.CheckOut = CurrentBooking.CheckOut;
-            bookingFromDb.numOfBookedRooms = CurrentBooking.numOfBookedRooms;
-
-
-            _context.Attach(bookingFromDb).State = EntityState.Modified;
-
-            try
-            {
+                _context.Booking.Remove(CurrentBooking);
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BookingExists(CurrentBooking.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return RedirectToPage("/Account/Manage/MyBookings", StatusMessage = "Booking has been edited");
+            return RedirectToPage("/Account/Manage/MyBookings", StatusMessage = "Booking has been deleted");
         }
-
-        private bool BookingExists(Guid id)
-        {
-            return _context.Booking.Any(e => e.ID == id);
-        }
-
     }
 }
