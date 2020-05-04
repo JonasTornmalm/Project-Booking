@@ -17,13 +17,13 @@ namespace Project_Booking.Areas.Identity.Pages.Account.Manage
     public partial class ProfileModel : PageModel
     {
         private readonly ConnectionContext _context;
-        private readonly IHostingEnvironment _ihostingEnvironment;
+        private readonly IWebHostEnvironment _ihostingEnvironment;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
         public ProfileModel(
             ConnectionContext context,
-            IHostingEnvironment ihostingEnvironment,
+            IWebHostEnvironment ihostingEnvironment,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
         {
@@ -81,6 +81,7 @@ namespace Project_Booking.Areas.Identity.Pages.Account.Manage
 
             if (user.ProfilePicture == photo.FileName)
             {
+                StatusMessage = "The uploaded filename has to be different from the existing file";
                 return RedirectToPage();
             }
 
@@ -95,8 +96,9 @@ namespace Project_Booking.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
+
             var path = Path.Combine(_ihostingEnvironment.WebRootPath, "Images", photo.FileName);
-            var stream = new FileStream(path, FileMode.Create);
+            var stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
             await photo.CopyToAsync(stream);
 
             CurrentUser.ProfilePicture = photo.FileName;
