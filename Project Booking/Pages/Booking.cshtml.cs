@@ -30,6 +30,7 @@ namespace Project_Booking
         public Booking CurrentBooking { get; set; }
         public ApplicationUser CurrentUser { get; set; }
         public Hotel CurrentHotel { get; set; }
+        public string datum { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -55,7 +56,7 @@ namespace Project_Booking
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToPage("Error");
+                return NotFound(CurrentBooking.CheckOut);               
             }
             var user = await _userManager.GetUserAsync(User);
             CurrentHotel = await _context.Hotel.Where(h => h.Id == id).FirstOrDefaultAsync();
@@ -64,6 +65,7 @@ namespace Project_Booking
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
+
 
             var book = new Booking()
             {
@@ -80,8 +82,8 @@ namespace Project_Booking
             await _context.Booking.AddAsync(book);
             await _context.SaveChangesAsync();
 
-
-            return RedirectToPage("Account/Manage/MyBookings", StatusMessage = "Booking has been added");
+            return NotFound(datum);
+            //return RedirectToPage("Account/Manage/MyBookings", StatusMessage = "Booking has been added");
         }
     }
 }
