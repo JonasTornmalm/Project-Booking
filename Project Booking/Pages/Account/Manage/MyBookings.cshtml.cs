@@ -29,6 +29,7 @@ namespace Project_Booking
         [TempData]
         public string StatusMessage { get; set; }
         public ApplicationUser CurrentUser { get; set; }
+        public List<Hotel> Hotels { get; set; }
         public async Task OnGetAsync(string message)
         {
             if (!string.IsNullOrEmpty(message))
@@ -37,6 +38,20 @@ namespace Project_Booking
             }
             var user = await _userManager.GetUserAsync(User);
             CurrentUser = user;
+
+            Hotels = await PopulateHotelList();
+
+        }
+
+        private async Task<List<Hotel>> PopulateHotelList()
+        {
+            List<Hotel> hotelList = new List<Hotel>();
+            foreach (var booking in CurrentUser.MyBookings)
+            {
+                var hotel = await _context.Hotel.Where(h => h.Id == booking.HotelID).FirstOrDefaultAsync();
+                hotelList.Add(hotel);
+            }
+            return hotelList;
         }
     }
 }

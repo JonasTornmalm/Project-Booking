@@ -22,7 +22,7 @@
         @foreach (var booking in Model.CurrentUser.MyBookings)
         {
         <tr id="booking-list">
-            <td>@booking.HotelID</td>
+            <td>@Model.Hotels.FirstOrDefault(h => h.Id == booking.HotelID).HotelName</td>
             <td><a asp-page="./MyBooking/Details" asp-route-id="@booking.ID">View</a></td>
             <td><a asp-page="./MyBooking/Edit" asp-route-id="@booking.ID">Edit</a></td>
             <td><a asp-page="./MyBooking/Delete" asp-route-id="@booking.ID">Delete</a></td>
