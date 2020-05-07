@@ -56,6 +56,7 @@ namespace Project_Booking
             var user = await _userManager.GetUserAsync(User);
             CurrentUser = user;
             CurrentHotel = await _context.Hotel.Where(h => h.Id == id).FirstOrDefaultAsync();
+            
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -80,7 +81,6 @@ namespace Project_Booking
             user.MyBookings.Add(book);
             await _context.Booking.AddAsync(book);
             await _context.SaveChangesAsync();
-
 
             return RedirectToPage("Account/Manage/MyBookings", StatusMessage = "Booking has been added");
         }

@@ -48,12 +48,11 @@ namespace Project_Booking
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             var bookingFromDb = await _context.Booking.FirstOrDefaultAsync(b => b.ID == CurrentBooking.ID);
             CurrentHotel = await _context.Hotel.FirstOrDefaultAsync(m => m.Id == bookingFromDb.HotelID);
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -63,7 +62,6 @@ namespace Project_Booking
             bookingFromDb.CheckIn = CurrentBooking.CheckIn;
             bookingFromDb.CheckOut = CurrentBooking.CheckOut;
             bookingFromDb.numOfBookedRooms = CurrentBooking.numOfBookedRooms;
-
 
             _context.Attach(bookingFromDb).State = EntityState.Modified;
 
@@ -90,6 +88,5 @@ namespace Project_Booking
         {
             return _context.Booking.Any(e => e.ID == id);
         }
-
     }
 }

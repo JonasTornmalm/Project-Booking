@@ -5,18 +5,18 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Booking</h1>
+
 <div>
     <h1 style="text-align:center">@Model.CurrentHotel.HotelName</h1>
 </div>
-<div asp-validation-summary="All" class="text-danger"></div>
+<div asp-validation-summary="All" class="text-danger" style="text-align:center"></div>
 <div>
     <img src=@Model.CurrentHotel.HotelPictureBig class="responsive" width="1000" height="800">
-</div>
+</div><br />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            
+
             <div class="form-group">
                 <label asp-for="CurrentUser.UserName">Username</label>
                 <input asp-for="CurrentUser.UserName" class="form-control" disabled />
@@ -34,30 +34,32 @@
             </div>
             <div class="form-group">
                 <label asp-for="CurrentBooking.CheckIn">Check In</label>
-                <input id="checkin" asp-for="CurrentBooking.CheckIn" class="form-control" />
+                <input id="checkin" asp-for="CurrentBooking.CheckIn" class="form-control dateChange" />
                 <span asp-validation-for="CurrentBooking.CheckIn" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CurrentBooking.CheckOut">Check Out</label>
-                <input id="checkout" asp-for="CurrentBooking.CheckOut" class="form-control" />
+                <input id="checkout" asp-for="CurrentBooking.CheckOut" class="form-control dateChange" />
                 <span asp-validation-for="CurrentBooking.CheckOut" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CurrentBooking.numOfBookedRooms">Number Of Rooms</label>
-                <input id="numroom" onchange="updateDue()" asp-for="CurrentBooking.numOfBookedRooms" class="form-control" max="10" min="1" />
-                <span asp-validation-for="CurrentBooking.numOfBookedRooms" class="text-danger"></span>
+            <div>
+                <label>Total days</label>
+                <p id="days"></p>
             </div>
             <div>Price per room</div>
             <div id="price">@Model.CurrentHotel.RoomPrice<br /></div>
-            <div>
-                <label for="exampleInputText">Total price</label>
-                <input type="text" name="remainingval" class="form-control" disabled id="remainingval">
+            <br />
+            <div class="form-group">
+                <label asp-for="CurrentBooking.numOfBookedRooms">Number Of Rooms</label>
+                <input id="numroom" onchange="updateDue()" asp-for="CurrentBooking.numOfBookedRooms" class="form-control dateChange" max="10" min="1" />
+                <span asp-validation-for="CurrentBooking.numOfBookedRooms" class="text-danger"></span>
             </div>
             <div>
-                <label for="exampleInputText">Total days</label>
-                <p id="datum"></p>
+                <label>Total price</label>
+                <input type="text" name="totalPrice" class="form-control" disabled id="totalPrice">
             </div>
-            <button asp-route="@Model.CurrentHotel.Id" type="submit" class="btn btn-primary">Confirm</button>
+            <br />
+            <button id="submitButton" asp-route="@Model.CurrentHotel.Id" type="submit" class="btn btn-primary">Confirm</button>
         </form>
     </div>
 </div>
@@ -67,51 +69,38 @@
 
         var rooms = parseInt(document.getElementById("numroom").value);
         var price = parseInt(document.getElementById("price").innerHTML);
-        var days = parseInt(document.getElementById("datum").innerHTML);
+        var days = parseInt(document.getElementById("days").innerHTML);
         // to make sure that they are numbers
         if (!rooms) { rooms = 0; }
         if (!price) { price = 0; }
         
         if (isNaN(days)) {
-            document.getElementById("remainingval").innerHTML = "Pick both days and number of rooms"
+            document.getElementById("totalPrice").innerHTML = "Pick both days and number of rooms"
         }
         else {
-            var ansD = document.getElementById("remainingval");
-            ansD.value = rooms * price * days;
+            var calcCost = document.getElementById("totalPrice");
+            calcCost.value = rooms * price * days;
         }
     }
 
-    document.getElementById("checkout").addEventListener("change", function () {
+    var dateChanges = document.querySelectorAll('.dateChange')
+    Array.from(dateChanges).forEach(link => {
+    link.addEventListener("change", function () {
         var lastday = new Date(document.getElementById("checkout").value);
         var firstday = new Date(document.getElementById("checkin").value);
         var timeDiff = (lastday.getTime() - firstday.getTime());
         var daysDiff = timeDiff / (1000 * 3600 * 24);
-    
-        if (isNaN(daysDiff)) {
-            document.getElementById("datum").innerHTML = "Pick a check-in and a check-out date"
-        }
-        else
-        {
-            document.getElementById("datum").innerHTML = daysDiff;
-        }
-        updateDue();
-    });
 
-    //Code that listen to check-in field change instead of check-out as above. Find a better way to do this
-    document.getElementById("checkin").addEventListener("change", function () {
-        var lastday = new Date(document.getElementById("checkout").value);
-        var firstday = new Date(document.getElementById("checkin").value);
-        var timeDiff = (lastday.getTime() - firstday.getTime());
-        var daysDiff = timeDiff / (1000 * 3600 * 24);
-    
-        if (isNaN(daysDiff)) {
-            document.getElementById("datum").innerHTML = "Pick a check-in and a check-out date"
+        if (daysDiff <= 0) {
+            document.getElementById("days").innerHTML = "Pick a checkout date that is after the checkin date";
+            document.getElementById("submitButton").disabled = true;
         }
         else
         {
-            document.getElementById("datum").innerHTML = daysDiff;
+            document.getElementById("days").innerHTML = daysDiff;
+            document.getElementById("submitButton").disabled = false;
         }
-        updateDue();
+        updateDue();})
     });
 
 </script>

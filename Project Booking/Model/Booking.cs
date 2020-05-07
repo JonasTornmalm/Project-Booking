@@ -39,6 +39,6 @@ namespace Project_Booking.Model
     public class DateAttribute : RangeAttribute
     {
         public DateAttribute()
-          : base(typeof(DateTime), DateTime.Now.ToShortDateString(), DateTime.Now.AddMonths(1).ToShortDateString()) { }
+          : base(typeof(DateTime), DateTime.Now.ToShortDateString(), DateTime.Now.AddMonths(6).ToShortDateString()) { }
     }
 }
