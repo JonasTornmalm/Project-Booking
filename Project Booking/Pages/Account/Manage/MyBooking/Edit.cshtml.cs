@@ -29,6 +29,7 @@ namespace Project_Booking
         public string StatusMessage { get; set; }
         [BindProperty]
         public Booking CurrentBooking { get; set; }
+        public Hotel CurrentHotel { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -36,8 +37,9 @@ namespace Project_Booking
             {
                 return NotFound();
             }
-
+            
             CurrentBooking = await _context.Booking.FirstOrDefaultAsync(m => m.ID == id);
+            CurrentHotel = await _context.Hotel.FirstOrDefaultAsync(m => m.Id == CurrentBooking.HotelID);
 
             if (CurrentBooking == null)
             {
@@ -50,11 +52,12 @@ namespace Project_Booking
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            var bookingFromDb = await _context.Booking.FirstOrDefaultAsync(b => b.ID == CurrentBooking.ID);
+            CurrentHotel = await _context.Hotel.FirstOrDefaultAsync(m => m.Id == bookingFromDb.HotelID);
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            var bookingFromDb = await _context.Booking.FirstOrDefaultAsync(b => b.ID == CurrentBooking.ID);
             bookingFromDb.Name = CurrentBooking.Name;
             bookingFromDb.LastName = CurrentBooking.LastName;
             bookingFromDb.CheckIn = CurrentBooking.CheckIn;

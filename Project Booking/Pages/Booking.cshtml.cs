@@ -53,12 +53,13 @@ namespace Project_Booking
 
         public async Task<IActionResult> OnPostAsync(string id)
         {
+            var user = await _userManager.GetUserAsync(User);
+            CurrentUser = user;
+            CurrentHotel = await _context.Hotel.Where(h => h.Id == id).FirstOrDefaultAsync();
             if (!ModelState.IsValid)
             {
-                return RedirectToPage("Error");
+                return Page();
             }
-            var user = await _userManager.GetUserAsync(User);
-            CurrentHotel = await _context.Hotel.Where(h => h.Id == id).FirstOrDefaultAsync();
 
             if (user == null)
             {
