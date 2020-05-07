@@ -19,6 +19,7 @@
 
 
 
+
 @if (Model.Hotels.Count() > 0)
 {
 <div align="center" style="padding-bottom:50px">
@@ -28,8 +29,7 @@
 
 <div class="row">
     @foreach (var item in Model.Hotels)
-    {
-        
+    {  
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
                 <a asp-page="./HotelDetails" asp-route-id="@item.Id"><img class="card-img-top;responsive" src=@item.HotelPictureBig width="348" height="300"></a>
@@ -39,18 +39,19 @@
                     </h4>
                     <p class="card-text">@Html.DisplayFor(modelItem => item.HotelInfo)</p>
                 </div>
-                <table class="a">
-                    <tr>
-                        <th scope="row">Price:</th>
-                        <td>@item.RoomPrice kr</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Location: </th>
-                        <td>@item.City</td>
-                    </tr>
-                </table>
                 <div class="card-footer">
-                    <small class="text-muted">@Html.Raw(item.HotelStars)</small>
+                    <table>
+                        <tr>
+                            <th scope="row">Price:</th>
+                            <td>@item.RoomPrice kr</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Location: </th>
+                            <td>@item.City</td>
+                        </tr>
+                    </table>
+                
+                    <large>@Html.Raw(item.HotelStars)</large>
                 </div>
             </div>
         </div>
