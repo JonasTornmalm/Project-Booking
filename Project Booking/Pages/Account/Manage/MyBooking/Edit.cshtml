@@ -24,17 +24,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="CurrentBooking.CheckIn" class="control-label"></label>
-                <input id="checkin" asp-for="CurrentBooking.CheckIn" class="form-control" />
+                <input id="checkin" asp-for="CurrentBooking.CheckIn" class="form-control dateChange" />
                 <span asp-validation-for="CurrentBooking.CheckIn" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CurrentBooking.CheckOut" class="control-label"></label>
-                <input id="checkout" asp-for="CurrentBooking.CheckOut" class="form-control" />
+                <input id="checkout" asp-for="CurrentBooking.CheckOut" class="form-control dateChange" />
                 <span asp-validation-for="CurrentBooking.CheckOut" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CurrentBooking.numOfBookedRooms">Number Of Rooms</label>
-                <input id="numroom" onchange="updateDue()" asp-for="CurrentBooking.numOfBookedRooms" class="form-control" max="10" min="1" />
+                <input id="numroom" onchange="updateDue()" asp-for="CurrentBooking.numOfBookedRooms" class="form-control dateChange" max="10" min="1" />
                 <span asp-validation-for="CurrentBooking.numOfBookedRooms" class="text-danger"></span>
             </div>
             <div>Price per room</div>
@@ -77,7 +77,7 @@
         }
     }
 
-    document.getElementById("checkout").addEventListener("change", function () {
+    document.querySelector(".dateChange").addEventListener("change", function () {
         var lastday = new Date(document.getElementById("checkout").value);
         var firstday = new Date(document.getElementById("checkin").value);
         var timeDiff = (lastday.getTime() - firstday.getTime());
@@ -94,21 +94,21 @@
     });
 
     //Code that listen to check-in field change instead of check-out as above. Find a better way to do this
-    document.getElementById("checkin").addEventListener("change", function () {
-        var lastday = new Date(document.getElementById("checkout").value);
-        var firstday = new Date(document.getElementById("checkin").value);
-        var timeDiff = (lastday.getTime() - firstday.getTime());
-        var daysDiff = timeDiff / (1000 * 3600 * 24);
-
-        if (isNaN(daysDiff)) {
-            document.getElementById("datum").innerHTML = "Pick a check-in and a check-out date"
-        }
-        else
-        {
-            document.getElementById("datum").innerHTML = daysDiff;
-        }
-        updateDue();
-    });
+    //document.getElementById("checkin").addEventListener("change", function () {
+    //    var lastday = new Date(document.getElementById("checkout").value);
+    //    var firstday = new Date(document.getElementById("checkin").value);
+    //    var timeDiff = (lastday.getTime() - firstday.getTime());
+    //    var daysDiff = timeDiff / (1000 * 3600 * 24);
+    //
+    //    if (isNaN(daysDiff)) {
+    //        document.getElementById("datum").innerHTML = "Pick a check-in and a check-out date"
+    //    }
+    //    else
+    //    {
+    //        document.getElementById("datum").innerHTML = daysDiff;
+    //    }
+    //    updateDue();
+    //});
 
 </script>
 
