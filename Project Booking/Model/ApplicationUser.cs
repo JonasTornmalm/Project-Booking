@@ -27,5 +27,6 @@ namespace Project_Booking.Model
         
         public virtual List<Booking> MyBookings { get; set; }
 
+        public bool IsAdmin { get; set; }
     }
 }

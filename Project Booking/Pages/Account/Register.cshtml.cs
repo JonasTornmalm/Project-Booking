@@ -81,6 +81,21 @@ namespace Project_Booking.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+                    var adminExists = await _userManager.FindByEmailAsync("Admin@hotmail.com");
+                    if(adminExists == null)
+                    {
+                        var admin = new ApplicationUser
+                        {
+                            UserName = "Admin@hotmail.com",
+                            Email = "Admin@hotmail.com",
+                            Name = "Admin",
+                            LastName = "Admin",
+                            IsAdmin = true,
+                        };
+                        await _userManager.CreateAsync(admin, "Admin123!");
+                    }
+
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(

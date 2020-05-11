@@ -30,6 +30,7 @@ namespace Project_Booking
         public string StatusMessage { get; set; }
         public ApplicationUser CurrentUser { get; set; }
         public List<Hotel> Hotels { get; set; }
+        public List<Booking> Bookings { get; set; }
         public async Task OnGetAsync(string message)
         {
             if (!string.IsNullOrEmpty(message))
@@ -39,6 +40,7 @@ namespace Project_Booking
             var user = await _userManager.GetUserAsync(User);
             CurrentUser = user;
 
+            Bookings = await _context.Booking.ToListAsync();
             Hotels = await PopulateHotelList();
 
         }
