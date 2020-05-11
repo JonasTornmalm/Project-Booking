@@ -276,11 +276,16 @@ Verify Hotel Page Loaded WEB8-21
     Should Be Equal   ${link_text}      ${hotelName}
 
 User Make A Booking At Hotel WEB8-21
-    [Arguments]                 ${name}  ${LastName}   ${checkinDate}  ${checkoutDate}  ${numberOfRoom}  ${hotelName}
+    #[Arguments]                 ${name}  ${LastName}   ${checkinDate}  ${checkoutDate}  ${numberOfRoom}  ${hotelName}
+    [Arguments]                 ${name}  ${LastName}    ${numberOfRoom}  ${hotelName}
     Click Element               xpath:/html/body/div/main/div[7]/a
     Verify Booking Page Loaded WEB8-21                                  ${hotelName}
     Input Text                  id=CurrentBooking_Name                  ${name}
     Input Text                  id=CurrentBooking_LastName              ${lastName}
+    ${CurrentDate} =            Get Current Date    result_format=%m/%d/%Y
+    ${CurrentDate1} =           Get Current Date
+    ${checkinDate} =	        Add Time To Date     ${CurrentDate1}   2 days   result_format=%m/%d/%Y
+    ${checkoutDate} =	        Add Time To Date     ${CurrentDate1}   4 days   result_format=%m/%d/%Y
     Input Text                  id=checkin                              ${checkinDate}
     Input Text                  id=checkout                             ${checkoutDate}
     Verfy Total Days WEB8-21
@@ -341,13 +346,36 @@ Verify Confirmation Message Returned WEB8-21
     #Wait Until Page Contains                   ${message}      10s
     Wait Until Page Contains Element           xpath:/html/body/div/main/div[2]
 
-' Checkout date should be after checkin date WEB8-21 '
-User Make A Wrong Booking At Hotel WEB8-21
-    [Arguments]                 ${name}  ${LastName}   ${checkinDate}  ${checkoutDate}  ${numberOfRoom}  ${hotelName}
+' User cannot book A Room earlier WEB8-21  '
+User Make A Booking Earlier Then Today At Hotel WEB8-21
+    [Arguments]                 ${name}  ${LastName}    ${numberOfRoom}  ${hotelName}
     Click Element               xpath:/html/body/div/main/div[7]/a
     Verify Booking Page Loaded WEB8-21                                  ${hotelName}
     Input Text                  id=CurrentBooking_Name                  ${name}
     Input Text                  id=CurrentBooking_LastName              ${lastName}
+    ${CurrentDate1} =           Get Current Date
+    ${checkinDate} =	        Add Time To Date     ${CurrentDate1}   -2 days   result_format=%m/%d/%Y
+    ${checkoutDate} =	        Add Time To Date     ${CurrentDate1}   0 days   result_format=%m/%d/%Y
+    Input Text                  id=checkin                              ${checkinDate}
+    Input Text                  id=checkout                             ${checkoutDate}
+    Verfy Total Days WEB8-21
+    Verfy Unit Price WEB8-21
+    Input Text                  id=numroom                              ${numberOfRoom}
+    Click Element               xpath:/html/body/div/main/div[4]/div/form/div[10]/label
+    Verfy Total Price WEB8-21
+    Click Button               xpath://*[@id="submitButton"]
+
+' Checkout date should be after checkin date WEB8-21 '
+User Make A Wrong Booking At Hotel WEB8-21
+    [Arguments]                 ${name}  ${LastName}    ${numberOfRoom}  ${hotelName}
+    Click Element               xpath:/html/body/div/main/div[7]/a
+    Verify Booking Page Loaded WEB8-21                                  ${hotelName}
+    Input Text                  id=CurrentBooking_Name                  ${name}
+    Input Text                  id=CurrentBooking_LastName              ${lastName}
+    ${CurrentDate} =            Get Current Date    result_format=%m/%d/%Y
+    ${CurrentDate1} =           Get Current Date
+    ${checkinDate} =	        Add Time To Date     ${CurrentDate1}   4 days   result_format=%m/%d/%Y
+    ${checkoutDate} =	        Add Time To Date     ${CurrentDate1}   2 days   result_format=%m/%d/%Y
     Input Text                  id=checkin                              ${checkinDate}
     Input Text                  id=checkout                             ${checkoutDate}
     Verify Error Message Return WEB8-21
@@ -355,6 +383,25 @@ User Make A Wrong Booking At Hotel WEB8-21
 Verify Error Message Return WEB8-21
     ${link_text} =    Get Text          xpath://*[@id="days"]
     Should Be Equal   ${link_text}      Pick a checkout date that is after the checkin date
+
+' User Make A Booking After 6 Months At Hotel WEB8-21 '
+User Make A Booking After 6 Months At Hotel WEB8-21
+    [Arguments]                 ${name}  ${LastName}    ${numberOfRoom}  ${hotelName}
+    Click Element               xpath:/html/body/div/main/div[7]/a
+    Verify Booking Page Loaded WEB8-21                                  ${hotelName}
+    Input Text                  id=CurrentBooking_Name                  ${name}
+    Input Text                  id=CurrentBooking_LastName              ${lastName}
+    ${CurrentDate1} =           Get Current Date
+    ${checkinDate} =	        Add Time To Date     ${CurrentDate1}   200 days   result_format=%m/%d/%Y
+    ${checkoutDate} =	        Add Time To Date     ${CurrentDate1}   202 days   result_format=%m/%d/%Y
+    Input Text                  id=checkin                              ${checkinDate}
+    Input Text                  id=checkout                             ${checkoutDate}
+    Verfy Total Days WEB8-21
+    Verfy Unit Price WEB8-21
+    Input Text                  id=numroom                              ${numberOfRoom}
+    Click Element               xpath:/html/body/div/main/div[4]/div/form/div[10]/label
+    Verfy Total Price WEB8-21
+    Click Button               xpath://*[@id="submitButton"]
 
 ' WEB8-27 User can search for hotels regesterd on the page '
 WEB8-27 Verfy Search Page Loaded
@@ -449,10 +496,14 @@ Verify View Bookings Page Loaded WEB8-23
     Should Be Equal   ${link_text}     Booking Details
 
 User made a booking
-    #[Arguments]                             ${firstName}   ${lastName}    ${checkinDate}    ${checkoutDate}   ${numOfRooms}
+    #[Arguments]                             ${firstName}   ${lastName}     ${numOfRooms}
     User log in to Webpage
     User Go Into A Hotel WEB8-21             Euroway Hotel
-    User Make A Booking At Hotel WEB8-21        ${firstName}   ${lastName}    ${checkinDate}    ${checkoutDate}   ${numOfRooms}  Euroway Hotel
+    ${CurrentDate} =            Get Current Date    result_format=%m/%d/%Y
+    ${CurrentDate1} =           Get Current Date
+    ${checkinDate} =	        Add Time To Date     ${CurrentDate1}   2 days   result_format=%m/%d/%Y
+    ${checkoutDate} =	        Add Time To Date     ${CurrentDate1}   4 days   result_format=%m/%d/%Y
+    User Make A Booking At Hotel WEB8-21        ${firstName}   ${lastName}    ${numOfRooms}  Euroway Hotel
     Verify The Booking Success WEB8-21          Booking has been added
 
 ' User Can Edit Booking WEB8-23 '

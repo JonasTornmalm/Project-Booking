@@ -12,14 +12,6 @@ ${URL} =   https://localhost:44321/
 ${email} =  goodwhether@123.com
 ${password} =  Helloworld123:)
 ${newpassword} =  Noworld123:(
-${checkinDate} =  05222020
-${checkoutDate} =  05242020
-${earlierCheckinDate} =  05062020
-${earlierCheckoutDate} =  05082020
-${checkinDateAfter6Months} =  12222020
-${checkoutDateAfter6Months} =  12242020
-${checkinDateAfterCheckout} =  05222020
-${checkoutDateEarlierCheckin} =  05202020
 ${numOfRooms} =  2
 ${firstName} =  Hello
 ${lastName} =  World
@@ -93,7 +85,7 @@ User can book A Room WEB8-21
    [Tags]                      Test 10
     Given User log in to Webpage
         and User Go Into A Hotel WEB8-21             Euroway Hotel
-    When User Make A Booking At Hotel WEB8-21        ${firstName}   ${lastName}    ${checkinDate}    ${checkoutDate}   ${numOfRooms}   Euroway Hotel
+    When User Make A Booking At Hotel WEB8-21        ${firstName}   ${lastName}      ${numOfRooms}   Euroway Hotel
     then Verify The Booking Success WEB8-21          Booking has been added
 
 User cannot book A Room earlier WEB8-21
@@ -101,7 +93,7 @@ User cannot book A Room earlier WEB8-21
    [Tags]                      Test 11
     Given User log in to Webpage
         and User Go Into A Hotel WEB8-21             Euroway Hotel
-    When User Make A Booking At Hotel WEB8-21        ${firstName}   ${lastName}    ${earlierCheckinDate}    ${earlierCheckoutDate}   ${numOfRooms}   Euroway Hotel
+    When User Make A Booking Earlier Then Today At Hotel WEB8-21        ${firstName}   ${lastName}    ${numOfRooms}   Euroway Hotel
     then Verify The Booking not Success WEB8-21
 
 User cannot book A Room after 6 months WEB8-21
@@ -109,7 +101,7 @@ User cannot book A Room after 6 months WEB8-21
    [Tags]                      Test 12
     Given User log in to Webpage
         and User Go Into A Hotel WEB8-21             Euroway Hotel
-    When User Make A Booking At Hotel WEB8-21        ${firstName}   ${lastName}    ${checkinDateAfter6Months}    ${checkoutDateAfter6Months}   ${numOfRooms}   Euroway Hotel
+    When User Make A Booking After 6 Months At Hotel WEB8-21        ${firstName}   ${lastName}       ${numOfRooms}   Euroway Hotel
     then Verify The Booking not Success WEB8-21
 
 Checkout date should be after checkin date WEB8-21
@@ -117,7 +109,7 @@ Checkout date should be after checkin date WEB8-21
    [Tags]                      Test 13
     Given User log in to Webpage
         and User Go Into A Hotel WEB8-21             Euroway Hotel
-    When User Make A Wrong Booking At Hotel WEB8-21        ${firstName}   ${lastName}    ${checkinDateAfterCheckout}     ${checkoutDateEarlierCheckin}   ${numOfRooms}   Euroway Hotel
+    When User Make A Wrong Booking At Hotel WEB8-21        ${firstName}   ${lastName}      ${numOfRooms}   Euroway Hotel
     then Verify Error Message Return WEB8-21
 
 WEB8-27 User can search for hotels regesterd on the page
