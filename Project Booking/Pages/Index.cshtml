@@ -9,7 +9,6 @@
 <style>
     .responsive {
         width: 100%;
-        height: auto;
     }
 </style>
 
@@ -31,8 +30,8 @@
     @foreach (var item in Model.Hotels)
     {  
         <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-                <a asp-page="./HotelDetails" asp-route-id="@item.Id"><img class="card-img-top;responsive" src=@item.HotelPictureBig width="348" height="300"></a>
+            <div class="card h-100" >
+                <a asp-page="./HotelDetails" asp-route-id="@item.Id"><img class="flex-column responsive" src=@item.HotelPictureBig height="300" ></a>
                 <div class="card-body">
                     <h4 class="card-title">
                         <a asp-page="./HotelDetails" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.HotelName)</a>

@@ -2,20 +2,22 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>My Profile</h1>
+    <body style="background-image:url('/Images/cool-background.png')">
+        <h1>My Profile</h1>
 
-<div>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
+        <div>
+            <hr />
+            <div class="row">
+                <div class="col-md-3">
+                    <partial name="_ManageNav" />
+                </div>
+                <div class="col-md-9">
+                    @RenderBody()
+                </div>
+            </div>
         </div>
-        <div class="col-md-9">
-            @RenderBody()
-        </div>
-    </div>
-</div>
 
+    </body>
 @section Scripts {
     @RenderSection("Scripts", required: false)
 }
