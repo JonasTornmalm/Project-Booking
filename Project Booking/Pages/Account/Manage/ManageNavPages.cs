@@ -9,6 +9,7 @@ namespace Project_Booking.Areas.Identity.Pages.Account.Manage
     public static class ManageNavPages
     {
         public static string Index => "Index";
+        public static string Inbox => "Inbox";
         public static string MyBookings => "MyBookings";
 
         public static string ChangePassword => "ChangePassword";
@@ -18,6 +19,7 @@ namespace Project_Booking.Areas.Identity.Pages.Account.Manage
         public static string PersonalData => "PersonalData";
 
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
+        public static string InboxNavClass(ViewContext viewContext) => PageNavClass(viewContext, Inbox);
 
         public static string MyBookingsNavClass(ViewContext viewContext) => PageNavClass(viewContext, MyBookings);
 
