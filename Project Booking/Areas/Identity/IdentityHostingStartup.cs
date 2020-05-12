@@ -15,10 +15,10 @@ namespace Project_Booking.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                services.AddDbContext<ConnectionContext>(options =>
-                    options.UseCosmos("https://localhost:8081",
-                        "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
-                        "ProjectBookingDB").UseLazyLoadingProxies());
+                //services.AddDbContext<ConnectionContext>(options =>
+                //    options.UseCosmos("https://localhost:8081",
+                //        "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
+                //        "ProjectBookingDB").UseLazyLoadingProxies());
 
                 services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                     .AddEntityFrameworkStores<ConnectionContext>();

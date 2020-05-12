@@ -1,0 +1,106 @@
+﻿@page
+@model Project_Booking.EditModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h4>Edit Booking</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CurrentBooking.ID" />
+            <div class="form-group">
+                <label asp-for="CurrentBooking.Name" class="control-label"></label>
+                <input asp-for="CurrentBooking.Name" class="form-control" />
+                <span asp-validation-for="CurrentBooking.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentBooking.LastName" class="control-label"></label>
+                <input asp-for="CurrentBooking.LastName" class="form-control" />
+                <span asp-validation-for="CurrentBooking.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentBooking.CheckIn" class="control-label"></label>
+                <input id="checkin" asp-for="CurrentBooking.CheckIn" class="form-control dateChange" />
+                <span asp-validation-for="CurrentBooking.CheckIn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentBooking.CheckOut" class="control-label"></label>
+                <input id="checkout" asp-for="CurrentBooking.CheckOut" class="form-control dateChange" />
+                <span asp-validation-for="CurrentBooking.CheckOut" class="text-danger"></span>
+            </div>
+            <div>
+                <label>Total days</label>
+                <p id="days"></p>
+            </div>
+            <div>Price per room</div>
+            <div id="price">@Model.CurrentHotel.RoomPrice<br /></div><br />
+            <div class="form-group">
+                <label asp-for="CurrentBooking.numOfBookedRooms">Number Of Rooms</label>
+                <input id="numroom" onchange="updateDue()" asp-for="CurrentBooking.numOfBookedRooms" class="form-control dateChange" max="10" min="1" />
+                <span asp-validation-for="CurrentBooking.numOfBookedRooms" class="text-danger"></span>
+            </div>
+            <div>
+                <label>Total price</label>
+                <input type="text" name="totalPrice" class="form-control" disabled id="totalPrice">
+            </div><br />
+            <div class="form-group">
+                <input id="editButton" type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="/Account/Manage/MyBookings">Back to List</a>
+</div>
+
+<script>
+    
+    function updateDue() {
+
+        var rooms = parseInt(document.getElementById("numroom").value);
+        var price = parseInt(document.getElementById("price").innerHTML);
+        var days = parseInt(document.getElementById("days").innerHTML);
+        // to make sure that they are numbers
+        if (!rooms) { rooms = 0; }
+        if (!price) { price = 0; }
+
+        if (isNaN(days)) {
+            document.getElementById("totalPrice").innerHTML = "Pick both days and number of rooms"
+        }
+        else {
+            var calcCost = document.getElementById("totalPrice");
+            calcCost.value = rooms * price * days;
+        }
+    }
+
+    var dateChanges = document.querySelectorAll('.dateChange')
+    Array.from(dateChanges).forEach(link => {
+    link.addEventListener("change", function () {
+        var lastday = new Date(document.getElementById("checkout").value);
+        var firstday = new Date(document.getElementById("checkin").value);
+        var timeDiff = (lastday.getTime() - firstday.getTime());
+        var daysDiff = timeDiff / (1000 * 3600 * 24);
+
+        if (daysDiff <= 0) {
+            document.getElementById("days").innerHTML = "Pick a checkout date that is after the checkin date";
+            document.getElementById("editButton").disabled = true;
+        }
+        else
+        {
+            document.getElementById("days").innerHTML = daysDiff;
+            document.getElementById("editButton").disabled = false;
+        }
+        updateDue();})
+    });
+
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/edit.js"></script>
+}

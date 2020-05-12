@@ -26,6 +26,8 @@ namespace Project_Booking
         {
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddMvc();
+            services.AddControllersWithViews();
+
             services.AddDbContext<ConnectionContext>(options => options.UseCosmos("https://localhost:8081",
              "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
              "ProjectBookingDB").UseLazyLoadingProxies());

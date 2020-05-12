@@ -10,13 +10,13 @@ using Project_Booking.Model;
 
 namespace Project_Booking
 {
-    public class MyBookingsModel : PageModel
+    public class DeleteModel : PageModel
     {
         private readonly ConnectionContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public MyBookingsModel(
+        public DeleteModel(
             ConnectionContext context,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
@@ -25,33 +25,40 @@ namespace Project_Booking
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
         [TempData]
         public string StatusMessage { get; set; }
-        public ApplicationUser CurrentUser { get; set; }
-        public List<Hotel> Hotels { get; set; }
-        public async Task OnGetAsync(string message)
+
+        [BindProperty]
+        public Booking CurrentBooking { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(Guid? id)
         {
-            if (!string.IsNullOrEmpty(message))
+            if (id == null)
             {
-                StatusMessage = message;
+                return NotFound();
             }
-            var user = await _userManager.GetUserAsync(User);
-            CurrentUser = user;
 
-            Hotels = await PopulateHotelList();
+            CurrentBooking = await _context.Booking.FirstOrDefaultAsync(m => m.ID == id);
 
+            if (CurrentBooking == null)
+            {
+                return NotFound();
+            }
+            return Page();
         }
 
-        private async Task<List<Hotel>> PopulateHotelList()
+        public async Task<IActionResult> OnPostAsync(Guid? id)
         {
-            List<Hotel> hotelList = new List<Hotel>();
-            foreach (var booking in CurrentUser.MyBookings)
+
+            CurrentBooking = await _context.Booking.FindAsync(id);
+
+            if(CurrentBooking != null)
             {
-                var hotel = await _context.Hotel.Where(h => h.Id == booking.HotelID).FirstOrDefaultAsync();
-                hotelList.Add(hotel);
+                _context.Booking.Remove(CurrentBooking);
+                await _context.SaveChangesAsync();
             }
-            return hotelList;
+
+            return RedirectToPage("/Account/Manage/MyBookings", StatusMessage = "Booking has been deleted");
         }
     }
 }
