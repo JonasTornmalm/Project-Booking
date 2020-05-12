@@ -5,11 +5,10 @@
     ViewData["ActivePage"] = ManageNavPages.MyBookings;
 }
 
-<h4>My Bookings</h4>
 <partial name="_StatusMessage" for="StatusMessage" />
 
 
-<table id="table" class="table table-striped mt-5">
+<table id="table" class="table table-striped">
     <thead>
         <tr id="booking-table">
             <th>Hotel</th>
@@ -24,7 +23,7 @@
             @foreach (var booking in Model.Bookings)
             {
                 <tr id="booking-list">
-                    <td>@booking.HotelID</td>
+                    <td>@booking.Hotel.HotelName</td>
                     <td><a asp-page="./MyBooking/Details" asp-route-id="@booking.ID">View</a></td>
                     <td><a asp-page="./MyBooking/Edit" asp-route-id="@booking.ID">Edit</a></td>
                     <td><a asp-page="./MyBooking/Delete" asp-route-id="@booking.ID">Delete</a></td>
@@ -36,7 +35,7 @@
             @foreach (var booking in Model.CurrentUser.MyBookings)
             {
                 <tr id="booking-list">
-                    <td>@Model.Hotels.FirstOrDefault(h => h.Id == booking.HotelID).HotelName</td>
+                    <td>@booking.Hotel.HotelName</td>
                     <td><a asp-page="./MyBooking/Details" asp-route-id="@booking.ID">View</a></td>
                     <td><a asp-page="./MyBooking/Edit" asp-route-id="@booking.ID">Edit</a></td>
                     <td><a asp-page="./MyBooking/Delete" asp-route-id="@booking.ID">Delete</a></td>
