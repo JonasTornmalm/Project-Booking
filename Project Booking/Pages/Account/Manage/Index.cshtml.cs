@@ -67,7 +67,8 @@ namespace Project_Booking.Areas.Identity.Pages.Account.Manage
             LoggedInUser = user;
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                await _signInManager.SignOutAsync();
+                return RedirectToPage("/Account/Login");
             }
 
             await LoadAsync(user);
