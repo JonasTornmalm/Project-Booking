@@ -10,7 +10,7 @@ namespace Project_Booking.Model
     {
         public Guid ID { get; set; }
         [Required]
-        public string Title { get; set; }
+        public string Subject { get; set; }
         [Required]
         public string MessageFromUser { get; set; }
         public string AnswerFromAdmin { get; set; }
