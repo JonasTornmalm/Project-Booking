@@ -17,4 +17,5 @@ namespace Project_Booking.Model
         public virtual ApplicationUser Customer { get; set; }
 
     }
+
 }

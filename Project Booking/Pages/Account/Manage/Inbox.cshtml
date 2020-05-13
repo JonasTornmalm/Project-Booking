@@ -4,6 +4,47 @@
     ViewData["Title"] = "Inbox";
     ViewData["ActivePage"] = ManageNavPages.Inbox;
 }
+<partial name="_StatusMessage" for="StatusMessage" />
 
-<h1>Inbox</h1>
 
+<table id="table" class="table table-striped">
+    <thead>
+        <tr id="booking-table">
+            <th>Hotel</th>
+            <th>View</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.CurrentUser.IsAdmin)
+        {
+            @foreach (var booking in Model.Messages)
+            {
+                <tr id="booking-list">
+                    <td>@booking.MessageFromUser</td>
+                    <td>@booking.Title</td>
+                    <td>@booking.Customer.UserName</td>
+                    <td><a asp-page="./MyBooking/Delete" asp-route-id="@booking.ID">Delete</a></td>
+                </tr>
+            }
+        }
+        else
+        {
+            @foreach (var booking in Model.CurrentUser.MyMessages)
+            {
+                <tr id="booking-list">
+                    <td>@booking.MessageFromUser</td>
+                    <td><a asp-page="./MyBooking/Details" asp-route-id="@booking.ID">View</a></td>
+                    <td><a asp-page="./MyBooking/Edit" asp-route-id="@booking.ID">Edit</a></td>
+                    <td><a asp-page="./MyBooking/Delete" asp-route-id="@booking.ID">Delete</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
