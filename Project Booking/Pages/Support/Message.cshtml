@@ -12,7 +12,7 @@
 
 
     <div class="form-group">
-        <a >Subject</a>
+        <div class="mb-2">Subject</div>
         <select class="custom-select" asp-for="Message.Subject">
             <option selected="">Choose topic</option>
             <option value="Cancellations">Cancellations</option>
@@ -29,7 +29,7 @@
 
     <div class="form-group">
         <label asp-for="Message.MessageFromUser">Question</label>
-        <input asp-for="Message.MessageFromUser" class="form-control" />
+        <textarea asp-for="Message.MessageFromUser" class="form-control card-header" style="min-height:50px; max-height:300px;"></textarea>
         <span asp-validation-for="Message.MessageFromUser" class="text-danger"></span>
     </div>
 
