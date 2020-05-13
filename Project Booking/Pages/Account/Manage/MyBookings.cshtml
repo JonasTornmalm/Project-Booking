@@ -5,27 +5,33 @@
     ViewData["ActivePage"] = ManageNavPages.MyBookings;
 }
 
+<style>
+    tr:nth-child(even) {background-color: rgba(8, 153, 42, 0.3);}
+    tr:nth-child(odd) {background-color: rgba(15, 89, 25, 0.3);}
+
+</style>
+
 <h4>My Bookings</h4>
 <partial name="_StatusMessage" for="StatusMessage" />
 
 
-<table id="table" class="table table-striped mt-5">
+<table id="table" class="table table-borderless">
     <thead>
-        <tr id="booking-table">
+        <tr class="bg-transparent" id="booking-table">
             <th>Hotel</th>
             <th>View</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
     </thead>
-    <tbody style="background-color:lightgray">
+    <tbody>
         @foreach (var booking in Model.CurrentUser.MyBookings)
         {
         <tr id="booking-list">
-            <td>@booking.HotelID</td>
-            <td><a asp-page="./Details" asp-route-id="@booking.ID">View</a></td>
-            <td><a asp-page="./Edit" asp-route-id="@booking.ID">Edit</a></td>
-            <td><a asp-page="./Delete" asp-route-id="@booking.ID">Delete</a></td>
+            <td class="text-white">@booking.HotelID</td>
+            <td><a style="" class="text-white" asp-page="./Details" asp-route-id="@booking.ID">View</a></td>
+            <td><a class="text-white" asp-page="./Edit" asp-route-id="@booking.ID">Edit</a></td>
+            <td><a class="text-white" asp-page="./Delete" asp-route-id="@booking.ID">Delete</a></td>
         </tr>
         }
     </tbody>
