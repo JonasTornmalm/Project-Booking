@@ -6,38 +6,37 @@
 }
 <partial name="_StatusMessage" for="StatusMessage" />
 
-
 <table id="table" class="table table-striped">
     <thead>
-        <tr id="booking-table">
-            <th>Hotel</th>
-            <th>View</th>
-            <th>Edit</th>
+        <tr id="message-table">
+            <th>Email</th>
+            <th>Subject</th>
+            <th>Reply</th>
             <th>Delete</th>
         </tr>
     </thead>
     <tbody>
         @if (Model.CurrentUser.IsAdmin)
         {
-            @foreach (var booking in Model.Messages)
+            @foreach (var message in Model.Messages)
             {
-                <tr id="booking-list">
-                    <td>@booking.MessageFromUser</td>
-                    <td>@booking.Title</td>
-                    <td>@booking.Customer.UserName</td>
-                    <td><a asp-page="./MyBooking/Delete" asp-route-id="@booking.ID">Delete</a></td>
+                <tr id="message-list">
+                    <td>@message.Customer.Email</td>
+                    <td>@message.Subject</td>
+                    <td><a asp-page="./MyBooking/Edit" asp-route-id="@message.ID">Reply</a></td>
+                    <td><a asp-page="./MyBooking/Delete" asp-route-id="@message.ID">Delete</a></td>
                 </tr>
             }
         }
         else
         {
-            @foreach (var booking in Model.CurrentUser.MyMessages)
+            @foreach (var message in Model.CurrentUser.MyMessages)
             {
-                <tr id="booking-list">
-                    <td>@booking.MessageFromUser</td>
-                    <td><a asp-page="./MyBooking/Details" asp-route-id="@booking.ID">View</a></td>
-                    <td><a asp-page="./MyBooking/Edit" asp-route-id="@booking.ID">Edit</a></td>
-                    <td><a asp-page="./MyBooking/Delete" asp-route-id="@booking.ID">Delete</a></td>
+                <tr id="message-list">
+                    <td>@message.Customer.Email</td>
+                    <td>@message.Subject</td>
+                    <td><a asp-page="./MyBooking/Edit" asp-route-id="@message.ID">Reply</a></td>
+                    <td><a asp-page="./MyBooking/Delete" asp-route-id="@message.ID">Delete</a></td>
                 </tr>
             }
         }
