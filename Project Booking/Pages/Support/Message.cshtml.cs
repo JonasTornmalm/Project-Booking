@@ -49,7 +49,7 @@ namespace Project_Booking.Pages.Support
             var message = new Message()
             {
                 ID = new Guid(),
-                Title = Message.Title,
+                Subject = Message.Subject,
                 MessageFromUser = Message.MessageFromUser,
                 Customer = user
 
