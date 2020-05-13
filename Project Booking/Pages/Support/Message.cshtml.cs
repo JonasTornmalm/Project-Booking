@@ -43,7 +43,7 @@ namespace Project_Booking.Pages.Support
 
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToPage("/Account/Login");
             }
 
             var message = new Message()
@@ -59,7 +59,7 @@ namespace Project_Booking.Pages.Support
             await _context.Message.AddAsync(message);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("Message", StatusMessage = "Booking has been added");
+            return RedirectToPage("Message", StatusMessage = "Your message has been sent");
         }
     }
 }
