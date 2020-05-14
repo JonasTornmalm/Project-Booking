@@ -1,0 +1,39 @@
+﻿@page
+@model Project_Booking.ReplyMessageModel
+@{
+    ViewData["Title"] = "ReplyMessage";
+    ViewData["ActivePage"] = ManageNavPages.Inbox;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h1>ReplyMessage</h1>
+
+
+
+
+@if (Model.CurrentUser.IsAdmin)
+{
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="CurrentMessage.Subject" class="control-label"></label>
+            <input asp-for="CurrentMessage.Subject" disabled class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="CurrentMessage.MessageFromUser" class="control-label"></label>
+            <input asp-for="CurrentMessage.MessageFromUser" disabled class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CurrentMessage.AnswerFromAdmin">Reply</label>
+            <textarea asp-for="CurrentMessage.AnswerFromAdmin" class="form-control card-header" style="min-height:50px; max-height:300px;"></textarea>
+            <span asp-validation-for="CurrentMessage.AnswerFromAdmin" class="text-danger"></span>
+        </div>
+
+        <button id="submitButton" type="submit" class="btn btn-primary">Confirm</button>
+    </form>
+}
+
+
+<div>
+    <a asp-page="/Account/Manage/MyBookings">Back to List</a>
+</div>

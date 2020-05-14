@@ -23,7 +23,7 @@
                 <tr id="message-list">
                     <td>@message.Customer.Email</td>
                     <td>@message.Subject</td>
-                    <td><a asp-page="./MyBooking/Edit" asp-route-id="@message.ID">Reply</a></td>
+                    <td><a asp-page="./ReplyMessage" asp-route-id="@message.ID">Reply</a></td>
                     <td><a asp-page="./MyBooking/Delete" asp-route-id="@message.ID">Delete</a></td>
                 </tr>
             }
@@ -35,7 +35,7 @@
                 <tr id="message-list">
                     <td>@message.Customer.Email</td>
                     <td>@message.Subject</td>
-                    <td><a asp-page="./MyBooking/Edit" asp-route-id="@message.ID">Reply</a></td>
+                    <td><a asp-page="./ReplyMessage" asp-route-id="@message.ID">Reply</a></td>
                     <td><a asp-page="./MyBooking/Delete" asp-route-id="@message.ID">Delete</a></td>
                 </tr>
             }

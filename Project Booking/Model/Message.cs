@@ -15,6 +15,9 @@ namespace Project_Booking.Model
         [Required]
         [StringLength(100, MinimumLength = 10)]
         public string MessageFromUser { get; set; }
+        [Display(Name = "Answer")]
+        [Required]
+        [StringLength(100, MinimumLength = 10)]
         public string AnswerFromAdmin { get; set; }
         public virtual ApplicationUser Customer { get; set; }
 
