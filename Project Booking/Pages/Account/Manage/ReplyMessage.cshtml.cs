@@ -30,7 +30,14 @@ namespace Project_Booking
         public ApplicationUser CurrentUser { get; set; }
 
         [BindProperty]
+        public Message ReplyMessage { get; set; }
+        public List<Message> Conversation { get; set; }
+        [BindProperty]
         public Message CurrentMessage { get; set; }
+
+
+
+
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -43,6 +50,9 @@ namespace Project_Booking
 
             CurrentMessage = await _context.Message.FirstOrDefaultAsync(m => m.ID == id);
 
+            Conversation = await _context.Message.Where(m => m.Conversation == CurrentMessage.Conversation).ToListAsync();
+
+
             if (CurrentMessage == null)
             {
                 return NotFound();
@@ -52,12 +62,28 @@ namespace Project_Booking
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var user = await _userManager.GetUserAsync(User);
 
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            return Page();
+            var message = new Message()
+            {
+                ID = new Guid(),
+                Subject = ReplyMessage.Subject,
+                MessageFromUser = ReplyMessage.MessageFromUser,
+                Customer = user,
+                Conversation = CurrentMessage.Conversation,
+                Created = new DateTime(),
+                Sender = user
+            };
+
+
+            await _context.Message.AddAsync(message);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("Inbox");
 
         }
     }

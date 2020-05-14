@@ -26,7 +26,6 @@ namespace Project_Booking.Model
         public string ProfilePicture { get; set; }
         
         public virtual List<Booking> MyBookings { get; set; }
-        public virtual List<Message> MyMessages { get; set; }
 
 
         public bool IsAdmin { get; set; }

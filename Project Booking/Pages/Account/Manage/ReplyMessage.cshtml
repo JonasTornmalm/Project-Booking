@@ -11,27 +11,37 @@
 
 
 
-@if (Model.CurrentUser.IsAdmin)
+
+<form method="post">
+
+    <div class="form-group">
+        <label asp-for="ReplyMessage.MessageFromUser">Question</label>
+        <textarea asp-for="ReplyMessage.MessageFromUser" class="form-control card-header" style="min-height:50px; max-height:300px;"></textarea>
+        <span asp-validation-for="ReplyMessage.MessageFromUser" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="CurrentMessage.MessageFromUser" />
+    <input type="hidden" asp-for="CurrentMessage.Conversation" />
+
+    <button id="submitButton" type="submit" class="btn btn-primary">Confirm</button>
+</form>
+
+<hr />
+
+@foreach (var item in Model.Conversation.OrderBy(x=>x.Created))
 {
-    <form method="post">
-        <div class="form-group">
-            <label asp-for="CurrentMessage.Subject" class="control-label"></label>
-            <input asp-for="CurrentMessage.Subject" disabled class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="CurrentMessage.MessageFromUser" class="control-label"></label>
-            <input asp-for="CurrentMessage.MessageFromUser" disabled class="form-control" />
-        </div>
 
-        <div class="form-group">
-            <label asp-for="CurrentMessage.AnswerFromAdmin">Reply</label>
-            <textarea asp-for="CurrentMessage.AnswerFromAdmin" class="form-control card-header" style="min-height:50px; max-height:300px;"></textarea>
-            <span asp-validation-for="CurrentMessage.AnswerFromAdmin" class="text-danger"></span>
-        </div>
 
-        <button id="submitButton" type="submit" class="btn btn-primary">Confirm</button>
-    </form>
+    <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">@item.Subject</div>
+        <div class="card-body">
+            <h4>@item.Sender.Email</h4>
+            <p class="card-text">@item.MessageFromUser</p>
+        </div>
+    </div>
 }
+
+
 
 
 <div>

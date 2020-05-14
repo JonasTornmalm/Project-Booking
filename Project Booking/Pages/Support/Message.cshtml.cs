@@ -46,13 +46,23 @@ namespace Project_Booking.Pages.Support
                 return RedirectToPage("/Account/Login");
             }
 
+            //var converstation = new Conversation()
+            //{
+            //    ID = new Guid(),
+            //    Customer = user,
+            //    Subject = Message.Subject,
+            //    Created = new DateTime()
+            //};
+
             var message = new Message()
             {
                 ID = new Guid(),
                 Subject = Message.Subject,
                 MessageFromUser = Message.MessageFromUser,
-                Customer = user
-
+                Customer = user,
+                Conversation = new Guid(),
+                Created = new DateTime(),
+                Sender = user
             };
 
 

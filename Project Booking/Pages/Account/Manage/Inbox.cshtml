@@ -18,7 +18,7 @@
     <tbody>
         @if (Model.CurrentUser.IsAdmin)
         {
-            @foreach (var message in Model.Messages)
+            @foreach (var message in Model.Messages.Where(x=> x.Sender != Model.CurrentUser))
             {
                 <tr id="message-list">
                     <td>@message.Customer.Email</td>
@@ -30,7 +30,7 @@
         }
         else
         {
-            @foreach (var message in Model.CurrentUser.MyMessages)
+            @foreach (var message in Model.Messages.Where(x => x.Sender != Model.CurrentUser))
             {
                 <tr id="message-list">
                     <td>@message.Customer.Email</td>

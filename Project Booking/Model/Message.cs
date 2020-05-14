@@ -9,17 +9,17 @@ namespace Project_Booking.Model
     public class Message
     {
         public Guid ID { get; set; }
-        [Required]
         public string Subject { get; set; }
-        [Display(Name = "Question")]
         [Required]
-        [StringLength(100, MinimumLength = 10)]
         public string MessageFromUser { get; set; }
-        [Display(Name = "Answer")]
-        [Required]
-        [StringLength(100, MinimumLength = 10)]
-        public string AnswerFromAdmin { get; set; }
         public virtual ApplicationUser Customer { get; set; }
+        public virtual ApplicationUser Sender { get; set; }
+
+
+        public  Guid Conversation { get; set; }
+
+        public DateTime Created { get; set; }
+
 
     }
 
