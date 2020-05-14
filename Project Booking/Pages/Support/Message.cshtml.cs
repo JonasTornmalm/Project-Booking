@@ -64,7 +64,6 @@ namespace Project_Booking.Pages.Support
                 Created = new DateTime(),
                 Sender = user
             };
-            CurrentUser.MyMessages.Add(message);
 
             await _context.Message.AddAsync(message);
             await _context.SaveChangesAsync();
