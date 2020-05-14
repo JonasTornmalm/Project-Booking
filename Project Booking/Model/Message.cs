@@ -11,7 +11,9 @@ namespace Project_Booking.Model
         public Guid ID { get; set; }
         [Required]
         public string Subject { get; set; }
+        [Display(Name = "Question")]
         [Required]
+        [StringLength(100, MinimumLength = 10)]
         public string MessageFromUser { get; set; }
         public string AnswerFromAdmin { get; set; }
         public virtual ApplicationUser Customer { get; set; }
