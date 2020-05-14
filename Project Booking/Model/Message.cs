@@ -8,6 +8,7 @@ namespace Project_Booking.Model
 {
     public class Message
     {
+        [Key]
         public Guid ID { get; set; }
         [Required]
         public string Subject { get; set; }
@@ -16,7 +17,6 @@ namespace Project_Booking.Model
         [StringLength(100, MinimumLength = 10)]
         public string MessageFromUser { get; set; }
         [Display(Name = "Answer")]
-        [Required]
         [StringLength(100, MinimumLength = 10)]
         public string AnswerFromAdmin { get; set; }
         public virtual ApplicationUser Customer { get; set; }

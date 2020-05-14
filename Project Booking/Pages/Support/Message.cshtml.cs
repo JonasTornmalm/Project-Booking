@@ -34,7 +34,7 @@ namespace Project_Booking.Pages.Support
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
-         
+            CurrentUser = user;
 
             if (!ModelState.IsValid)
             {
@@ -54,7 +54,7 @@ namespace Project_Booking.Pages.Support
                 Customer = user
 
             };
-
+            CurrentUser.MyMessages.Add(message);
 
             await _context.Message.AddAsync(message);
             await _context.SaveChangesAsync();
