@@ -50,6 +50,7 @@ namespace Project_Booking
 
             CurrentMessage = await _context.Message.FirstOrDefaultAsync(m => m.ID == id);
 
+
             Conversation = await _context.Message.Where(m => m.Conversation == CurrentMessage.Conversation).ToListAsync();
 
 
@@ -75,7 +76,7 @@ namespace Project_Booking
                 MessageFromUser = ReplyMessage.MessageFromUser,
                 Customer = user,
                 Conversation = CurrentMessage.Conversation,
-                Created = new DateTime(),
+                Created = DateTime.Now,
                 Sender = user
             };
 

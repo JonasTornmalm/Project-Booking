@@ -30,12 +30,10 @@
 
 @foreach (var item in Model.Conversation.OrderBy(x=>x.Created))
 {
-
-
     <div class="card border-primary mb-3" style="max-width: 20rem;">
         <div class="card-header">@item.Subject</div>
         <div class="card-body">
-            <h4>@item.Sender.Email</h4>
+            <h5>@item.Sender.Email</h5>
             <p class="card-text">@item.MessageFromUser</p>
         </div>
     </div>
@@ -45,5 +43,5 @@
 
 
 <div>
-    <a asp-page="/Account/Manage/MyBookings">Back to List</a>
+    <a asp-page="/Account/Manage/Inbox">Back to List</a>
 </div>

@@ -8,6 +8,7 @@ namespace Project_Booking.Model
 {
     public class Message
     {
+        [Key]
         public Guid ID { get; set; }
         public string Subject { get; set; }
         [Required]
@@ -16,7 +17,7 @@ namespace Project_Booking.Model
         public virtual ApplicationUser Sender { get; set; }
 
 
-        public  Guid Conversation { get; set; }
+        public Guid Conversation { get; set; }
 
         public DateTime Created { get; set; }
 

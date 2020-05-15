@@ -30,6 +30,7 @@ namespace Project_Booking
         public string StatusMessage { get; set; }
         public ApplicationUser CurrentUser { get; set; }
         public List<Message> Messages { get; set; }
+        public IEnumerable<Message> Conversation { get; set; }
         public async Task OnGetAsync(string message)
         {
             if (!string.IsNullOrEmpty(message))
@@ -39,7 +40,23 @@ namespace Project_Booking
             var user = await _userManager.GetUserAsync(User);
             CurrentUser = user;
 
+            
+
             Messages = await _context.Message.ToListAsync();
+
+            Conversation = PopulateConversationList();
+        }
+
+        private IEnumerable<Message> PopulateConversationList()
+        {
+            List<Message> conversationList = new List<Message>();
+            foreach (var message in Messages)
+            {
+                var conversation = _context.Message.FirstOrDefault(m => m.Conversation == message.Conversation);
+                conversationList.Add(conversation);
+            }
+            Conversation = conversationList.Distinct();
+            return Conversation;
         }
     }
 }

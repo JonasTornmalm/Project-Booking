@@ -60,8 +60,8 @@ namespace Project_Booking.Pages.Support
                 Subject = Message.Subject,
                 MessageFromUser = Message.MessageFromUser,
                 Customer = user,
-                Conversation = new Guid(),
-                Created = new DateTime(),
+                Conversation = Guid.NewGuid(),
+                Created = DateTime.Now,
                 Sender = user
             };
 
