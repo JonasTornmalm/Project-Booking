@@ -35,10 +35,6 @@ namespace Project_Booking
         [BindProperty]
         public Message CurrentMessage { get; set; }
 
-
-
-
-
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
             if (id == null)
