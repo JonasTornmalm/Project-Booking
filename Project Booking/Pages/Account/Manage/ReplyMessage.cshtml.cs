@@ -72,7 +72,7 @@ namespace Project_Booking
             var message = new Message()
             {
                 ID = new Guid(),
-                Subject = ReplyMessage.Subject,
+                Subject = CurrentMessage.Subject,
                 MessageFromUser = ReplyMessage.MessageFromUser,
                 Customer = user,
                 Conversation = CurrentMessage.Conversation,
@@ -84,7 +84,7 @@ namespace Project_Booking
             await _context.Message.AddAsync(message);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("Inbox");
+            return RedirectToPage("ReplyMessage", new { id = message.ID});
 
         }
     }

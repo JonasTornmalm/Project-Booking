@@ -20,6 +20,7 @@
         <span asp-validation-for="ReplyMessage.MessageFromUser" class="text-danger"></span>
     </div>
 
+    <input type="hidden" asp-for="CurrentMessage.Subject" />
     <input type="hidden" asp-for="CurrentMessage.MessageFromUser" />
     <input type="hidden" asp-for="CurrentMessage.Conversation" />
 
@@ -28,12 +29,13 @@
 
 <hr />
 
-@foreach (var item in Model.Conversation.OrderBy(x=>x.Created))
+@foreach (var item in Model.Conversation.OrderByDescending(x=>x.Created))
 {
     <div class="card border-primary mb-3" style="max-width: 20rem;">
         <div class="card-header">@item.Subject</div>
         <div class="card-body">
             <h5>@item.Sender.Email</h5>
+            <p class="card-text">@item.Created.ToString("MM/dd/yyyy HH:mm:ss")</p>
             <p class="card-text">@item.MessageFromUser</p>
         </div>
     </div>
