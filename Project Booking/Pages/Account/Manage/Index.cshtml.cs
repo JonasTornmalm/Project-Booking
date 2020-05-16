@@ -37,6 +37,7 @@ namespace Project_Booking.Areas.Identity.Pages.Account.Manage
 
         [TempData]
         public string StatusMessage { get; set; }
+        public ApplicationUser LoggedInUser { get; set; }
 
         [BindProperty]
         public ApplicationUser CurrentUser { get; set; }
@@ -63,9 +64,11 @@ namespace Project_Booking.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+            LoggedInUser = user;
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                await _signInManager.SignOutAsync();
+                return RedirectToPage("/Account/Login");
             }
 
             await LoadAsync(user);

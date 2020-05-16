@@ -5,11 +5,10 @@
     ViewData["ActivePage"] = ManageNavPages.MyBookings;
 }
 
-<h4>My Bookings</h4>
 <partial name="_StatusMessage" for="StatusMessage" />
 
 
-<table id="table" class="table table-striped mt-5">
+<table id="table" class="table table-striped">
     <thead>
         <tr id="booking-table">
             <th>Hotel</th>
@@ -19,14 +18,29 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var booking in Model.CurrentUser.MyBookings)
+        @if (Model.CurrentUser.IsAdmin)
         {
-        <tr id="booking-list">
-            <td>@booking.HotelID</td>
-            <td><a asp-page="./MyBooking/Details" asp-route-id="@booking.ID">View</a></td>
-            <td><a asp-page="./MyBooking/Edit" asp-route-id="@booking.ID">Edit</a></td>
-            <td><a asp-page="./MyBooking/Delete" asp-route-id="@booking.ID">Delete</a></td>
-        </tr>
+            @foreach (var booking in Model.Bookings)
+            {
+                <tr id="booking-list">
+                    <td>@booking.Hotel.HotelName</td>
+                    <td><a asp-page="./MyBooking/Details" asp-route-id="@booking.ID">View</a></td>
+                    <td><a asp-page="./MyBooking/Edit" asp-route-id="@booking.ID">Edit</a></td>
+                    <td><a asp-page="./MyBooking/Delete" asp-route-id="@booking.ID">Delete</a></td>
+                </tr>
+            }
+        }
+        else
+        {
+            @foreach (var booking in Model.CurrentUser.MyBookings)
+            {
+                <tr id="booking-list">
+                    <td>@booking.Hotel.HotelName</td>
+                    <td><a asp-page="./MyBooking/Details" asp-route-id="@booking.ID">View</a></td>
+                    <td><a asp-page="./MyBooking/Edit" asp-route-id="@booking.ID">Edit</a></td>
+                    <td><a asp-page="./MyBooking/Delete" asp-route-id="@booking.ID">Delete</a></td>
+                </tr>
+            }
         }
     </tbody>
 </table>
