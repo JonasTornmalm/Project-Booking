@@ -291,7 +291,7 @@ User Make A Booking At Hotel WEB8-21
     Verfy Total Days WEB8-21
     Verfy Unit Price WEB8-21
     Input Text                  id=numroom                              ${numberOfRoom}
-    Click Element               xpath:/html/body/div/main/div[4]/div/form/div[10]/label
+    Click Element               xpath:/html/body/div/main/div[4]/div/form/div[8]/input
     Verfy Total Price WEB8-21
     Click Button               xpath://*[@id="submitButton"]
 
@@ -361,7 +361,7 @@ User Make A Booking Earlier Then Today At Hotel WEB8-21
     Verfy Total Days WEB8-21
     Verfy Unit Price WEB8-21
     Input Text                  id=numroom                              ${numberOfRoom}
-    Click Element               xpath:/html/body/div/main/div[4]/div/form/div[10]/label
+    Click Element               xpath:/html/body/div/main/div[4]/div/form/div[8]/input
     Verfy Total Price WEB8-21
     Click Button               xpath://*[@id="submitButton"]
 
@@ -382,7 +382,7 @@ User Make A Wrong Booking At Hotel WEB8-21
 
 Verify Error Message Return WEB8-21
     ${link_text} =    Get Text          xpath://*[@id="days"]
-    Should Be Equal   ${link_text}      Pick a checkout date that is after the checkin date
+    Should Be Equal   ${link_text}      Pick both dates
 
 ' User Make A Booking After 6 Months At Hotel WEB8-21 '
 User Make A Booking After 6 Months At Hotel WEB8-21
@@ -399,7 +399,7 @@ User Make A Booking After 6 Months At Hotel WEB8-21
     Verfy Total Days WEB8-21
     Verfy Unit Price WEB8-21
     Input Text                  id=numroom                              ${numberOfRoom}
-    Click Element               xpath:/html/body/div/main/div[4]/div/form/div[10]/label
+    Click Element               xpath:/html/body/div/main/div[4]/div/form/div[8]/input
     Verfy Total Price WEB8-21
     Click Button               xpath://*[@id="submitButton"]
 
@@ -468,15 +468,15 @@ User can delele the page successfully WEB8-23
     [Arguments]                 ${message}
     Click Element               xpath:/html/body/div/main/div/div/div[2]/table/tbody/tr[2]/td[4]/a
     Verify Delete Bookings Page Loaded WEB8-23
-    Click Element               xpath:/html/body/div/main/div/form/a
+    Click Element               xpath:/html/body/div/main/div/div/div[2]/div/form/input[1]
     Verify My Bookings Page Loaded WEB8-21
     Click Element               xpath:/html/body/div/main/div/div/div[2]/table/tbody/tr[1]/td[4]/a
     Verify Delete Bookings Page Loaded WEB8-23
-    Click Element               xpath:/html/body/div/main/div/form/input[1]
+    Click Element               xpath:/html/body/div/main/div/div/div[2]/div/form/input[1]
     Verfy my booking is deleted WEB8-23    ${message}
 
 Verify Delete Bookings Page Loaded WEB8-23
-    ${link_text} =    Get Text         xpath:/html/body/div/main/h3
+    ${link_text} =    Get Text         xpath:/html/body/div/main/div/div/div[2]/h3
     Should Be Equal   ${link_text}     Are you sure you want to delete this?
 
 Verfy my booking is deleted WEB8-23
@@ -488,11 +488,11 @@ Verfy my booking is deleted WEB8-23
 User can view a specified booking WEB8-23
     Click Element               xpath://*[@id="booking-list"]/td[2]/a
     Verify View Bookings Page Loaded WEB8-23
-    Click Element                      xpath:/html/body/div/main/div[2]/a
+    Click Element                      xpath:/html/body/div/main/div/div/div[1]/ul/li[2]/a
     User go to My Bookings WEB8-23
 
 Verify View Bookings Page Loaded WEB8-23
-    ${link_text} =    Get Text         xpath:/html/body/div/main/div[1]/h4
+    ${link_text} =    Get Text         xpath:/html/body/div/main/div/div/div[2]/div[1]/h4
     Should Be Equal   ${link_text}     Booking Details
 
 User made a booking
@@ -510,11 +510,11 @@ User made a booking
 User can edit a specified booking WEB8-23
     Click Element               xpath://*[@id="booking-list"]/td[3]/a
     Verify Edit Bookings Page Loaded WEB8-23
-    Click Element                           xpath:/html/body/div/main/div[2]/a
+    Click Element                           xpath:/html/body/div/main/div/div/div[1]/ul/li[2]/a
     Verfy Back To My Booking success WEB8-23
     Click Element                           xpath://*[@id="booking-list"]/td[3]/a
     Verify Edit Bookings Page Loaded WEB8-23
-    Click Element                           xpath:/html/body/div/main/div[1]/div/form/div[10]/input
+    Click Element                           xpath:/html/body/div/main/div/div/div[2]/div[1]/div/form/div[8]/input
     Verfy Edit Booking Success WEB8-23      Booking has been edited
 
 Verfy Back To My Booking success WEB8-23
@@ -522,7 +522,7 @@ Verfy Back To My Booking success WEB8-23
     Should Be Equal   ${link_text}     My Bookings
 
 Verify Edit Bookings Page Loaded WEB8-23
-    ${link_text} =    Get Text         xpath:/html/body/div/main/h4
+    ${link_text} =    Get Text         xpath:/html/body/div/main/div/div/div[2]/h4
     Should Be Equal   ${link_text}     Edit Booking
 
 Verfy Edit Booking Success WEB8-23
