@@ -7,10 +7,19 @@
 
 <partial name="_StatusMessage" for="StatusMessage" />
 
+<style>
+    tr:nth-child(even) {
+        background-color: rgba(8, 153, 42, 0.3);
+    }
 
-<table id="table" class="table table-striped">
+    tr:nth-child(odd) {
+        background-color: rgba(15, 89, 25, 0.3);
+    }
+</style>
+
+<table id="table" class="table table-borderless">
     <thead>
-        <tr id="booking-table">
+        <tr id="booking-table" class="bg-transparent">
             <th>Hotel</th>
             <th>View</th>
             <th>Edit</th>
@@ -23,10 +32,10 @@
             @foreach (var booking in Model.Bookings)
             {
                 <tr id="booking-list">
-                    <td>@booking.Hotel.HotelName</td>
-                    <td><a asp-page="./Details" asp-route-id="@booking.ID">View</a></td>
-                    <td><a asp-page="./Edit" asp-route-id="@booking.ID">Edit</a></td>
-                    <td><a asp-page="./Delete" asp-route-id="@booking.ID">Delete</a></td>
+                    <td class="text-white">@booking.Hotel.HotelName</td>
+                    <td><a class="text-white" asp-page="./Details" asp-route-id="@booking.ID">View</a></td>
+                    <td><a class="text-white" asp-page="./Edit" asp-route-id="@booking.ID">Edit</a></td>
+                    <td><a class="text-white" asp-page="./Delete" asp-route-id="@booking.ID">Delete</a></td>
                 </tr>
             }
         }
@@ -35,10 +44,10 @@
             @foreach (var booking in Model.CurrentUser.MyBookings)
             {
                 <tr id="booking-list">
-                    <td>@booking.Hotel.HotelName</td>
-                    <td><a asp-page="./Details" asp-route-id="@booking.ID">View</a></td>
-                    <td><a asp-page="./Edit" asp-route-id="@booking.ID">Edit</a></td>
-                    <td><a asp-page="./Delete" asp-route-id="@booking.ID">Delete</a></td>
+                    <td class="text-white">@booking.Hotel.HotelName</td>
+                    <td><a class="text-white" asp-page="./Details" asp-route-id="@booking.ID">View</a></td>
+                    <td><a class="text-white" asp-page="./Edit" asp-route-id="@booking.ID">Edit</a></td>
+                    <td><a class="text-white" asp-page="./Delete" asp-route-id="@booking.ID">Delete</a></td>
                 </tr>
             }
         }
