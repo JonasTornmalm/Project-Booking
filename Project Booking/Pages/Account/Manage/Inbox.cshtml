@@ -4,6 +4,46 @@
     ViewData["Title"] = "Inbox";
     ViewData["ActivePage"] = ManageNavPages.Inbox;
 }
+<partial name="_StatusMessage" for="StatusMessage" />
 
-<h1>Inbox</h1>
+<table id="table" class="table table-striped">
+    <thead>
+        <tr id="message-table">
+            <th>Email</th>
+            <th>Subject</th>
+            <th>Reply</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.CurrentUser.IsAdmin)
+        {
+            @foreach (var message in Model.Conversation.Where(x=> x.Sender != Model.CurrentUser))
+            {
+                <tr id="message-list">
+                    <td>@message.Customer.Email</td>
+                    <td>@message.Subject</td>
+                    <td><a asp-page="./ReplyMessage" asp-route-id="@message.ID">Reply</a></td>
+                    <td><a asp-page="./DeleteMessage" asp-route-id="@message.Conversation">Delete</a></td>
+                </tr>
+            }
+        }
+        else
+        {
+            @foreach (var message in Model.Conversation.Where(x => x.Sender == Model.CurrentUser))
+            {
+                <tr id="message-list">
+                    <td>@message.Customer.Email</td>
+                    <td>@message.Subject</td>
+                    <td><a asp-page="./ReplyMessage" asp-route-id="@message.ID">Reply</a></td>
+                    <td><a asp-page="./DeleteMessage" asp-route-id="@message.Conversation">Delete</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
 
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

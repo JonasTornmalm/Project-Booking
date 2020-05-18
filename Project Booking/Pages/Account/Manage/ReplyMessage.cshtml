@@ -1,0 +1,42 @@
+﻿@page
+@model Project_Booking.ReplyMessageModel
+@{
+    ViewData["Title"] = "ReplyMessage";
+    ViewData["ActivePage"] = ManageNavPages.Inbox;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h1>ReplyMessage</h1>
+
+<form method="post">
+
+    <div class="form-group">
+        <label asp-for="ReplyMessage.MessageFromUser">Question</label>
+        <textarea asp-for="ReplyMessage.MessageFromUser" class="form-control card-header" style="min-height:50px; max-height:300px;"></textarea>
+        <span asp-validation-for="ReplyMessage.MessageFromUser" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="CurrentMessage.Subject" />
+    <input type="hidden" asp-for="CurrentMessage.MessageFromUser" />
+    <input type="hidden" asp-for="CurrentMessage.Conversation" />
+
+    <button id="submitButton" type="submit" class="btn btn-primary">Confirm</button>
+</form>
+
+<hr />
+
+@foreach (var item in Model.Conversation.OrderByDescending(x=>x.Created))
+{
+    <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">@item.Subject</div>
+        <div class="card-body">
+            <h5>@item.Sender.Email</h5>
+            <p class="card-text">@item.Created.ToString("MM/dd/yyyy HH:mm:ss")</p>
+            <p class="card-text">@item.MessageFromUser</p>
+        </div>
+    </div>
+}
+
+<div>
+    <a asp-page="/Account/Manage/Inbox">Back to List</a>
+</div>
