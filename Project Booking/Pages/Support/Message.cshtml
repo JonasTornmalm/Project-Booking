@@ -2,34 +2,38 @@
 @model MessageModel
 @{
     ViewData["Title"] = "Message";
-
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
 <partial name="_StatusMessage" for="StatusMessage" />
 
-<form method="post">
+<body style="background-image:url('/Images/cool-background.png')">
 
-    <div class="form-group">
-        <div class="mb-2">Subject</div>
-        <select class="custom-select" asp-for="Message.Subject">
-            <option selected="">Choose topic</option>
-            <option value="Cancellations">Cancellations</option>
-            <option value="Payment">Payment</option>
-            <option value="Booking details">Booking details</option>
-            <option value="Communications">Communications</option>
-            <option value="Room types">Room types</option>
-            <option value="Pricing">Pricing</option>
-            <option value="Credit cards">Credit cards</option>
-            <option value="Extra facilities">Extra facilities</option>
-            <option value="Property policies">Property policies</option>
-        </select>
-    </div>
+    <form method="post">
 
-    <div class="form-group">
-        <label asp-for="Message.MessageFromUser">Question</label>
-        <textarea asp-for="Message.MessageFromUser" class="form-control card-header" style="min-height:50px; max-height:300px;"></textarea>
-        <span asp-validation-for="Message.MessageFromUser" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <div class="mb-2">Subject</div>
+            <select class="custom-select" asp-for="Message.Subject">
+                <option selected="">Choose topic</option>
+                <option value="Cancellations">Cancellations</option>
+                <option value="Payment">Payment</option>
+                <option value="Booking details">Booking details</option>
+                <option value="Communications">Communications</option>
+                <option value="Room types">Room types</option>
+                <option value="Pricing">Pricing</option>
+                <option value="Credit cards">Credit cards</option>
+                <option value="Extra facilities">Extra facilities</option>
+                <option value="Property policies">Property policies</option>
+            </select>
+        </div>
 
-    <button id="submitButton" type="submit" class="btn btn-primary">Confirm</button>
-</form>
+        <div class="form-group">
+            <label asp-for="Message.MessageFromUser">Question</label>
+            <textarea asp-for="Message.MessageFromUser" class="form-control" style="min-height:50px; max-height:300px;"></textarea>
+            <span asp-validation-for="Message.MessageFromUser" class="text-danger"></span>
+        </div>
+
+        <button id="submitButton" type="submit" class="btn btn-primary">Confirm</button>
+    </form>
+
+</body>
