@@ -44,11 +44,10 @@
             </div>
             <div>
                 <label>Total days</label>
-                <p id="days"></p>
+                <p class="form-control-sm alert-light" disabled id="days"></p>
             </div>
-            <div>Price per room</div>
-            <div id="price">@Model.CurrentHotel.RoomPrice<br /></div>
-            <br />
+            <label>Price per room</label>
+            <p class="form-control-sm alert-light" disabled id="price">@Model.CurrentHotel.RoomPrice</p>
             <div class="form-group">
                 <label asp-for="CurrentBooking.numOfBookedRooms">Number Of Rooms</label>
                 <input id="numroom" onchange="updateDue()" asp-for="CurrentBooking.numOfBookedRooms" class="form-control dateChange" max="10" min="1" />
@@ -56,9 +55,8 @@
             </div>
             <div>
                 <label>Total price</label>
-                <input type="text" name="totalPrice" class="form-control" disabled id="totalPrice">
-            </div>
-            <br />
+                <input name="totalPrice" class="form-control-sm alert-light table-responsive" disabled id="totalPrice">
+            </div><br />
             <button id="submitButton" asp-route="@Model.CurrentHotel.Id" type="submit" class="btn btn-primary">Confirm</button>
         </form>
     </div>
@@ -75,7 +73,7 @@
         if (!price) { price = 0; }
         
         if (isNaN(days)) {
-            document.getElementById("totalPrice").innerHTML = "Pick both days and number of rooms"
+            document.getElementById("days").innerHTML = "Pick both dates"
         }
         else {
             var calcCost = document.getElementById("totalPrice");
