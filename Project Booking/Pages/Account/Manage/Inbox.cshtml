@@ -26,28 +26,31 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model.CurrentUser.IsAdmin)
+        @if (Model.Conversation != null)
         {
-            @foreach (var message in Model.Conversation.Where(x=> x.Sender != Model.CurrentUser))
+            @if (Model.CurrentUser.IsAdmin)
             {
-                <tr id="message-list">
-                    <td class="text-white">@message.Customer.Email</td>
-                    <td class="text-white">@message.Subject</td>
-                    <td><a class="text-white" asp-page="./ReplyMessage" asp-route-id="@message.ID">Reply</a></td>
-                    <td><a class="text-white" asp-page="./DeleteMessage" asp-route-id="@message.Conversation">Delete</a></td>
-                </tr>
+                @foreach (var message in Model.Conversation.Where(x => x.Sender != Model.CurrentUser))
+                {
+                    <tr id="message-list">
+                        <td class="text-white">@message.Customer.Email</td>
+                        <td class="text-white">@message.Subject</td>
+                        <td><a class="text-white" asp-page="./ReplyMessage" asp-route-id="@message.ID">Reply</a></td>
+                        <td><a class="text-white" asp-page="./DeleteMessage" asp-route-id="@message.Conversation">Delete</a></td>
+                    </tr>
+                }
             }
-        }
-        else
-        {
-            @foreach (var message in Model.Conversation.Where(x => x.Sender == Model.CurrentUser))
+            else
             {
-                <tr id="message-list">
-                    <td class="text-white">@message.Customer.Email</td>
-                    <td class="text-white">@message.Subject</td>
-                    <td><a class="text-white" asp-page="./ReplyMessage" asp-route-id="@message.ID">Reply</a></td>
-                    <td><a class="text-white" asp-page="./DeleteMessage" asp-route-id="@message.Conversation">Delete</a></td>
-                </tr>
+                @foreach (var message in Model.Conversation.Where(x => x.Sender == Model.CurrentUser))
+                {
+                    <tr id="message-list">
+                        <td class="text-white">@message.Customer.Email</td>
+                        <td class="text-white">@message.Subject</td>
+                        <td><a class="text-white" asp-page="./ReplyMessage" asp-route-id="@message.ID">Reply</a></td>
+                        <td><a class="text-white" asp-page="./DeleteMessage" asp-route-id="@message.Conversation">Delete</a></td>
+                    </tr>
+                }
             }
         }
     </tbody>
