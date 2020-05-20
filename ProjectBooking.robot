@@ -16,6 +16,7 @@ ${numOfRooms} =  2
 ${firstName} =  Hello
 ${lastName} =  World
 ${uploadProfile1} =  C:\\ProfilePic.jpg
+${hotelName} =  Euroway Hotel
 
 *** Test Cases ***
 User can access Project Booking website
@@ -144,6 +145,48 @@ User Can Edit Booking WEB8-23
     Given User made a booking
     When User go to My Bookings WEB8-23
     Then User can edit a specified booking WEB8-23
+
+Admin Can Log In As Admin WEB8-28
+    [Documentation]             Log in success
+    [Tags]                      Test 19
+    Given Go to Web Page
+    When Input email and password for Admin
+    Then Verify Logged in as Admin
+
+Admin Can View A Booking WEB8-28
+    [Documentation]             This is actually testing the backtolist button
+    [Tags]                      Test 19
+    Given User made a booking and log out WEB8-28
+    When Admin log in WEB8-28
+    Then Admin can view a specified booking WEB8-28
+
+Admin Can Edit A Booking WEB8-28
+    [Documentation]             This is actually testing the backtolist button
+    [Tags]                      Test 20
+    Given User made a booking and log out WEB8-28
+    When Admin log in WEB8-28
+    Then Admin can edit a specified booking WEB8-28
+
+Admin Can Delete A Booking WEB8-28
+    [Documentation]             This is actually testing the backtolist button
+    [Tags]                      Test 21
+    Given User made a booking and log out WEB8-28
+    When Admin log in WEB8-28
+    Then Admin can delete a specified booking WEB8-28
+
+Admin Can Reply A Message In Inbox WEB8-28
+    [Documentation]             Admin can reply a message in inbox
+    [Tags]                      Test 22
+    Given Admin log in and go to Inbox WEB8-28
+    When Admin go to reply page WEB8-28
+    Then Admin can reply message successfully WEB8-28    Hej, the problem is resolved, Thanks.
+
+Admin Can Delete A Message In Inbox WEB8-28
+    [Documentation]             Admin can delete a message in inbox
+    [Tags]                      Test 23
+    Given Admin log in and go to Inbox WEB8-28
+    When Admin go to delete page WEB8-28
+    Then Admin can delete message successfully WEB8-28
 
 
 
