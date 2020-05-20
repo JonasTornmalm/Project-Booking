@@ -608,6 +608,140 @@ User Can Read The Reply
     Verify Delete Message
     Click Element               xpath:/html/body/header/nav/div/div/ul[1]/li[1]/a
 
+' Admin Can Log In As Admin WEB8-28 '
+Verify Logged in as Admin
+    Click Element                       xpath://*[@id="manage"]
+    Verify My Profile Page Loaded WEB8-28
+    Click Element                       xpath://*[@id="profile"]
+    ${link_text} =    Get Text         xpath:/html/body/div/main/div/div/div[2]/div/div/div
+    Should Be Equal   ${link_text}     Logged in as Admin
 
+' Admin Can View A Booking WEB8-28 '
+User made a booking and log out WEB8-28
+    User made a booking
+    User Log Out WEB8-28
+
+User Log Out WEB8-28
+    Click Button                            xpath://*[@id="logout"]
+    Wait Until Page Contains                Welcome to Project Booking
+
+Admin log in WEB8-28
+    Input email and password for Admin
+    log in success
+
+Input email and password for Admin
+    Click Element                          xpath://*[@id="login"]
+    Verfy login page Loaded
+    Enter Email_login                        Admin@hotmail.com
+    Enter Password_login                     Admin123!
+    Click Button                          xpath://*[@id="account"]/div[5]/button
+
+Admin can view a specified booking WEB8-28
+    Click Element               xpath://*[@id="manage"]
+    Verify My Profile Page Loaded WEB8-28
+    Click Element               xpath://*[@id="my-bookings"]
+    Verify My Booking Page Loaded WEB8-28
+    User can view a specified booking WEB8-23
+
+Verify My Profile Page Loaded WEB8-28
+    ${link_text} =    Get Text          xpath:/html/body/div/main/h1
+    Should Be Equal   ${link_text}      My Profile
+
+Verify My Booking Page Loaded WEB8-28
+    ${link_text} =    Get Text          xpath://*[@id="booking-table"]/th[1]
+    Should Be Equal   ${link_text}      Hotel
+
+' Admin Can Edit A Booking WEB8-28 '
+Admin can edit a specified booking WEB8-28
+    Click Element               xpath://*[@id="manage"]
+    Verify My Profile Page Loaded WEB8-28
+    Click Element               xpath://*[@id="my-bookings"]
+    Verify My Booking Page Loaded WEB8-28
+    Admin edit a specified booking WEB8-28
+
+Admin edit a specified booking WEB8-28
+    Click Element                           xpath://*[@id="booking-list"]/td[3]/a
+    Verify Edit Bookings Page Loaded WEB8-23
+    Click Element                           xpath:/html/body/div/main/div/div/div[2]/div[2]/a
+    Verify My Booking Page Loaded WEB8-28
+    Click Element                           xpath://*[@id="booking-list"]/td[3]/a
+    Verify Edit Bookings Page Loaded WEB8-23
+    Click Element                           xpath://*[@id="editButton"]
+    Verfy Edit Booking Success WEB8-23      Booking has been edited
+
+' Admin Can Delete A Booking WEB8-28 '
+Admin can delete a specified booking WEB8-28
+    Click Element               xpath://*[@id="manage"]
+    Verify My Profile Page Loaded WEB8-28
+    Click Element               xpath://*[@id="my-bookings"]
+    Verify My Booking Page Loaded WEB8-28
+    Admin can delele the page successfully WEB8-28
+
+Admin can delele the page successfully WEB8-28
+    Click Element                           xpath://*[@id="booking-list"]/td[4]/a
+    Verify Admin Delete Bookings Page Loaded WEB8-28
+    Click Element                           xpath:/html/body/div/main/div/div/div[2]/div/form/a
+    Verify My Booking Page Loaded WEB8-28
+    Click Element                           xpath://*[@id="booking-list"]/td[4]/a
+    Verify Admin Delete Bookings Page Loaded WEB8-28
+    Click Element                           xpath:/html/body/div/main/div/div/div[2]/div/form/input[1]
+    Verfy Admin Delete Booking Success WEB8-28
+
+Verify Admin Delete Bookings Page Loaded WEB8-28
+    ${link_text} =    Get Text          xpath:/html/body/div/main/div/div/div[2]/h1
+    Should Be Equal   ${link_text}      Delete Booking
+
+Verfy Admin Delete Booking Success WEB8-28
+    #${link_text} =    Get Text          xpath:/html/body/div/main/div/div/div[2]/div
+    #Should Be Equal   ${link_text}      Booking has been deleted
+    Wait Until Page Contains             Booking has been deleted
+
+' Admin Can Reply A Message In Inbox WEB8-28 '
+Admin log in and go to Inbox WEB8-28
+    Go to Web Page
+    Admin log in WEB8-28
+    Click Element                         xpath://*[@id="manage"]
+    Verify My Profile Page Loaded WEB8-28
+    Click Element                         xpath://*[@id="inbox"]
+    Verify Inbox Page Loaded WEB8-28
+
+Verify Inbox Page Loaded WEB8-28
+    ${link_text} =    Get Text          xpath://*[@id="message-table"]/th[1]
+    Should Be Equal   ${link_text}      Email
+
+Admin go to reply page WEB8-28
+    Click element                       xpath://*[@id="message-list"]/td[3]/a
+    Verify Reply Massage Page Loaded WEB8-28
+
+Verify Reply Massage Page Loaded WEB8-28
+    ${link_text} =    Get Text          xpath:/html/body/div/main/div/div/div[2]/h1
+    Should Be Equal   ${link_text}      ReplyMessage
+
+Admin can reply message successfully WEB8-28
+    [Arguments]                                ${message}
+    Input Text        id:ReplyMessage_MessageFromUser       ${message}
+    Click element           xpath://*[@id="submitButton"]
+    Verify Message Replied Successfully WEB8-28    ${message}
+
+Verify Message Replied Successfully WEB8-28
+    [Arguments]                                ${message}
+    Wait Until Page Contains                    ${message}
+
+' Admin Can Delete A Message In Inbox WEB8-28 '
+Admin go to delete page WEB8-28
+    Click element                       xpath://*[@id="message-list"]/td[4]/a
+    Verify Delete Message Page Loaded WEB8-28
+
+Verify Delete Message Page Loaded WEB8-28
+    ${link_text} =    Get Text          xpath:/html/body/div/main/div/div/div[2]/h1
+    Should Be Equal   ${link_text}      Delete Message
+
+Admin can delete message successfully WEB8-28
+    Click element                       xpath:/html/body/div/main/div/div/div[2]/div/form/a
+    Verify Inbox Page Loaded WEB8-28
+    Click element                       xpath://*[@id="message-list"]/td[4]/a
+    Verify Delete Message Page Loaded WEB8-28
+    Click element                       xpath:/html/body/div/main/div/div/div[2]/div/form/input[1]
+    Wait Until Page Contains            Support ticket has been deleted
 
 
