@@ -36,7 +36,7 @@ namespace Project_Booking
                 return NotFound();
             }
 
-            CurrentBooking = await _context.Booking.FirstOrDefaultAsync(b => b.ID == id);
+            CurrentBooking = await _context.Bookings.FirstOrDefaultAsync(b => b.ID == id);
 
             if (CurrentBooking == null)
             {

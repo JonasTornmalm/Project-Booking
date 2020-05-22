@@ -16,9 +16,10 @@ namespace Project_Booking
             Database.EnsureCreated();
         }
 
-        public DbSet<Hotel> Hotel { get; set; }
-        public DbSet<Booking> Booking { get; set; }
-        public DbSet<Message> Message { get; set; }
+        public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Room> Rooms { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

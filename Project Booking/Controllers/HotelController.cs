@@ -22,7 +22,7 @@ namespace Project_Booking.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Json(new { data = await _context.Hotel.ToListAsync() });
+            return Json(new { data = await _context.Hotels.ToListAsync() });
         }       
     }
 }

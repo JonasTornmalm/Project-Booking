@@ -51,7 +51,7 @@ namespace Project_Booking
                 return NotFound();
             }
 
-            Hotel = await _context.Hotel.FirstOrDefaultAsync(h => h.Id == id);
+            Hotel = await _context.Hotels.FirstOrDefaultAsync(h => h.Id == id);
 
             if (Hotel == null)
             {
@@ -62,7 +62,7 @@ namespace Project_Booking
 
         public async Task<IActionResult> OnPostPickDatesAsync(string id)
         {
-            Hotel = await _context.Hotel.FirstOrDefaultAsync(h => h.Id == id);
+            Hotel = await _context.Hotels.FirstOrDefaultAsync(h => h.Id == id);
             if (!ModelState.IsValid)
             {
                 return Page();

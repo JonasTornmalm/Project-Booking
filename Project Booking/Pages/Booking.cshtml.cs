@@ -51,7 +51,7 @@ namespace Project_Booking
                 }
             }
 
-            CurrentHotel = await _context.Hotel.Where(h => h.Id == id).FirstOrDefaultAsync();
+            CurrentHotel = await _context.Hotels.Where(h => h.Id == id).FirstOrDefaultAsync();
 
             var user = await _userManager.GetUserAsync(User);
             var userName = await _userManager.GetUserNameAsync(user);
@@ -70,7 +70,7 @@ namespace Project_Booking
         {
             var user = await _userManager.GetUserAsync(User);
             CurrentUser = user;
-            CurrentHotel = await _context.Hotel.Where(h => h.Id == id).FirstOrDefaultAsync();
+            CurrentHotel = await _context.Hotels.Where(h => h.Id == id).FirstOrDefaultAsync();
             
             if (!ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace Project_Booking
                 CheckOut = CurrentBooking.CheckOut
             };
             user.MyBookings.Add(book);
-            await _context.Booking.AddAsync(book);
+            await _context.Bookings.AddAsync(book);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("Account/Manage/MyBookings", StatusMessage = "Booking has been added");

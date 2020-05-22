@@ -20,6 +20,7 @@ namespace Project_Booking.Model
         public string HotelPictureSmallThree { get; set; }
         public string HotelStars { get; set; }
         public double RoomPrice { get; set; }
+        public virtual List<Room> HotelRooms { get; set; }
 
     }
 }
