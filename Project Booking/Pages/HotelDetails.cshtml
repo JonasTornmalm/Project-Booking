@@ -32,7 +32,7 @@
 
 </div>
 
-<div >
+<div>
     <h2 style="margin-bottom: 10px">Hotel Information</h2>
     <p style="margin-bottom: 20px">@Html.DisplayFor(model => model.Hotel.HotelInfo)</p>
 
@@ -183,18 +183,44 @@
 
 </div>
 
-@if (SignInManager.IsSignedIn(User))
-{
-    <div align="center">
-        <a class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;" asp-page="./Booking" asp-route-id="@Model.Hotel.Id">Book</a>
+<div asp-validation-summary="All" class="text-danger" style="text-align:center"></div>
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Input.CheckIn">Check In</label>
+        <input id="checkin" asp-for="Input.CheckIn" class="form-control dateChange" />
+        <span asp-validation-for="Input.CheckIn" class="text-danger"></span>
     </div>
-}
-else
-{
-    <div align="center">
-        <a class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;" asp-page="./Account/Login">Log in to book</a>
+    <div class="form-group">
+        <label asp-for="Input.CheckOut">Check Out</label>
+        <input id="checkout" asp-for="Input.CheckOut" class="form-control dateChange" />
+        <span asp-validation-for="Input.CheckOut" class="text-danger"></span>
     </div>
-}
+    <button type="submit" class="btn btn-primary" asp-route-id="@Model.Hotel.Id" asp-page-handler="PickDates">Confirm</button>
+</form>
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div align="center">
+            <a class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;" asp-page="./Booking" asp-route-id="@Model.Hotel.Id">Book</a>
+        </div>
+
+        
+
+        {
+            IDictionary<string, string> routeData = new Dictionary<string, string>();
+            routeData.Add("data1", "12345");
+            routeData.Add("data2", "67890");
+
+            <a class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;" asp-page="./Booking" asp-route-id="@Model.Hotel.Id" asp-all-route-data="routeData">Test Route Data</a>
+        }
+
+    }
+    else
+    {
+        <div align="center">
+            <a class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;" asp-page="./Account/Login">Log in to book</a>
+        </div>
+    }
 
 
 

@@ -34,8 +34,12 @@ namespace Project_Booking
         [TempData]
         public string StatusMessage { get; set; }
 
-        public async Task OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(string id, Dictionary<string, string> valuePairs)
         {
+
+            return NotFound(valuePairs.Values);
+
+
             CurrentHotel = await _context.Hotel.Where(h => h.Id == id).FirstOrDefaultAsync();
 
             var user = await _userManager.GetUserAsync(User);
