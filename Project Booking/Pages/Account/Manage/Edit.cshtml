@@ -2,7 +2,7 @@
 @model Project_Booking.EditModel
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Pages/Shared/_Layout.cshtml";
+    ViewData["ActivePage"] = ManageNavPages.MyBookings;
 }
 
 <h4>Edit Booking</h4>
@@ -34,10 +34,10 @@
             </div>
             <div>
                 <label>Total days</label>
-                <p id="days"></p>
+                <p class="form-control-sm alert-light" disabled id="days"></p>
             </div>
-            <div>Price per room</div>
-            <div id="price">@Model.CurrentHotel.RoomPrice<br /></div><br />
+            <label>Price per room</label>
+            <p class="form-control-sm alert-light" disabled id="price">@Model.CurrentHotel.RoomPrice</p>
             <div class="form-group">
                 <label asp-for="CurrentBooking.numOfBookedRooms">Number Of Rooms</label>
                 <input id="numroom" onchange="updateDue()" asp-for="CurrentBooking.numOfBookedRooms" class="form-control dateChange" max="10" min="1" />
@@ -45,17 +45,17 @@
             </div>
             <div>
                 <label>Total price</label>
-                <input type="text" name="totalPrice" class="form-control" disabled id="totalPrice">
+                <input name="totalPrice" class="form-control-sm alert-light table-responsive" disabled id="totalPrice">
             </div><br />
             <div class="form-group">
-                <input id="editButton" type="submit" value="Save" class="btn btn-primary" />
+                <input id="editButton" type="submit" value="Save" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="/Account/Manage/MyBookings">Back to List</a>
+    <a class="btn btn-primary" asp-page="/Account/Manage/MyBookings">Back to List</a>
 </div>
 
 <script>

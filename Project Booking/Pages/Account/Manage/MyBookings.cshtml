@@ -5,13 +5,21 @@
     ViewData["ActivePage"] = ManageNavPages.MyBookings;
 }
 
-<h4>My Bookings</h4>
 <partial name="_StatusMessage" for="StatusMessage" />
 
+<style>
+    tr:nth-child(even) {
+        background-color: rgba(8, 153, 42, 0.3);
+    }
 
-<table id="table" class="table table-striped mt-5">
+    tr:nth-child(odd) {
+        background-color: rgba(15, 89, 25, 0.3);
+    }
+</style>
+
+<table id="table" class="table table-borderless">
     <thead>
-        <tr id="booking-table">
+        <tr id="booking-table" class="bg-transparent">
             <th>Hotel</th>
             <th>View</th>
             <th>Edit</th>
@@ -19,14 +27,29 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var booking in Model.CurrentUser.MyBookings)
+        @if (Model.CurrentUser.IsAdmin)
         {
-        <tr id="booking-list">
-            <td>@Model.Hotels.FirstOrDefault(h => h.Id == booking.HotelID).HotelName</td>
-            <td><a asp-page="./MyBooking/Details" asp-route-id="@booking.ID">View</a></td>
-            <td><a asp-page="./MyBooking/Edit" asp-route-id="@booking.ID">Edit</a></td>
-            <td><a asp-page="./MyBooking/Delete" asp-route-id="@booking.ID">Delete</a></td>
-        </tr>
+            @foreach (var booking in Model.Bookings)
+            {
+                <tr id="booking-list">
+                    <td class="text-white">@booking.Hotel.HotelName</td>
+                    <td><a class="text-white" asp-page="./Details" asp-route-id="@booking.ID">View</a></td>
+                    <td><a class="text-white" asp-page="./Edit" asp-route-id="@booking.ID">Edit</a></td>
+                    <td><a class="text-white" asp-page="./Delete" asp-route-id="@booking.ID">Delete</a></td>
+                </tr>
+            }
+        }
+        else
+        {
+            @foreach (var booking in Model.CurrentUser.MyBookings)
+            {
+                <tr id="booking-list">
+                    <td class="text-white">@booking.Hotel.HotelName</td>
+                    <td><a class="text-white" asp-page="./Details" asp-route-id="@booking.ID">View</a></td>
+                    <td><a class="text-white" asp-page="./Edit" asp-route-id="@booking.ID">Edit</a></td>
+                    <td><a class="text-white" asp-page="./Delete" asp-route-id="@booking.ID">Delete</a></td>
+                </tr>
+            }
         }
     </tbody>
 </table>

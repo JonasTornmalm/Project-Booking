@@ -73,6 +73,7 @@ namespace Project_Booking
                 numOfBookedRooms = CurrentBooking.numOfBookedRooms,
                 Customer = user,
                 HotelID = CurrentHotel.Id,
+                Hotel = CurrentHotel,
                 Name = CurrentBooking.Name,
                 LastName = CurrentBooking.LastName,
                 CheckIn = CurrentBooking.CheckIn,

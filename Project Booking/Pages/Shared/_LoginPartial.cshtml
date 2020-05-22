@@ -2,26 +2,33 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@{ 
+    var user = (await SignInManager.UserManager.GetUserAsync(User));
+}
 
-<ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-page="/Account/Manage/Index" title="Manage">My Profile</a>
-    </li>
-    <li class="nav-item">
-        <form id="logoutForm" class="form-inline" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="register" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="login" asp-page="/Account/Login">Login</a>
-    </li>
-}
-</ul>
+    <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li class="nav-item">
+                <a id="manage" class="d-inline-block nav-link btn btn-link text-black-50 font-weight-bold" asp-page="/Account/Manage/Index" title="Manage">My Profile</a>
+            </li>
+            <li class="nav-item">
+                <a id="manage" class="d-inline-block nav-link btn btn-link text-black-50 font-weight-bold" asp-page="/Support/Message" title="Manage">Support</a>
+            </li>
+            <li class="nav-item">
+                <form id="logoutForm" class="form-inline" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+                    <button id="logout" type="submit" class="nav-link btn btn-link text-black-50 font-weight-bold">Logout</button>
+                </form>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="d-inline-block nav-link btn btn-link text-black-50 font-weight-bold" id="register" asp-page="/Account/Register">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="d-inline-block nav-link btn btn-link text-black-50 font-weight-bold" id="login" asp-page="/Account/Login">Login</a>
+            </li>
+        }
+    </ul>
+

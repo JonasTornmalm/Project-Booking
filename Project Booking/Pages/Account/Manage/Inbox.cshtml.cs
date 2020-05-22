@@ -10,13 +10,13 @@ using Project_Booking.Model;
 
 namespace Project_Booking
 {
-    public class MyBookingsModel : PageModel
+    public class InboxModel : PageModel
     {
         private readonly ConnectionContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public MyBookingsModel(
+        public InboxModel(
             ConnectionContext context,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
@@ -29,7 +29,8 @@ namespace Project_Booking
         [TempData]
         public string StatusMessage { get; set; }
         public ApplicationUser CurrentUser { get; set; }
-        public List<Booking> Bookings { get; set; }
+        public List<Message> Messages { get; set; }
+        public IEnumerable<Message> Conversation { get; set; }
         public async Task OnGetAsync(string message)
         {
             if (!string.IsNullOrEmpty(message))
@@ -39,7 +40,23 @@ namespace Project_Booking
             var user = await _userManager.GetUserAsync(User);
             CurrentUser = user;
 
-            Bookings = await _context.Booking.ToListAsync();
+            
+
+            Messages = await _context.Message.ToListAsync();
+
+            Conversation = PopulateConversationList();
+        }
+
+        private IEnumerable<Message> PopulateConversationList()
+        {
+            List<Message> conversationList = new List<Message>();
+            foreach (var message in Messages)
+            {
+                var conversation = _context.Message.FirstOrDefault(m => m.Conversation == message.Conversation);
+                conversationList.Add(conversation);
+            }
+            Conversation = conversationList.Distinct();
+            return Conversation;
         }
     }
 }

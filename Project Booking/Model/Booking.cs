@@ -12,6 +12,7 @@ namespace Project_Booking.Model
         public Guid ID { get; set; }
         [Display(Name = "Hotel")]
         public string HotelID { get; set; }
+        public virtual Hotel Hotel { get; set; }
         public virtual ApplicationUser Customer { get; set; }
         [Required]
         [Display(Name = "Name")]
