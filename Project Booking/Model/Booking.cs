@@ -25,11 +25,12 @@ namespace Project_Booking.Model
         [Display(Name = "Booked Rooms")]
         public int numOfBookedRooms { get; set; }
 
-
+        [Date]
         [Display(Name = "Check In")]
         [DataType(DataType.Date)]
         public DateTime CheckIn { get; set; }
 
+        [Date]
         [Display(Name = "Check Out")]
         [DataType(DataType.Date)]
         public DateTime CheckOut { get; set; }
