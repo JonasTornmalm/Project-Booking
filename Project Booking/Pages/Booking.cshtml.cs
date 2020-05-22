@@ -31,14 +31,25 @@ namespace Project_Booking
         public ApplicationUser CurrentUser { get; set; }
         public Hotel CurrentHotel { get; set; }
 
+        public string CheckIn { get; set; }
+        public string CheckOut { get; set; }
+
         [TempData]
         public string StatusMessage { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id, Dictionary<string, string> valuePairs)
+        public async Task OnGetAsync(string id, Dictionary<string, string> bookingDates)
         {
-
-            return NotFound(valuePairs.Values);
-
+            foreach (var item in bookingDates)
+            {
+                if(item.Key == "data1")
+                {
+                    CheckIn = item.Value;
+                }
+                else if(item.Key == "data2")
+                {
+                    CheckOut = item.Value;
+                }
+            }
 
             CurrentHotel = await _context.Hotel.Where(h => h.Id == id).FirstOrDefaultAsync();
 

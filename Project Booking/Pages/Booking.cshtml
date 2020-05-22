@@ -32,18 +32,10 @@
                 <input asp-for="CurrentBooking.LastName" class="form-control" />
                 <span asp-validation-for="CurrentBooking.LastName" class="text-danger"></span>
             </div>
-            <!--
-            <div class="form-group">
-                <label asp-for="CurrentBooking.CheckIn">Check In</label>
-                <input id="checkin" asp-for="CurrentBooking.CheckIn" class="form-control dateChange"/>
-                <span asp-validation-for="CurrentBooking.CheckIn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CurrentBooking.CheckOut">Check Out</label>
-                <input id="checkout" asp-for="CurrentBooking.CheckOut" class="form-control dateChange" />
-                <span asp-validation-for="CurrentBooking.CheckOut" class="text-danger"></span>
-            </div>
-            -->
+
+            <input id="checkin" class="dateChange" type="hidden" asp-for="CurrentBooking.CheckIn" value="@DateTime.Parse(Model.CheckIn)"/>
+            <input id="checkout" class="dateChange" type="hidden" asp-for="CurrentBooking.CheckOut" value="@DateTime.Parse(Model.CheckOut)"/>
+
             <div>
                 <label>Total days</label>
                 <p class="form-control-sm alert-light" disabled id="days"></p>

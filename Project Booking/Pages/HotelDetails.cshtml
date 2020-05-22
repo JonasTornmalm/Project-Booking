@@ -198,29 +198,34 @@
     <button type="submit" class="btn btn-primary" asp-route-id="@Model.Hotel.Id" asp-page-handler="PickDates">Confirm</button>
 </form>
 
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <div align="center">
-            <a class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;" asp-page="./Booking" asp-route-id="@Model.Hotel.Id">Book</a>
-        </div>
 
-        
+
+@if (SignInManager.IsSignedIn(User))
+{
+    @if (!string.IsNullOrEmpty(Model.CheckIn) && !string.IsNullOrEmpty(Model.CheckOut))
+    {
+        var checkIn = Model.CheckIn;
+        var checkOut = Model.CheckOut;
+
 
         {
             IDictionary<string, string> routeData = new Dictionary<string, string>();
-            routeData.Add("data1", "12345");
-            routeData.Add("data2", "67890");
+            routeData.Add("data1", checkIn);
+            routeData.Add("data2", checkOut);
 
-            <a class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;" asp-page="./Booking" asp-route-id="@Model.Hotel.Id" asp-all-route-data="routeData">Test Route Data</a>
+            <div align="center">
+            <a class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;" asp-page="./Booking" asp-all-route-data="routeData" asp-route-id="@Model.Hotel.Id" >Book</a>
+            </div>
         }
+    }
 
-    }
-    else
-    {
-        <div align="center">
-            <a class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;" asp-page="./Account/Login">Log in to book</a>
-        </div>
-    }
+}
+else
+{
+    <div align="center">
+        <a class="btn btn-primary" style="width: 50%; height: 40%; font-size : 20px;" asp-page="./Account/Login">Log in to book</a>
+    </div>
+}
 
 
 
