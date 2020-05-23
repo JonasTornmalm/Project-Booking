@@ -33,8 +33,8 @@
                 <span asp-validation-for="CurrentBooking.LastName" class="text-danger"></span>
             </div>
 
-            <input id="checkin" class="dateChange" type="hidden" asp-for="CurrentBooking.CheckIn" value="@DateTime.Parse(Model.CheckIn)"/>
-            <input id="checkout" class="dateChange" type="hidden" asp-for="CurrentBooking.CheckOut" value="@DateTime.Parse(Model.CheckOut)"/>
+            <input id="checkin" class="dateChange" type="hidden" asp-for="CurrentBooking.CheckIn" value="@Model.CheckIn"/>
+            <input id="checkout" class="dateChange" type="hidden" asp-for="CurrentBooking.CheckOut" value="@Model.CheckOut"/>
 
             <div>
                 <label>Total days</label>
@@ -54,6 +54,10 @@
             <button id="submitButton" asp-route="@Model.CurrentHotel.Id" type="submit" class="btn btn-primary">Confirm</button>
         </form>
     </div>
+</div>
+
+<div>
+    <p>@Model.numberOfAvailableRooms </p>
 </div>
 
 <script>
