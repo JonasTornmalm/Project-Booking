@@ -19,10 +19,9 @@
 </style>
 
 
-
-
 <div style="text-align:center">
-    <h1 style="margin-bottom: 20px">@Html.DisplayFor(model => model.CurrentHotel.HotelName)</h1>
+    <h1 style="        margin-bottom: 20px
+">@Html.DisplayFor(model => model.CurrentHotel.HotelName)</h1>
     <h3 style="margin-bottom: 20px">@Html.DisplayFor(model => model.CurrentHotel.City)</h3>
 
 </div>
@@ -76,7 +75,7 @@
             <!--Modal: Name-->
             <a>
                 <img src=@Model.CurrentHotel.HotelPictureSmallOne
-                     data-toggle="modal" data-target="#modal1" width="350" height="200">
+                     data-toggle="modal" class="responsive" style="min-height: 260px" data-target="#modal1" width="350" height="200">
             </a>
         </div>
         <!-- Grid column -->
@@ -105,7 +104,7 @@
             <!--Modal: Name-->
             <a>
                 <img src=@Model.CurrentHotel.HotelPictureSmallTwo
-                     data-toggle="modal" data-target="#modal6" width="350" height="200">
+                     data-toggle="modal" class="responsive" style="min-height: 260px" data-target="#modal6" width="350" height="200">
             </a>
         </div>
         <!-- Grid column -->
@@ -134,7 +133,7 @@
             <!--Modal: Name-->
             <a>
                 <img src=@Model.CurrentHotel.HotelPictureSmallThree
-                     data-toggle="modal" data-target="#modal4" width="350" height="200">
+                     data-toggle="modal" class="responsive" style="min-height: 260px" data-target="#modal4" width="350" height="200">
             </a>
         </div>
         <!-- Grid column -->
@@ -144,22 +143,19 @@
     <!-- Grid row -->
 </div>
 
-<div asp-validation-summary="All" class="text-danger" style="text-align:center"></div>
 <form method="post">
     <div class="form-group">
         <label asp-for="Input.CheckIn">Check In</label>
         <input id="checkin" asp-for="Input.CheckIn" class="form-control dateChange" />
-        <span asp-validation-for="Input.CheckIn" class="text-danger"></span>
+        @Html.ValidationMessageFor(model => model.Input.CheckIn, "", new { @class = "alertMessages newLine" })
     </div>
     <div class="form-group">
         <label asp-for="Input.CheckOut">Check Out</label>
         <input id="checkout" asp-for="Input.CheckOut" class="form-control dateChange" />
-        <span asp-validation-for="Input.CheckOut" class="text-danger"></span>
+        @Html.ValidationMessageFor(model => model.Input.CheckOut, "", new { @class = "alertMessages newLine" })
     </div>
-    <button type="submit" class="btn btn-primary" asp-route-id="@Model.CurrentHotel.Id" asp-page-handler="PickDates">Check dates</button>
+    <button id="checkDates" type="submit" class="btn btn-primary" asp-route-id="@Model.CurrentHotel.Id" asp-page-handler="PickDates">Check dates</button>
 </form>
-
-
 
 @if (SignInManager.IsSignedIn(User))
 {

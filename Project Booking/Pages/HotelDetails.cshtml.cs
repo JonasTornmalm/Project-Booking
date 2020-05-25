@@ -77,6 +77,17 @@ namespace Project_Booking
             CheckInString = Input.CheckIn.ToShortDateString();
             CheckOutString = Input.CheckOut.ToShortDateString();
 
+            var checkInDay = int.Parse(CheckInString.Substring(8));
+            var checkOutDay = int.Parse(CheckOutString.Substring(8));
+
+            var checkInMonth = int.Parse(CheckInString.Substring(5, 2));
+            var checkOutMonth = int.Parse(CheckOutString.Substring(5, 2));
+
+            if (!CheckIfDatesAreValid(checkInDay, checkOutDay, checkInMonth, checkOutMonth))
+            {
+                return Page();
+            }
+
             //LINQ query to count number of rooms booked during the dates picked
             var roomsBookedList = from b in _context.Bookings
                               where ((CheckInDateTime >= b.CheckIn) && (CheckInDateTime <= b.CheckOut)) ||
@@ -97,6 +108,32 @@ namespace Project_Booking
             //numberOfAvailableRooms = roomsBookedList.Where(b => b.HotelID == CurrentHotel.Id).Count();
 
             return Page();
+        }
+
+        private bool CheckIfDatesAreValid(int checkInDay, int checkOutDay, int checkInMonth, int checkOutMonth)
+        {
+            if (checkInDay > checkOutDay)
+            {
+                if(checkInMonth < checkOutMonth)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if(checkInMonth <= checkOutMonth)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
     }
 }
