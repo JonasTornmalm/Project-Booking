@@ -43,8 +43,8 @@
             <label>Price per room</label>
             <p class="form-control-sm alert-light" disabled id="price">@Model.CurrentHotel.RoomPrice</p>
             <div class="form-group">
-                <label asp-for="CurrentBooking.numOfBookedRooms">Number Of Rooms</label>
-                <input id="numroom" onchange="updateDue()" asp-for="CurrentBooking.numOfBookedRooms" class="form-control dateChange" max="10" min="1" />
+                <label asp-for="CurrentBooking.numOfBookedRooms">Number Of Rooms<br /><span style="font-size:80%">You can book up to @Model.maxRoomsToBook rooms</span></label>
+                <input id="numroom" onchange="updateDue()" asp-for="CurrentBooking.numOfBookedRooms" class="form-control dateChange" max=@Model.maxRoomsToBook min="1" />
                 <span asp-validation-for="CurrentBooking.numOfBookedRooms" class="text-danger"></span>
             </div>
             <div>
@@ -54,10 +54,6 @@
             <button id="submitButton" asp-route="@Model.CurrentHotel.Id" type="submit" class="btn btn-primary">Confirm</button>
         </form>
     </div>
-</div>
-
-<div>
-    <p>@Model.numberOfAvailableRooms </p>
 </div>
 
 <script>
@@ -81,7 +77,13 @@
 
     var dateChanges = document.querySelectorAll('.dateChange')
     Array.from(dateChanges).forEach(link => {
-    link.addEventListener("change", function () {
+        link.addEventListener("change", countTotalDays)
+    });
+
+    window.onload = countTotalDays();
+
+    function countTotalDays() {
+        
         var lastday = new Date(document.getElementById("checkout").value);
         var firstday = new Date(document.getElementById("checkin").value);
         var timeDiff = (lastday.getTime() - firstday.getTime());
@@ -96,8 +98,8 @@
             document.getElementById("days").innerHTML = daysDiff;
             document.getElementById("submitButton").disabled = false;
         }
-        updateDue();})
-    });
+        updateDue();
+    }
 
 </script>
 

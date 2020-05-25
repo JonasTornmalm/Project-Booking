@@ -21,14 +21,17 @@ namespace Project_Booking
             _context = context;
         }
 
-        public Hotel Hotel { get; set; }
+        public Hotel CurrentHotel { get; set; }
 
 
         [BindProperty]
         public InputModel Input { get; set; }
 
-        public string CheckIn { get; set; }
-        public string CheckOut { get; set; }
+        public string CheckInString { get; set; }
+        public string CheckOutString { get; set; }
+        public DateTime CheckInDateTime { get; set; }
+        public DateTime CheckOutDateTime { get; set; }
+        public int numberOfAvailableRooms { get; set; }
 
         public class InputModel
         {
@@ -51,9 +54,9 @@ namespace Project_Booking
                 return NotFound();
             }
 
-            Hotel = await _context.Hotels.FirstOrDefaultAsync(h => h.Id == id);
+            CurrentHotel = await _context.Hotels.FirstOrDefaultAsync(h => h.Id == id);
 
-            if (Hotel == null)
+            if (CurrentHotel == null)
             {
                 return NotFound();
             }
@@ -62,16 +65,38 @@ namespace Project_Booking
 
         public async Task<IActionResult> OnPostPickDatesAsync(string id)
         {
-            Hotel = await _context.Hotels.FirstOrDefaultAsync(h => h.Id == id);
+            CurrentHotel = await _context.Hotels.FirstOrDefaultAsync(h => h.Id == id);
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            CheckIn = Input.CheckIn.ToShortDateString();
-            CheckOut = Input.CheckOut.ToShortDateString();
+            CheckInDateTime = Input.CheckIn;
+            CheckOutDateTime = Input.CheckOut;
+            CheckInString = Input.CheckIn.ToShortDateString();
+            CheckOutString = Input.CheckOut.ToShortDateString();
+
+            //LINQ query to count number of rooms booked during the dates picked
+            var roomsBookedList = from b in _context.Bookings
+                              where ((CheckInDateTime >= b.CheckIn) && (CheckInDateTime <= b.CheckOut)) ||
+                                    ((CheckOutDateTime >= b.CheckIn) && (CheckOutDateTime <= b.CheckOut)) ||
+                                    ((CheckInDateTime <= b.CheckIn) && (CheckOutDateTime >= b.CheckIn) && (CheckOutDateTime <= b.CheckOut)) ||
+                                    ((CheckInDateTime >= b.CheckIn) && (CheckInDateTime <= b.CheckOut) && (CheckOutDateTime >= b.CheckOut)) ||
+                                    ((CheckInDateTime <= b.CheckIn) && (CheckOutDateTime >= b.CheckOut))
+                              select b;
+
+            int numberOfBookedRooms = 0;
+
+            foreach (var booking in roomsBookedList.Where(b => b.HotelID == CurrentHotel.Id))
+            {
+                numberOfBookedRooms += booking.numOfBookedRooms;
+            }
+
+            numberOfAvailableRooms = CurrentHotel.NumberOfRooms - numberOfBookedRooms;
+            //numberOfAvailableRooms = roomsBookedList.Where(b => b.HotelID == CurrentHotel.Id).Count();
 
             return Page();
         }
     }
-    }
+}

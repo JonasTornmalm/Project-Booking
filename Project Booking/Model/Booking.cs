@@ -21,7 +21,6 @@ namespace Project_Booking.Model
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         [Required]
-        [Range(1, double.MaxValue)]
         [Display(Name = "Booked Rooms")]
         public int numOfBookedRooms { get; set; }
 

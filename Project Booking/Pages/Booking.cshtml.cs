@@ -36,6 +36,9 @@ namespace Project_Booking
 
         public int numberOfAvailableRooms { get; set; }
 
+        public int maxRoomsToBook { get; set; }
+
+
         [TempData]
         public string StatusMessage { get; set; }
 
@@ -56,7 +59,7 @@ namespace Project_Booking
             CurrentHotel = await _context.Hotels.Where(h => h.Id == id).FirstOrDefaultAsync();
 
             //LINQ query to count number of rooms booked during the dates picked
-            var roomsBooked = from b in _context.Bookings
+            var roomsBookedList = from b in _context.Bookings
                               where ((CheckIn >= b.CheckIn) && (CheckIn <= b.CheckOut)) ||
                                   ((CheckOut >= b.CheckIn) && (CheckOut <= b.CheckOut)) ||
                                   ((CheckIn <= b.CheckIn) && (CheckOut >= b.CheckIn) && (CheckOut <= b.CheckOut)) ||
@@ -64,7 +67,23 @@ namespace Project_Booking
                                   ((CheckIn <= b.CheckIn) && (CheckOut >= b.CheckOut))
                               select b;
 
-            numberOfAvailableRooms = CurrentHotel.NumberOfRooms - roomsBooked.Count(b => b.HotelID == CurrentHotel.Id);
+            int numberOfBookedRooms = 0;
+
+            foreach (var booking in roomsBookedList.Where(b => b.HotelID == CurrentHotel.Id))
+            {
+                numberOfBookedRooms += booking.numOfBookedRooms;
+            }
+
+            numberOfAvailableRooms = CurrentHotel.NumberOfRooms - numberOfBookedRooms;
+
+            if (numberOfAvailableRooms > 10)
+            {
+                maxRoomsToBook = 10;
+            }
+            else
+            {
+                maxRoomsToBook = numberOfAvailableRooms;
+            }
 
             var user = await _userManager.GetUserAsync(User);
             var userName = await _userManager.GetUserNameAsync(user);
