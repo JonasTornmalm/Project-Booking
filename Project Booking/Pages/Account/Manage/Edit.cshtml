@@ -32,6 +32,10 @@
                 <input id="checkout" asp-for="CurrentBooking.CheckOut" class="form-control dateChange" />
                 @Html.ValidationMessageFor(model => model.CurrentBooking.CheckOut, "", new { @class = "alertMessages newLine" })
             </div>
+            <div class="form-inline">
+                <button id="checkDates" type="submit" class="btn btn-primary" asp-route-id="@Model.CurrentBooking.ID" asp-page-handler="PickDates">Check dates</button>
+                <span style="margin-left:10px" id="printDays">@Model.numberOfAvailableRooms</span>
+            </div>
             <div>
                 <label>Total days</label>
                 <p class="form-control-sm alert-light" disabled id="days"></p>
@@ -48,7 +52,7 @@
                 <input name="totalPrice" class="form-control-sm alert-light table-responsive" disabled id="totalPrice">
             </div><br />
             <div class="form-group">
-                <input id="editButton" type="submit" value="Save" class="btn btn-success" />
+                <input id="editButton" asp-page-handler="Save" type="submit" value="Save" class="btn btn-success" />
             </div>
         </form>
     </div>
@@ -58,8 +62,12 @@
     <a class="btn btn-primary" asp-page="/Account/Manage/MyBookings">Back to List</a>
 </div>
 
+
 <script>
-    
+
+    //window.onload = startUpFunction();
+    document.addEventListener("load", startUpFunction());
+
     function updateDue() {
 
         var rooms = parseInt(document.getElementById("numroom").value);
@@ -85,18 +93,41 @@
         var firstday = new Date(document.getElementById("checkin").value);
         var timeDiff = (lastday.getTime() - firstday.getTime());
         var daysDiff = timeDiff / (1000 * 3600 * 24);
+        
+        document.getElementById("checkDates").style.display = 'block';
+        document.getElementById("editButton").disabled = true;
 
+        //Checking if checkout is after checkin
         if (daysDiff <= 0) {
-            document.getElementById("days").innerHTML = "Pick a checkout date that is after the checkin date";
-            document.getElementById("editButton").disabled = true;
+            document.getElementById("days").innerHTML = "Please check your dates";
         }
         else
         {
             document.getElementById("days").innerHTML = daysDiff;
-            document.getElementById("editButton").disabled = false;
         }
         updateDue();})
     });
+
+    function startUpFunction() {
+        var editButton = document.getElementById("editButton");
+        var rooms = parseInt(document.getElementById("numroom").value);
+        var pDays = parseInt(document.getElementById("printDays").innerHTML);
+
+        var lastday = new Date(document.getElementById("checkout").value);
+        var firstday = new Date(document.getElementById("checkin").value);
+        var timeDiff = (lastday.getTime() - firstday.getTime());
+        var daysDiff = timeDiff / (1000 * 3600 * 24);
+
+        if (daysDiff > 0 && pDays >= rooms) {
+            editButton.disabled = false;
+            document.getElementById("printDays").innerHTML = pDays;
+        }
+        else {
+            document.getElementById("editButton").disabled = true;
+        }
+    };
+
+
 
 </script>
 
