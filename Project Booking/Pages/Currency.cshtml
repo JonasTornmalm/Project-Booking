@@ -1,0 +1,25 @@
+﻿@page
+@model Project_Booking.CurrencyModel
+@{
+    ViewData["Title"] = "Currency";
+}
+
+<h1>Currency</h1>
+
+<body>
+
+    <table id="table" class="table table-striped mt-5">
+        <thead>
+            <tr id="book-table">
+                <th>Title</th>
+                <th>Author</th>
+            </tr>
+        </thead>
+        <tbody id="book-list"></tbody>
+    </table>
+</body>
+
+@section Scripts {
+
+    <script src="~/js/Currency.js"></script>
+}
