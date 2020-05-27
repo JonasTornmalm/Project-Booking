@@ -19,38 +19,34 @@
 </style>
 
 
-    <div class="jumbotron" style="margin-bottom:0px; color:white; background-color:#4aa1f3">
-        <h2 class="text-center" style="font-size:50px; font-weight:600;">Get Current Weather</h2>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <h3 class="text-center text-primary">Enter City Name</h3>
-            <span id="error"></span>
-        </div>
-        <div class="row form-group form-inline">
-            <input name="hidden" id="city" type="hidden" class="form-control" value="@Model.CurrentHotel.City" placeholder="City Name" />
-            <button id="submitWeather" class="btn btn-primary">Search City</button>
-        </div>
-        <div id="show"></div>
-    </div>
 
 
-    @section Scripts{
-        <script src="~/js/weather.js"></script>
-    }
+@section Scripts{
+    <script src="~/js/weather.js"></script>
+}
 
 
 
 <div style="text-align:center">
-        <h1 style="margin-bottom: 20px">
-            @Html.DisplayFor(model => model.CurrentHotel.HotelName)
-        </h1>
-        <h3 style="margin-bottom: 20px">@Html.DisplayFor(model => model.CurrentHotel.City)</h3>
+    <h1 style="margin-bottom: 20px">
+        @Html.DisplayFor(model => model.CurrentHotel.HotelName)
+    </h1>
+    <h3 style="margin-bottom: 5px">@Html.DisplayFor(model => model.CurrentHotel.City)</h3>
 
 </div>
 
-<div style="margin-bottom:10px">
+<body onload="WeatherFunction();">
+
+    <div class="container">
+        <div class="row form-group form-inline">
+            <input name="hidden" id="city" type="hidden" class="form-control" value="@Model.CurrentHotel.City" placeholder="City Name" />
+        </div>
+        <div id="show" ></div>
+    </div>
+
+</body>
+
+<div style="margin-bottom:10px;margin-top:50px;">
     <img src=@Model.CurrentHotel.HotelPictureBig class="responsive" width="1000" height="800">
 
 </div>

@@ -22,6 +22,7 @@ namespace Project_Booking
         }
 
         public Hotel CurrentHotel { get; set; }
+        public Hotel Hotel { get; set; }
 
 
         [BindProperty]
