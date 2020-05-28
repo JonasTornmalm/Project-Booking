@@ -1,0 +1,15 @@
+﻿@page
+@model Project_Booking.JokesModel
+@{
+    ViewData["Title"] = "Jokes";
+}
+
+
+<form method="post" style="text-align:center">
+    <div style="margin-bottom:30px">
+        <img style="width:150px" src="@Model.JokesJson.icon_url" /><br />
+        <p style="margin-top:15px;font-size:large">@Model.JokesJson.value</p>
+    </div>
+
+    <button class="btn btn-info " type="submit" asp-page-handler="NewChuck">Get a new joke</button>
+</form>
