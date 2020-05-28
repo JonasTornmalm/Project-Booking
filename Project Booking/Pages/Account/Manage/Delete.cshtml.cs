@@ -38,7 +38,7 @@ namespace Project_Booking
                 return NotFound();
             }
 
-            CurrentBooking = await _context.Booking.FirstOrDefaultAsync(m => m.ID == id);
+            CurrentBooking = await _context.Bookings.FirstOrDefaultAsync(m => m.ID == id);
 
             if (CurrentBooking == null)
             {
@@ -50,11 +50,11 @@ namespace Project_Booking
         public async Task<IActionResult> OnPostAsync(Guid? id)
         {
 
-            CurrentBooking = await _context.Booking.FindAsync(id);
+            CurrentBooking = await _context.Bookings.FindAsync(id);
 
             if(CurrentBooking != null)
             {
-                _context.Booking.Remove(CurrentBooking);
+                _context.Bookings.Remove(CurrentBooking);
                 await _context.SaveChangesAsync();
             }
 

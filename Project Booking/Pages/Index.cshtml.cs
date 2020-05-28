@@ -20,11 +20,11 @@ namespace Project_Booking
             _context = context;
         }
 
-        public IList<Hotel> Hotels { get; set; }
+        public IList<Hotel> HotelList { get; set; }
 
         public async Task OnGetAsync()
         {
-            Hotels = await _context.Hotel.ToListAsync();
+            HotelList = await _context.Hotels.ToListAsync();
         }
 
         public IActionResult OnGetSeed()

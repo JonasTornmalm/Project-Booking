@@ -38,8 +38,8 @@ namespace Project_Booking
                 return NotFound();
             }
             
-            CurrentBooking = await _context.Booking.FirstOrDefaultAsync(m => m.ID == id);
-            CurrentHotel = await _context.Hotel.FirstOrDefaultAsync(m => m.Id == CurrentBooking.HotelID);
+            CurrentBooking = await _context.Bookings.FirstOrDefaultAsync(m => m.ID == id);
+            CurrentHotel = await _context.Hotels.FirstOrDefaultAsync(m => m.Id == CurrentBooking.HotelID);
 
             if (CurrentBooking == null)
             {
@@ -50,8 +50,8 @@ namespace Project_Booking
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var bookingFromDb = await _context.Booking.FirstOrDefaultAsync(b => b.ID == CurrentBooking.ID);
-            CurrentHotel = await _context.Hotel.FirstOrDefaultAsync(m => m.Id == bookingFromDb.HotelID);
+            var bookingFromDb = await _context.Bookings.FirstOrDefaultAsync(b => b.ID == CurrentBooking.ID);
+            CurrentHotel = await _context.Hotels.FirstOrDefaultAsync(m => m.Id == bookingFromDb.HotelID);
 
             if (!ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Project_Booking
 
         private bool BookingExists(Guid id)
         {
-            return _context.Booking.Any(e => e.ID == id);
+            return _context.Bookings.Any(e => e.ID == id);
         }
     }
 }

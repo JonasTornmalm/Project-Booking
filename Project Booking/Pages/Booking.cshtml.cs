@@ -31,12 +31,59 @@ namespace Project_Booking
         public ApplicationUser CurrentUser { get; set; }
         public Hotel CurrentHotel { get; set; }
 
+        public DateTime CheckIn { get; set; }
+        public DateTime CheckOut { get; set; }
+
+        public int numberOfAvailableRooms { get; set; }
+
+        public int maxRoomsToBook { get; set; }
+
+
         [TempData]
         public string StatusMessage { get; set; }
 
-        public async Task OnGetAsync(string id)
+        public async Task OnGetAsync(string id, Dictionary<string, string> bookingDates)
         {
-            CurrentHotel = await _context.Hotel.Where(h => h.Id == id).FirstOrDefaultAsync();
+            foreach (var item in bookingDates)
+            {
+                if(item.Key == "data1")
+                {
+                    CheckIn = DateTime.Parse(item.Value);
+                }
+                else if(item.Key == "data2")
+                {
+                    CheckOut = DateTime.Parse(item.Value);
+                }
+            }
+
+            CurrentHotel = await _context.Hotels.Where(h => h.Id == id).FirstOrDefaultAsync();
+
+            //LINQ query to count number of rooms booked during the dates picked
+            var roomsBookedList = from b in _context.Bookings
+                              where ((CheckIn >= b.CheckIn) && (CheckIn <= b.CheckOut)) ||
+                                  ((CheckOut >= b.CheckIn) && (CheckOut <= b.CheckOut)) ||
+                                  ((CheckIn <= b.CheckIn) && (CheckOut >= b.CheckIn) && (CheckOut <= b.CheckOut)) ||
+                                  ((CheckIn >= b.CheckIn) && (CheckIn <= b.CheckOut) && (CheckOut >= b.CheckOut)) ||
+                                  ((CheckIn <= b.CheckIn) && (CheckOut >= b.CheckOut))
+                              select b;
+
+            int numberOfBookedRooms = 0;
+
+            foreach (var booking in roomsBookedList.Where(b => b.HotelID == CurrentHotel.Id))
+            {
+                numberOfBookedRooms += booking.numOfBookedRooms;
+            }
+
+            numberOfAvailableRooms = CurrentHotel.NumberOfRooms - numberOfBookedRooms;
+
+            if (numberOfAvailableRooms > 10)
+            {
+                maxRoomsToBook = 10;
+            }
+            else
+            {
+                maxRoomsToBook = numberOfAvailableRooms;
+            }
 
             var user = await _userManager.GetUserAsync(User);
             var userName = await _userManager.GetUserNameAsync(user);
@@ -55,7 +102,7 @@ namespace Project_Booking
         {
             var user = await _userManager.GetUserAsync(User);
             CurrentUser = user;
-            CurrentHotel = await _context.Hotel.Where(h => h.Id == id).FirstOrDefaultAsync();
+            CurrentHotel = await _context.Hotels.Where(h => h.Id == id).FirstOrDefaultAsync();
             
             if (!ModelState.IsValid)
             {
@@ -80,7 +127,7 @@ namespace Project_Booking
                 CheckOut = CurrentBooking.CheckOut
             };
             user.MyBookings.Add(book);
-            await _context.Booking.AddAsync(book);
+            await _context.Bookings.AddAsync(book);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("Account/Manage/MyBookings", StatusMessage = "Booking has been added");

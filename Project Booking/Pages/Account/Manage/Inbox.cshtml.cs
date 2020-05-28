@@ -29,7 +29,7 @@ namespace Project_Booking
         [TempData]
         public string StatusMessage { get; set; }
         public ApplicationUser CurrentUser { get; set; }
-        public List<Message> Messages { get; set; }
+        public List<Message> MessagesList { get; set; }
         public IEnumerable<Message> Conversation { get; set; }
         public async Task OnGetAsync(string message)
         {
@@ -42,7 +42,7 @@ namespace Project_Booking
 
             
 
-            Messages = await _context.Message.ToListAsync();
+            MessagesList = await _context.Messages.ToListAsync();
 
             Conversation = PopulateConversationList();
         }
@@ -50,9 +50,9 @@ namespace Project_Booking
         private IEnumerable<Message> PopulateConversationList()
         {
             List<Message> conversationList = new List<Message>();
-            foreach (var message in Messages)
+            foreach (var message in MessagesList)
             {
-                var conversation = _context.Message.FirstOrDefault(m => m.Conversation == message.Conversation);
+                var conversation = _context.Messages.FirstOrDefault(m => m.Conversation == message.Conversation);
                 conversationList.Add(conversation);
             }
             Conversation = conversationList.Distinct();

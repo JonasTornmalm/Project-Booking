@@ -38,7 +38,7 @@ namespace Project_Booking
                 return NotFound();
             }
 
-            CurrentConversation = await _context.Message.Where(m => m.Conversation == id).ToListAsync();
+            CurrentConversation = await _context.Messages.Where(m => m.Conversation == id).ToListAsync();
 
             if (CurrentConversation == null)
             {
@@ -50,11 +50,11 @@ namespace Project_Booking
         public async Task<IActionResult> OnPostAsync(Guid? id)
         {
 
-            CurrentConversation = await _context.Message.Where(m => m.Conversation == id).ToListAsync();
+            CurrentConversation = await _context.Messages.Where(m => m.Conversation == id).ToListAsync();
 
             if (CurrentConversation != null)
             {
-                _context.Message.RemoveRange(CurrentConversation);
+                _context.Messages.RemoveRange(CurrentConversation);
                 await _context.SaveChangesAsync();
             }
 

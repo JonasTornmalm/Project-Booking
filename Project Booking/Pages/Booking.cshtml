@@ -5,11 +5,29 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+<style>
+    .newLine {
+        display: inline-flex;
+    }
+    .alert {
+        margin-top: 5px;
+        padding: 12px;
+        color: white;
+        font-weight: bolder;
+        font-size: 15px;
+        line-height: 18px;
+        margin-bottom: 0px;
+        background: rgba(250, 47, 58, 0.8);
+    }
+    .field-validation-valid
+    {
+        display: none;
+    }
+</style>
 
 <div>
     <h1 style="text-align:center">@Model.CurrentHotel.HotelName</h1>
 </div>
-<div asp-validation-summary="All" class="text-danger" style="text-align:center"></div>
 <div>
     <img src=@Model.CurrentHotel.HotelPictureBig class="responsive" width="1000" height="800">
 </div><br />
@@ -20,28 +38,22 @@
             <div class="form-group">
                 <label asp-for="CurrentUser.UserName">Username</label>
                 <input asp-for="CurrentUser.UserName" class="form-control" disabled />
-                <span asp-validation-for="CurrentUser.UserName" class="text-danger"></span>
+                @Html.ValidationMessageFor(model => model.CurrentUser.UserName, "", new { @class = "alertMessages newLine" })
             </div>
             <div class="form-group">
                 <label asp-for="CurrentBooking.Name"></label>
                 <input asp-for="CurrentBooking.Name" class="form-control" />
-                <span asp-validation-for="CurrentBooking.Name" class="text-danger"></span>
+                @Html.ValidationMessageFor(model => model.CurrentBooking.Name, "", new { @class = "alertMessages newLine" })
             </div>
             <div class="form-group">
                 <label asp-for="CurrentBooking.LastName"></label>
                 <input asp-for="CurrentBooking.LastName" class="form-control" />
-                <span asp-validation-for="CurrentBooking.LastName" class="text-danger"></span>
+                @Html.ValidationMessageFor(model => model.CurrentBooking.LastName, "", new { @class = "alertMessages newLine" })
             </div>
-            <div class="form-group">
-                <label asp-for="CurrentBooking.CheckIn">Check In</label>
-                <input id="checkin" asp-for="CurrentBooking.CheckIn" class="form-control dateChange"/>
-                <span asp-validation-for="CurrentBooking.CheckIn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CurrentBooking.CheckOut">Check Out</label>
-                <input id="checkout" asp-for="CurrentBooking.CheckOut" class="form-control dateChange" />
-                <span asp-validation-for="CurrentBooking.CheckOut" class="text-danger"></span>
-            </div>
+
+            <input id="checkin" class="dateChange" type="hidden" asp-for="CurrentBooking.CheckIn" value="@Model.CheckIn"/>
+            <input id="checkout" class="dateChange" type="hidden" asp-for="CurrentBooking.CheckOut" value="@Model.CheckOut"/>
+
             <div>
                 <label>Total days</label>
                 <p class="form-control-sm alert-light" disabled id="days"></p>
@@ -49,9 +61,9 @@
             <label>Price per room</label>
             <p class="form-control-sm alert-light" disabled id="price">@Model.CurrentHotel.RoomPrice</p>
             <div class="form-group">
-                <label asp-for="CurrentBooking.numOfBookedRooms">Number Of Rooms</label>
-                <input id="numroom" onchange="updateDue()" asp-for="CurrentBooking.numOfBookedRooms" class="form-control dateChange" max="10" min="1" />
-                <span asp-validation-for="CurrentBooking.numOfBookedRooms" class="text-danger"></span>
+                <label asp-for="CurrentBooking.numOfBookedRooms">Number Of Rooms<br /><span style="font-size:80%">You can book up to @Model.maxRoomsToBook rooms</span></label>
+                <input id="numroom" onchange="updateDue()" asp-for="CurrentBooking.numOfBookedRooms" class="form-control dateChange" max=@Model.maxRoomsToBook min="1" />
+                @Html.ValidationMessageFor(model => model.CurrentBooking.numOfBookedRooms, "", new { @class = "alertMessages newLine" })
             </div>
             <div>
                 <label>Total price</label>
@@ -83,7 +95,13 @@
 
     var dateChanges = document.querySelectorAll('.dateChange')
     Array.from(dateChanges).forEach(link => {
-    link.addEventListener("change", function () {
+        link.addEventListener("change", countTotalDays)
+    });
+
+    window.onload = countTotalDays();
+
+    function countTotalDays() {
+        
         var lastday = new Date(document.getElementById("checkout").value);
         var firstday = new Date(document.getElementById("checkin").value);
         var timeDiff = (lastday.getTime() - firstday.getTime());
@@ -98,8 +116,8 @@
             document.getElementById("days").innerHTML = daysDiff;
             document.getElementById("submitButton").disabled = false;
         }
-        updateDue();})
-    });
+        updateDue();
+    }
 
 </script>
 

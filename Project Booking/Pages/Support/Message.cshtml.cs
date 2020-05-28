@@ -57,7 +57,7 @@ namespace Project_Booking.Pages.Support
                 Sender = user
             };
 
-            await _context.Message.AddAsync(message);
+            await _context.Messages.AddAsync(message);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("Message", StatusMessage = "Your message has been sent");

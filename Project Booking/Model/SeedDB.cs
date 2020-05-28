@@ -9,7 +9,7 @@ namespace Project_Booking.Model
     {
         public static void AddHotelsDB(ConnectionContext context)
         {
-            context.Hotel.Add(new Hotel
+            context.Hotels.Add(new Hotel
             {
                 Id = "sweEurowayHotel",
                 HotelName = "Euroway Hotel",
@@ -25,7 +25,7 @@ namespace Project_Booking.Model
                 HotelStars = "&#9733; &#9733; &#9733; &#9734; &#9734;",
                 RoomPrice = 506.99
             });
-            context.Hotel.Add(new Hotel
+            context.Hotels.Add(new Hotel
             {
                 Id = "sweGothiaTowers",
                 HotelName = "Gothia Towers Hotel",
@@ -42,7 +42,7 @@ namespace Project_Booking.Model
                 HotelStars = "&#9733; &#9733; &#9733; &#9733; &#9734;",
                 RoomPrice = 990
             });
-            context.Hotel.Add(new Hotel
+            context.Hotels.Add(new Hotel
             {
                 Id = "sweDorsiaHotel",
                 HotelName = "Dorsia Hotel",
@@ -58,7 +58,7 @@ namespace Project_Booking.Model
                 HotelStars = "&#9733; &#9733; &#9733; &#9733; &#9733;",
                 RoomPrice = 1999.99
             });
-            context.Hotel.Add(new Hotel
+            context.Hotels.Add(new Hotel
             {
                 Id = "czeHiltonOldTown",
                 HotelName = "Hilton Prague Old Town",
@@ -74,7 +74,7 @@ namespace Project_Booking.Model
                 HotelStars = "&#9733; &#9733; &#9733; &#9733; &#9733;",
                 RoomPrice = 1500
             });
-            context.Hotel.Add(new Hotel
+            context.Hotels.Add(new Hotel
             {
                 Id = "czeResidenceAgnes",
                 HotelName = "Hotel Residence Agnes",
@@ -91,7 +91,7 @@ namespace Project_Booking.Model
                 HotelStars = "&#9733; &#9733; &#9733; &#9733; &#9734;",
                 RoomPrice = 2990
             });
-            context.Hotel.Add(new Hotel
+            context.Hotels.Add(new Hotel
             {
                 Id = "czeOneRoomHotel",
                 HotelName = "One Room Hotel",
@@ -108,7 +108,7 @@ namespace Project_Booking.Model
                 HotelStars = "&#9733; &#9733; &#9733; &#9733; &#9733;",
                 RoomPrice = 6000
             });
-            context.Hotel.Add(new Hotel
+            context.Hotels.Add(new Hotel
             {
                 Id = "espTheTouch",
                 HotelName = "The Touch Puerto Banús",
@@ -125,7 +125,7 @@ namespace Project_Booking.Model
                 HotelStars = "&#9733; &#9733; &#9734; &#9734; &#9734;",
                 RoomPrice = 1506.99
             });
-            context.Hotel.Add(new Hotel
+            context.Hotels.Add(new Hotel
             {
                 Id = "espAmareBeach",
                 HotelName = "Amàre Beach Hotel",
@@ -142,7 +142,7 @@ namespace Project_Booking.Model
                 HotelStars = "&#9733; &#9733; &#9733; &#9733; &#9733;",
                 RoomPrice = 2700
             });
-            context.Hotel.Add(new Hotel
+            context.Hotels.Add(new Hotel
             {
                 Id = "espMarbellaClub",
                 HotelName = "Marbella Club Hotel",

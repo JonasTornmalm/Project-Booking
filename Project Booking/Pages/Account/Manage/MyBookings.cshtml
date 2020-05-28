@@ -29,7 +29,7 @@
     <tbody>
         @if (Model.CurrentUser.IsAdmin)
         {
-            @foreach (var booking in Model.Bookings)
+            @foreach (var booking in Model.BookingList)
             {
                 <tr id="booking-list">
                     <td class="text-white">@booking.Hotel.HotelName</td>

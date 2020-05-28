@@ -44,10 +44,10 @@ namespace Project_Booking
             var user = await _userManager.GetUserAsync(User);
             CurrentUser = user;
 
-            CurrentMessage = await _context.Message.FirstOrDefaultAsync(m => m.ID == id);
+            CurrentMessage = await _context.Messages.FirstOrDefaultAsync(m => m.ID == id);
 
 
-            Conversation = await _context.Message.Where(m => m.Conversation == CurrentMessage.Conversation).ToListAsync();
+            Conversation = await _context.Messages.Where(m => m.Conversation == CurrentMessage.Conversation).ToListAsync();
 
 
             if (CurrentMessage == null)
@@ -77,7 +77,7 @@ namespace Project_Booking
             };
 
 
-            await _context.Message.AddAsync(message);
+            await _context.Messages.AddAsync(message);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("ReplyMessage", new { id = message.ID});

@@ -21,18 +21,16 @@ namespace Project_Booking.Model
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         [Required]
-        [Range(1, double.MaxValue)]
         [Display(Name = "Booked Rooms")]
         public int numOfBookedRooms { get; set; }
 
-        [Required]
-        [Display(Name = "Check In")]
         [Date]
+        [Display(Name = "Check In")]
         [DataType(DataType.Date)]
         public DateTime CheckIn { get; set; }
-        [Required]
-        [Display(Name = "Check Out")]
+
         [Date]
+        [Display(Name = "Check Out")]
         [DataType(DataType.Date)]
         public DateTime CheckOut { get; set; }
 
