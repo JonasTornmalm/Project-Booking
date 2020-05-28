@@ -6,20 +6,10 @@
 
 <h1>Currency</h1>
 
-<body>
+<h2>Ajax Partial Example</h2>
+<p><button class="btn btn-primary" id="load">Load</button></p>
+<div id="grid"></div>
 
-    <table id="table" class="table table-striped mt-5">
-        <thead>
-            <tr id="book-table">
-                <th>Title</th>
-                <th>Author</th>
-            </tr>
-        </thead>
-        <tbody id="book-list"></tbody>
-    </table>
-</body>
-
-@section Scripts {
-
-    <script src="~/js/Currency.js"></script>
-}
+<div>
+    @Model.CurrencyFromDB.conversion_rates.SEK
+</div>
