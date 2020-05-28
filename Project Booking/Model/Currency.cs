@@ -16,6 +16,7 @@ namespace Project_Booking.Model
         public string time_zone { get; set; }
         public string time_last_update { get; set; }
         public string time_next_update { get; set; }
+        public DateTime LastUpdate { get; set; }
         public virtual ConversionRate conversion_rates { get; set; }
     }
 
