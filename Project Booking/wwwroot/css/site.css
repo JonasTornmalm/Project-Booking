@@ -21,6 +21,17 @@ a {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+#rcorners3 {
+    border-radius: 25px;
+    background-position: left top;
+    background-repeat: repeat;
+    padding: 20px;
+    color: black;
+    border: 3px solid;
+    background-color: lightblue;
+    margin-left: 30%;
+    margin-right: 30%
+}
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
