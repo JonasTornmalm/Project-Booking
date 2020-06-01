@@ -165,12 +165,12 @@
     <!-- Grid row -->
 </div>
 <form method="post">
-    <div class="form-group">
+    <div class="form-group" style="width:250px">
         <label asp-for="Input.CheckIn">Check In</label>
         <input id="checkin" asp-for="Input.CheckIn" class="form-control dateChange" />
         @Html.ValidationMessageFor(model => model.Input.CheckIn, "", new { @class = "alertMessages newLine" })
     </div>
-    <div class="form-group">
+    <div class="form-group" style="width:250px">
         <label asp-for="Input.CheckOut">Check Out</label>
         <input id="checkout" asp-for="Input.CheckOut" class="form-control dateChange" />
         @Html.ValidationMessageFor(model => model.Input.CheckOut, "", new { @class = "alertMessages newLine" })
@@ -198,8 +198,8 @@
         }
         else
         {
-            <div align="center">
-                <p>Sorry, we cant offer your rooms between those dates.</p>
+            <div>
+                <p class="alertMessages newLine">Sorry, we cant offer your rooms between those dates.</p>
             </div>
         }
 

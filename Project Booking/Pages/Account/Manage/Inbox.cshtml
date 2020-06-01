@@ -21,7 +21,7 @@
         <tr id="message-table" class="bg-transparent">
             <th>Email</th>
             <th>Subject</th>
-            <th>Reply</th>
+            <th>Message</th>
             <th>Delete</th>
         </tr>
     </thead>
@@ -35,7 +35,7 @@
                     <tr id="message-list">
                         <td class="text-white">@message.Customer.Email</td>
                         <td class="text-white">@message.Subject</td>
-                        <td><a class="text-white" asp-page="./ReplyMessage" asp-route-id="@message.ID">Reply</a></td>
+                        <td><a class="text-white" asp-page="./ReplyMessage" asp-route-id="@message.ID">View</a></td>
                         <td><a class="text-white" asp-page="./DeleteMessage" asp-route-id="@message.Conversation">Delete</a></td>
                     </tr>
                 }
@@ -47,7 +47,7 @@
                     <tr id="message-list">
                         <td class="text-white">@message.Customer.Email</td>
                         <td class="text-white">@message.Subject</td>
-                        <td><a class="text-white" asp-page="./ReplyMessage" asp-route-id="@message.ID">Reply</a></td>
+                        <td><a class="text-white" asp-page="./ReplyMessage" asp-route-id="@message.ID">View</a></td>
                         <td><a class="text-white" asp-page="./DeleteMessage" asp-route-id="@message.Conversation">Delete</a></td>
                     </tr>
                 }
