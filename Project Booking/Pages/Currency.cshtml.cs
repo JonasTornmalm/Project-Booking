@@ -25,7 +25,7 @@ namespace Project_Booking
 
             if (CurrencyFromDB == null || CurrencyFromDB.LastUpdate.AddDays(2) <= DateTime.Now.Date)
             {
-                if (Import())
+                if (await Import())
                 {
                     _context.Currencies.Add(CurrencyJson);
                     _context.SaveChanges();
@@ -37,28 +37,29 @@ namespace Project_Booking
 
         public Currency CurrencyFromDB { get; set; }
 
-        public bool Import()
+        public async Task<bool> Import()
         {
             try
             {
-                String URLString = "https://v6.exchangerate-api.com/v6/5d2eee27d81a15dae3135cce/latest/EUR";
+                String URLString = "https://v6.exchangerate-api.com/v6/5d2eee27d81a15dae3135cce/latest/eur";
                 using (var webClient = new WebClient())
                 {
                     var json = webClient.DownloadString(URLString);
                     Currency Test = JsonConvert.DeserializeObject<Currency>(json);
                     CurrencyJson = Test;
                     CurrencyJson.LastUpdate = DateTime.Now.Date;
-                    return true;
                 }
             }
             catch (Exception)
             {
                 return false;
             }
+            return true;
         }
 
         public async Task<IActionResult> OnPostLoadAsync()
         {
+            await Import();
             return Page();
         }
     }
