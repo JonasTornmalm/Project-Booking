@@ -19,6 +19,7 @@ namespace Project_Booking
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

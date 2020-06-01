@@ -30,6 +30,9 @@ namespace Project_Booking
         [BindProperty]
         public Booking CurrentBooking { get; set; }
         public Hotel CurrentHotel { get; set; }
+        public DateTime CheckInDateTime { get; set; }
+        public DateTime CheckOutDateTime { get; set; }
+        public int numberOfAvailableRooms { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -48,14 +51,48 @@ namespace Project_Booking
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostPickDatesAsync(Guid id)
+        {
+            CurrentBooking = await _context.Bookings.FirstOrDefaultAsync(m => m.ID == id);
+            CurrentHotel = await _context.Hotels.FirstOrDefaultAsync(m => m.Id == CurrentBooking.HotelID);
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            CheckInDateTime = CurrentBooking.CheckIn;
+            CheckOutDateTime = CurrentBooking.CheckOut;
+            
+            //LINQ query to count number of rooms booked during the dates picked
+            var roomsBookedList = from b in _context.Bookings
+                                  where ((CheckInDateTime >= b.CheckIn) && (CheckInDateTime <= b.CheckOut)) ||
+                                        ((CheckOutDateTime >= b.CheckIn) && (CheckOutDateTime <= b.CheckOut)) ||
+                                        ((CheckInDateTime <= b.CheckIn) && (CheckOutDateTime >= b.CheckIn) && (CheckOutDateTime <= b.CheckOut)) ||
+                                        ((CheckInDateTime >= b.CheckIn) && (CheckInDateTime <= b.CheckOut) && (CheckOutDateTime >= b.CheckOut)) ||
+                                        ((CheckInDateTime <= b.CheckIn) && (CheckOutDateTime >= b.CheckOut))
+                                  select b;
+            
+            int numberOfBookedRooms = 0;
+            
+            foreach (var booking in roomsBookedList.Where(b => b.HotelID == CurrentBooking.HotelID))
+            {
+                numberOfBookedRooms += booking.numOfBookedRooms;
+            }
+            
+            numberOfAvailableRooms = CurrentHotel.NumberOfRooms - numberOfBookedRooms;
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostSaveAsync()
         {
             var bookingFromDb = await _context.Bookings.FirstOrDefaultAsync(b => b.ID == CurrentBooking.ID);
             CurrentHotel = await _context.Hotels.FirstOrDefaultAsync(m => m.Id == bookingFromDb.HotelID);
 
             if (!ModelState.IsValid)
             {
-                return Page();
+                return NotFound("modelstate on post");
             }
             bookingFromDb.Name = CurrentBooking.Name;
             bookingFromDb.LastName = CurrentBooking.LastName;
