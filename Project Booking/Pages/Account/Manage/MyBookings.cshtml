@@ -46,7 +46,14 @@
                 <tr id="booking-list">
                     <td class="text-white">@booking.Hotel.HotelName</td>
                     <td><a class="text-white" asp-page="./Details" asp-route-id="@booking.ID">View</a></td>
-                    <td><a class="text-white" asp-page="./Edit" asp-route-id="@booking.ID">Edit</a></td>
+                    @if (booking.CheckIn >= DateTime.Now.Date)
+                    {
+                        <td><a class="text-white" asp-page="./Edit" asp-route-id="@booking.ID">Edit</a></td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
                     <td><a class="text-white" asp-page="./Delete" asp-route-id="@booking.ID">Delete</a></td>
                 </tr>
             }
