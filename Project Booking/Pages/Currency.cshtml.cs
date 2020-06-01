@@ -45,8 +45,8 @@ namespace Project_Booking
                 using (var webClient = new WebClient())
                 {
                     var json = webClient.DownloadString(URLString);
-                    Currency Test = JsonConvert.DeserializeObject<Currency>(json);
-                    CurrencyJson = Test;
+                    Currency currency = JsonConvert.DeserializeObject<Currency>(json);
+                    CurrencyJson = currency;
                     CurrencyJson.LastUpdate = DateTime.Now.Date;
                 }
             }
