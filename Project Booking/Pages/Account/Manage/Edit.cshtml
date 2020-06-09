@@ -13,6 +13,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CurrentBooking.ID" />
             <input type="hidden" asp-for="CurrentBooking.HotelID" />
+            <input type="hidden" asp-for="CurrentBookingTakenRooms" />
             <div class="form-group">
                 <label asp-for="CurrentBooking.Name" class="control-label"></label>
                 <input asp-for="CurrentBooking.Name" class="form-control dateChange" />
@@ -34,8 +35,9 @@
                 @Html.ValidationMessageFor(model => model.CurrentBooking.CheckOut, "", new { @class = "alertMessages newLine" })
             </div>
             <div class="form-inline">
-                <button style="display:none" id="checkDates" type="submit" class="btn btn-primary" asp-route-id="@Model.CurrentBooking.ID" asp-page-handler="PickDates">Check dates</button>
-                <span hidden style="margin-left:10px" id="availableDays">@Model.numberOfAvailableRooms</span>
+                <button style="display:none" id="checkDates" type="submit" class="btn btn-primary" asp-page-handler="PickDates">Check dates</button>
+                <input type="hidden" name="currentBookingTakenRooms" value="@Model.CurrentBookingTakenRooms"/>
+                <span hidden style="margin-left:10px" id="availableDays">@Model.NumberOfAvailableRooms</span>
             </div>
             <div>
                 <label>Total days</label>

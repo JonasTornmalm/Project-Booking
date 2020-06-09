@@ -32,7 +32,8 @@ namespace Project_Booking
         public Hotel CurrentHotel { get; set; }
         public DateTime CheckInDateTime { get; set; }
         public DateTime CheckOutDateTime { get; set; }
-        public int numberOfAvailableRooms { get; set; }
+        public int NumberOfAvailableRooms { get; set; }
+        public int CurrentBookingTakenRooms { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -44,7 +45,12 @@ namespace Project_Booking
             CurrentBooking = await _context.Bookings.FirstOrDefaultAsync(m => m.ID == id);
             CurrentHotel = await _context.Hotels.FirstOrDefaultAsync(m => m.Id == CurrentBooking.HotelID);
 
-            numberOfAvailableRooms = await GetNumberOfAvailableRooms(CurrentBooking, CurrentHotel);
+            if (CurrentBookingTakenRooms == 0)
+            {
+                CurrentBookingTakenRooms = CurrentBooking.numOfBookedRooms;
+            }
+
+            NumberOfAvailableRooms = await GetNumberOfAvailableRooms(CurrentBooking, CurrentHotel);
 
             if (CurrentBooking == null)
             {
@@ -69,17 +75,18 @@ namespace Project_Booking
 
             int numberOfBookedRooms = 0;
 
-            foreach (var booking in roomsBookedList.Where(b => b.HotelID == CurrentBooking.HotelID))
+            foreach (var booking in roomsBookedList.Where(b => b.HotelID == currentBooking.HotelID))
             {
                 numberOfBookedRooms += booking.numOfBookedRooms;
             }
 
-            int numberOfAvailableRooms = CurrentHotel.NumberOfRooms - numberOfBookedRooms;
+            int numberOfAvailableRooms = currentHotel.NumberOfRooms - numberOfBookedRooms;
+            numberOfAvailableRooms = numberOfAvailableRooms + CurrentBookingTakenRooms;
 
             return numberOfAvailableRooms;
         }
 
-        public async Task<IActionResult> OnPostPickDatesAsync(Guid id)
+        public async Task<IActionResult> OnPostPickDatesAsync(int currentBookingTakenRooms)
         {
             CurrentHotel = await _context.Hotels.FirstOrDefaultAsync(m => m.Id == CurrentBooking.HotelID);
 
@@ -88,7 +95,9 @@ namespace Project_Booking
                 return Page();
             }
 
-            numberOfAvailableRooms = await GetNumberOfAvailableRooms(CurrentBooking, CurrentHotel);
+            CurrentBookingTakenRooms = currentBookingTakenRooms;
+
+            NumberOfAvailableRooms = await GetNumberOfAvailableRooms(CurrentBooking, CurrentHotel);
 
             return Page();
         }
