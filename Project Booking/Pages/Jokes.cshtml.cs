@@ -30,8 +30,8 @@ namespace Project_Booking
                 using (var webClient = new WebClient())
                 {
                     var json = webClient.DownloadString(URLString);
-                    Jokes Test = JsonConvert.DeserializeObject<Jokes>(json);
-                    JokesJson = Test;
+                    Jokes jokes = JsonConvert.DeserializeObject<Jokes>(json);
+                    JokesJson = jokes;
                     return true;
                 }
             }

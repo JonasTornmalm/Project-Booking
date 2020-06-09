@@ -21,9 +21,8 @@ namespace Project_Booking
         }
         public async Task OnGet()
         {
-            CurrencyFromDB = await _context.Currencies.FirstOrDefaultAsync();
-
-            if (CurrencyFromDB == null || CurrencyFromDB.LastUpdate.AddDays(2) <= DateTime.Now.Date)
+            CurrencyJson = await _context.Currencies.FirstOrDefaultAsync();
+            if (CurrencyJson == null)
             {
                 if (await Import())
                 {
@@ -31,11 +30,13 @@ namespace Project_Booking
                     _context.SaveChanges();
                 } 
             }
+            else
+            {
+                CurrencyJson = await _context.Currencies.FirstOrDefaultAsync();
+            }
         }
 
         public Currency CurrencyJson { get; set; }
-
-        public Currency CurrencyFromDB { get; set; }
 
         public async Task<bool> Import()
         {
