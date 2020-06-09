@@ -44,6 +44,8 @@ namespace Project_Booking
             CurrentBooking = await _context.Bookings.FirstOrDefaultAsync(m => m.ID == id);
             CurrentHotel = await _context.Hotels.FirstOrDefaultAsync(m => m.Id == CurrentBooking.HotelID);
 
+            numberOfAvailableRooms = await GetNumberOfAvailableRooms(CurrentBooking, CurrentHotel);
+
             if (CurrentBooking == null)
             {
                 return NotFound();
@@ -51,19 +53,11 @@ namespace Project_Booking
             return Page();
         }
 
-        public async Task<IActionResult> OnPostPickDatesAsync(Guid id)
+        private async Task<int> GetNumberOfAvailableRooms(Booking currentBooking, Hotel currentHotel)
         {
-            CurrentBooking = await _context.Bookings.FirstOrDefaultAsync(m => m.ID == id);
-            CurrentHotel = await _context.Hotels.FirstOrDefaultAsync(m => m.Id == CurrentBooking.HotelID);
-
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
             CheckInDateTime = CurrentBooking.CheckIn;
             CheckOutDateTime = CurrentBooking.CheckOut;
-            
+
             //LINQ query to count number of rooms booked during the dates picked
             var roomsBookedList = from b in _context.Bookings
                                   where ((CheckInDateTime >= b.CheckIn) && (CheckInDateTime <= b.CheckOut)) ||
@@ -72,15 +66,29 @@ namespace Project_Booking
                                         ((CheckInDateTime >= b.CheckIn) && (CheckInDateTime <= b.CheckOut) && (CheckOutDateTime >= b.CheckOut)) ||
                                         ((CheckInDateTime <= b.CheckIn) && (CheckOutDateTime >= b.CheckOut))
                                   select b;
-            
+
             int numberOfBookedRooms = 0;
-            
+
             foreach (var booking in roomsBookedList.Where(b => b.HotelID == CurrentBooking.HotelID))
             {
                 numberOfBookedRooms += booking.numOfBookedRooms;
             }
-            
-            numberOfAvailableRooms = CurrentHotel.NumberOfRooms - numberOfBookedRooms;
+
+            int numberOfAvailableRooms = CurrentHotel.NumberOfRooms - numberOfBookedRooms;
+
+            return numberOfAvailableRooms;
+        }
+
+        public async Task<IActionResult> OnPostPickDatesAsync(Guid id)
+        {
+            CurrentHotel = await _context.Hotels.FirstOrDefaultAsync(m => m.Id == CurrentBooking.HotelID);
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            numberOfAvailableRooms = await GetNumberOfAvailableRooms(CurrentBooking, CurrentHotel);
 
             return Page();
         }

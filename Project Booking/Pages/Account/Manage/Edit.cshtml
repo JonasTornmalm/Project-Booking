@@ -12,6 +12,7 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CurrentBooking.ID" />
+            <input type="hidden" asp-for="CurrentBooking.HotelID" />
             <div class="form-group">
                 <label asp-for="CurrentBooking.Name" class="control-label"></label>
                 <input asp-for="CurrentBooking.Name" class="form-control dateChange" />
@@ -91,7 +92,7 @@
             warning.innerHTML = "Choose a checkout date that is after the checkin"
             warning.style.display = 'block';
         }
-        if (pDays < rooms) {
+        if (availableDays < rooms) {
             warning.innerHTML = "There is only " + availableDays + " rooms left during those days";
             warning.style.display = 'block';
         }
@@ -107,7 +108,7 @@
         
         document.getElementById("checkDates").style.display = 'block';
         document.getElementById("editButton").disabled = true;
-
+        warning.style.display = 'none';
         //Checking if checkout is after checkin
         if (daysDiff <= 0) {
             warning.innerHTML = "Please check your dates";
@@ -117,25 +118,27 @@
         {
             document.getElementById("days").innerHTML = daysDiff;
         }
-        updateDue();})
+    updateDue();
+        })
     });
 
     function startUpFunction() {
         var editButton = document.getElementById("editButton");
         var rooms = parseInt(document.getElementById("numroom").value);
         var availableDays = parseInt(document.getElementById("availableDays").innerHTML);
+        var warning = document.getElementById("warning");
 
         var lastday = new Date(document.getElementById("checkout").value);
         var firstday = new Date(document.getElementById("checkin").value);
         var timeDiff = (lastday.getTime() - firstday.getTime());
         var daysDiff = timeDiff / (1000 * 3600 * 24);
+        warning.style.display = 'none';
 
-        if (daysDiff > 0 && pDays >= rooms) {
+        if (daysDiff > 0 && availableDays >= rooms) {
             editButton.disabled = false;
-            document.getElementById("availableDays").innerHTML = availableDays;
         }
         else {
-            document.getElementById("editButton").disabled = true;
+            editButton.disabled = true;
         }
     };
 
